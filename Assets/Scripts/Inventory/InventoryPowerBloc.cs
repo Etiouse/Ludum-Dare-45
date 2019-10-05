@@ -6,18 +6,32 @@ using UnityEngine.UI;
 
 public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public delegate void UpdateSelectedPowerShapeEvent(GameObject powerShape);
+    public static event UpdateSelectedPowerShapeEvent OnUpdateSelectedPowerShapeEvent;
+
+    public delegate void ConfirmPowerShapeEvent(GameObject powerShape, bool isConfirmed);
+    public static event ConfirmPowerShapeEvent OnConfirmPowerShapeEvent;
+
     [SerializeField] private Color spriteColor;
+
+    public bool IsOnInventoryCase { get; set; }
 
     private bool isMoving;
 
     public void OnPointerDown(PointerEventData eventData)
     {
         isMoving = true;
+        OnUpdateSelectedPowerShapeEvent(gameObject);
+
+        OnConfirmPowerShapeEvent(gameObject, false);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         isMoving = false;
+        OnUpdateSelectedPowerShapeEvent(null);
+        Debug.Log(IsOnInventoryCase);
+        OnConfirmPowerShapeEvent(gameObject, IsOnInventoryCase);
     }
 
     private void Awake()
@@ -26,6 +40,8 @@ public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUp
         {
             transform.GetChild(i).GetComponent<Image>().color = spriteColor;
         }
+
+        IsOnInventoryCase = false;
     }
 
     private void Update()

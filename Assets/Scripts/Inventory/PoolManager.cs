@@ -12,6 +12,7 @@ public class PoolManager : MonoBehaviour
 
     private List<GameObject> slotsElements;
     private List<GameObject> currentVisibleElements;
+    private List<GameObject> currentUsedElements;
 
     private List<int> currentElementInPool;
 
@@ -36,10 +37,21 @@ public class PoolManager : MonoBehaviour
         updateVisibleElements = true;
     }
 
+    private void OnEnable()
+    {
+        InventoryPowerBloc.OnConfirmPowerShapeEvent += UpdatePowerShape;
+    }
+
+    private void OnDisable()
+    {
+        InventoryPowerBloc.OnConfirmPowerShapeEvent -= UpdatePowerShape;
+    }
+
     private void Awake()
     {
         currentElementInPool = new List<int>();
         currentVisibleElements = new List<GameObject>();
+        currentUsedElements = new List<GameObject>();
 
         slotsElements = new List<GameObject>();
         for (int i = 0; i < slotsParent.transform.childCount; i++)
@@ -157,5 +169,19 @@ public class PoolManager : MonoBehaviour
                 currentSlotIndex++;
             }
         }
+    }
+
+    private void UpdatePowerShape(GameObject powerShape, bool isConfirmed)
+    {
+        if (isConfirmed)
+        {
+            currentUsedElements.Add(powerShape);
+        }
+        else if (currentUsedElements.Contains(powerShape))
+        {
+            currentUsedElements.Remove(powerShape);
+        }
+
+        Debug.Log(currentUsedElements.Count);
     }
 }
