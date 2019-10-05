@@ -211,9 +211,9 @@ MonoBehaviour:
   canvas: {fileID: 608044358}
   rulesSlots: {fileID: 769648595}
   initSpeedAverage: 2000
-  initSpeedDeviation: 50
-  friction: 1.015
-  minSpeedAccepted: 80
+  initSpeedDeviation: 400
+  friction: 1.01
+  minSpeedAccepted: 200
 --- !u!1 &410271482
 GameObject:
   m_ObjectHideFlags: 0

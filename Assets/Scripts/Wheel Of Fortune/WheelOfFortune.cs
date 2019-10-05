@@ -103,12 +103,14 @@ public class WheelOfFortune : MonoBehaviour
             {
                 speed /= friction;
             }
+            else if (speed < 10)
+            {
+                speed = 0;
+            }
             else
             {
                 speed /= Mathf.Pow(friction, 4);
             }
-
-            Debug.Log(speed);
 
             float middle = MAGIC_WIDTH * (rulesObjects.Count / 2);
             for (int i = 0; i < rulesObjects.Count; i++)
@@ -130,11 +132,6 @@ public class WheelOfFortune : MonoBehaviour
                 ruleObject.transform.position = rulesSlots.transform.position
                     + new Vector3(indepShift * canvas.scaleFactor, 0, 0);
             }
-        }
-
-        if (Input.GetKeyDown("space"))
-        {
-            ResetWheel();
         }
     }
 
