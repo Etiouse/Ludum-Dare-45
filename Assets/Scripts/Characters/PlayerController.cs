@@ -17,6 +17,8 @@ public class PlayerController : CharacterController
     
     [SerializeField] private GameObject airShieldModel = null;
 
+    [SerializeField] private GameObject objects = null;
+
     private bool canAttack = true;
     private List<GameObject> rockshield;
     private AirShield airshield;
@@ -129,6 +131,7 @@ public class PlayerController : CharacterController
         GameObject fireball = Instantiate(fireballModel);
         fireball.transform.position = fireballOrigin.position;
         fireball.transform.up = spritesParent.transform.up;
+        fireball.transform.SetParent(objects.transform);
 
         ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
         projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.fireballSpeed, GameParameters.fireballDamage);
@@ -147,6 +150,7 @@ public class PlayerController : CharacterController
             GameObject iceball = Instantiate(iceballModel);
             iceball.transform.position = t.position;
             iceball.transform.up = spritesParent.transform.up;
+            iceball.transform.SetParent(objects.transform);
 
             iceball.GetComponent<ProjectileController>().Shoot(t.position - transform.position, gameObject.tag, GameParameters.iceballSpeed, GameParameters.iceballDamage);
 
@@ -167,6 +171,7 @@ public class PlayerController : CharacterController
             float angle = 360 / GameParameters.numberOfRockShield * i;
 
             GameObject rock = Instantiate(rockShieldModel);
+            rock.transform.SetParent(objects.transform);
             float shieldDistance = (rockOrigin.transform.position - transform.position).magnitude;
             rock.transform.position = transform.position + Quaternion.Euler(0, 0, angle) * (transform.position - rockOrigin.position);
             rock.GetComponent<RockShield>().Init(transform, shieldDistance, angle);
@@ -201,6 +206,7 @@ public class PlayerController : CharacterController
     private void CreateAirShield()
     {
         airshield = Instantiate(airShieldModel).GetComponent<AirShield>();
+        airshield.transform.SetParent(objects.transform);
         airshield.Target = transform;
     }
 }

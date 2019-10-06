@@ -8,6 +8,8 @@ public class ShooterController : CharacterController
     [SerializeField] private GameObject fireballModel = null;
     [SerializeField] private Transform fireballOrigin = null;
 
+    [SerializeField] private GameObject objects = null;
+
     private GameObject target;
 
     private void Start()
@@ -42,6 +44,7 @@ public class ShooterController : CharacterController
         GameObject fireball = Instantiate(fireballModel);
         fireball.transform.position = fireballOrigin.position;
         fireball.transform.up = spritesParent.transform.up;
+        fireball.transform.SetParent(objects.transform);
 
         ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
         projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.shooterProjectileSpeed, GameParameters.shooterDamage);
