@@ -12,6 +12,9 @@ public static class GameParameters
     public static readonly float DEFAULT_HEALTH = 20;
     public static readonly float COLLISION_DAMAGE = 5;
 
+    // Traps
+    public static readonly float LAVA_DAMAGE = 5;
+
     // Shockwave
     public static readonly float DEFAULT_SHOCKWAVE_EXPANDING_SCALE = 2;
     public static readonly float DEFAULT_SHOCKWAVE_EXPANDING_SPEED = 3;
