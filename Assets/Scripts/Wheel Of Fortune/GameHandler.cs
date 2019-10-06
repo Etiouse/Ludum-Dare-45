@@ -17,8 +17,9 @@ public class GameHandler : MonoBehaviour
     [SerializeField] Button continueButton = null;
     [SerializeField] List<Rule> rules = null;
 
-    [Header("Levels informations")]
+    [Header("General informations")]
     [SerializeField] GameObject levelsContainer;
+    [SerializeField] GameObject player;
 
     private enum State { LOAD_LEVEL, PLAYING, WHEEL, INVENTORY };
 
@@ -93,8 +94,10 @@ public class GameHandler : MonoBehaviour
         currentLevel = NextLevel();
         if (currentLevel != null)
         {
+            // Activate level
             currentLevel.SetActive(true);
 
+            // Retrieve level infos
             string levelName = currentLevel.gameObject.name;
             if (levelName.Length > 2)
             {
@@ -105,6 +108,9 @@ public class GameHandler : MonoBehaviour
                 {
                     levelManager = currentLevel.GetComponent<LevelManager>();
                     currentSpawns = new List<GameObject>(levelManager.GetSpawns());
+
+                    player.transform.position = NextSpawnPoint();
+
                     state = State.PLAYING;
                 }
                 else
@@ -116,6 +122,10 @@ public class GameHandler : MonoBehaviour
             {
                 Debug.Log("Error on level name: " + levelName);
             }
+        }
+        else
+        {
+            // TODO END
         }
     }
 
