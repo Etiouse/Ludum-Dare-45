@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PoolManager : MonoBehaviour
 {
+    public delegate void UpdateUsedPowerShapesEvent();
+    public static event UpdateUsedPowerShapesEvent OnUpdateUsedPowerShapesEvent;
+
     [SerializeField] private Button inscreaseButton = null;
     [SerializeField] private Button reduceButton = null;
     [SerializeField] private GameObject slotsParent = null;
@@ -219,6 +222,7 @@ public class PoolManager : MonoBehaviour
         }
 
         updateVisibleElements = true;
+        OnUpdateUsedPowerShapesEvent();
 
         Debug.Log(UsedPowerShapes.Count);
     }
