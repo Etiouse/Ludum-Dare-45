@@ -9,9 +9,10 @@ public class CharacterController : MonoBehaviour
 
     protected float startHealth = GameParameters.DEFAULT_HEALTH;
     protected float characterSpeed = GameParameters.DEFAULT_MOVEMENT_SPEED;
-    
+
+
+    protected float health;
     private Rigidbody2D rigid2d;
-    private float health;
     private GameObject lifebar;
     private float startLifeBarWidth;
 
@@ -33,10 +34,7 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        if (health != startHealth)
-        {
-            lifebar.transform.localScale = new Vector2(health / startHealth * startLifeBarWidth, lifebar.transform.localScale.y);
-        }
+        lifebar.transform.localScale = new Vector2(health / startHealth * startLifeBarWidth, lifebar.transform.localScale.y);
     }
 
     public void Move(Vector2 direction)

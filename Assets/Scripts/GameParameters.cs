@@ -75,4 +75,12 @@ public static class GameParameters
     public static float dasherShockwaveExpandingScale = 3;
     public static float dasherShockwaveExpandingSpeed = 0.25f;
     public static float dasherShockwaveDamage = 5;
+
+    // Braum
+    public static readonly float BRAUM_MOVEMENT_TIME = 3f;
+    public static readonly float BRAUM_WAIT_TIME = 3f;
+    public static readonly float BRAUM_MOVEMENT_SPEED = 10;
+
+    // Braum shield
+    public static readonly float BRAUM_SHIELD_DEACTIVATION_TIME = 2;
 }
