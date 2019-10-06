@@ -59,6 +59,8 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     public void OnPointerExit(PointerEventData eventData)
     {
         OnMouseOverPowerShapeEvent(null);
+
+        RemoveHighlight();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -80,6 +82,8 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
         OnMouseOverPowerShapeEvent(null);
         OnEnableChangingDisplayEvent(true);
+
+        RemoveHighlight();
     }
 
     private void Awake()
@@ -130,5 +134,21 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         }
 
         return mousePos;
+    }
+
+    private void RemoveHighlight()
+    {
+        if (!IsMoving)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Transform child = transform.GetChild(i);
+
+                for (int j = 0; j < child.childCount; j++)
+                {
+                    Destroy(child.GetChild(j).gameObject);
+                }
+            }
+        }
     }
 }

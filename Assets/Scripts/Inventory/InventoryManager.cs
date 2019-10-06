@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField] private GameObject blocHighlightModel = null;
     [SerializeField] private PoolManager poolManager = null;
     [SerializeField] private GameObject activePowerColsParent = null;
     [Header("Text Field")]
@@ -121,6 +123,16 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
+                Transform currentTransform = powerShape.gameObject.transform;
+
+                for (int i = 0; i < currentTransform.childCount; i++)
+                {
+                    GameObject item = Instantiate(blocHighlightModel);
+                    item.transform.SetParent(currentTransform.GetChild(i));
+                    item.transform.localScale = Vector3.one;
+                    item.transform.localPosition = Vector3.zero;
+                }
+
                 powerShapeTitle.text = powerShape.DisplayedName;
                 powerShapeDesc.text = powerShape.Description;
             }

@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 276506877}
   - component: {fileID: 276506876}
   m_Layer: 5
-  m_Name: Inventory
+  m_Name: InventoryCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1229,6 +1229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ade07de74f0b5d4ca79f35423edb3e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blocHighlightModel: {fileID: 595867461498314317, guid: b10d272b9ae9ca344a338b2dfcca914d,
+    type: 3}
   poolManager: {fileID: 20279663}
   activePowerColsParent: {fileID: 188357900}
   activePowerTextModel: {fileID: 456726618448740163, guid: d9293df2a0dc4b0409a43551c5abbe85,
