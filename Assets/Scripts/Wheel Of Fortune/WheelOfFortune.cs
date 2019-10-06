@@ -6,23 +6,26 @@ public class WheelOfFortune : MonoBehaviour
 {
     [SerializeField] Canvas canvas = null;
     [SerializeField] GameObject rulesSlots = null;
+    [SerializeField] AudioSource audioSource = null;
     [SerializeField] float initSpeedAverage = 300f;
     [SerializeField] float initSpeedDeviation = 50f;
     [SerializeField] float friction = 1.005f;
     [SerializeField] float minSpeedAccepted = 10f;
-    
+
     private float speed;
     private float shift;
     private float x;
     private float y;
     private float width;
     private float height;
+    private float clickDistance;
 
     private List<Rule> rules;
     private List<Image> allRules;
     private List<GameObject> rulesObjects;
 
-    private const float MAGIC_HEIGHT = 12f;
+    private const float MAGIC_HEIGHT = 17f;
+    private const float SOUND_OFFSET = 20f;
     
     public void ResetWheel()
     {
@@ -30,6 +33,7 @@ public class WheelOfFortune : MonoBehaviour
         y = rulesSlots.transform.position.y;
         width = rulesSlots.GetComponent<RectTransform>().rect.width;
         height = rulesSlots.GetComponent<RectTransform>().rect.height;
+        clickDistance = -SOUND_OFFSET;
 
         // Generate all rules with the correspondingnumber of occurences
         allRules = new List<Image>();
@@ -91,7 +95,6 @@ public class WheelOfFortune : MonoBehaviour
         if (allRules.Count > 0)
         {
             // Speed adjustment
-            shift = shift + speed * Time.deltaTime;
             if (speed > minSpeedAccepted)
             {
                 speed /= friction;
@@ -105,8 +108,20 @@ public class WheelOfFortune : MonoBehaviour
                 speed /= Mathf.Pow(friction, 4);
             }
 
-            // TODO Find the origin of the magic height
-            float ruleDiameter = MAGIC_HEIGHT / canvas.scaleFactor;
+            shift = shift + speed * Time.deltaTime;
+            clickDistance += speed * Time.deltaTime;
+
+            // Responsivity
+            float ratio = (float) Screen.width / Screen.height;
+            float factor = 9.5543f * ratio + 0.0650f;
+            float ruleDiameter = factor / canvas.scaleFactor;
+
+            // Sound
+            if (clickDistance > ruleDiameter)
+            {
+                clickDistance = shift % ruleDiameter - SOUND_OFFSET;
+                audioSource.Play();
+            }
 
             // Position of each rule
             float middle = ruleDiameter * (rulesObjects.Count / 2);
