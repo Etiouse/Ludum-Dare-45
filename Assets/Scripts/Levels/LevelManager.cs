@@ -24,4 +24,9 @@ public class LevelManager : MonoBehaviour
     {
         ennemy.transform.SetParent(ennemies.transform);
     }
+
+    public bool AreAllEnnemiesDead()
+    {
+        return ennemies.transform.childCount == 0;
+    }
 }

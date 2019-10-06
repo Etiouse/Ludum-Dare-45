@@ -59,7 +59,7 @@ public class GameHandler : MonoBehaviour
         {
             levelsLeft.Add(levelsContainer.transform.GetChild(i).gameObject);
         }
-
+        
         levelsData = levelsContainer.GetComponent<LevelsData>();
 
         state = State.LOAD_LEVEL;
@@ -84,29 +84,38 @@ public class GameHandler : MonoBehaviour
 
     private void LoadLevel()
     {
-        currentLevel = NextLevel();
-        currentLevel.SetActive(true);
-
-        string levelName = currentLevel.gameObject.name;
-        if (levelName.Length > 2)
+        if (currentLevel != null)
         {
-            int levelIndex = (int)char.GetNumericValue(levelName[levelName.Length - 1]) - 1;
-            currentEnnemies = new List<(GameObject, float)>(levelsData.GetLevel(levelIndex));
+            currentLevel.SetActive(false);
+            timePassed = 0f;
+        }
 
-            if (currentEnnemies != null)
+        currentLevel = NextLevel();
+        if (currentLevel != null)
+        {
+            currentLevel.SetActive(true);
+
+            string levelName = currentLevel.gameObject.name;
+            if (levelName.Length > 2)
             {
-                levelManager = currentLevel.GetComponent<LevelManager>();
-                currentSpawns = new List<GameObject>(levelManager.GetSpawns());
-                state = State.PLAYING;
+                int levelIndex = (int)char.GetNumericValue(levelName[levelName.Length - 1]) - 1;
+                currentEnnemies = new List<(GameObject, float)>(levelsData.GetLevel(levelIndex));
+
+                if (currentEnnemies != null)
+                {
+                    levelManager = currentLevel.GetComponent<LevelManager>();
+                    currentSpawns = new List<GameObject>(levelManager.GetSpawns());
+                    state = State.PLAYING;
+                }
+                else
+                {
+                    Debug.Log("Can't load ennemies of " + levelName);
+                }
             }
             else
             {
-                Debug.Log("Can't load ennemies of " + levelName);
+                Debug.Log("Error on level name: " + levelName);
             }
-        }
-        else
-        {
-            Debug.Log("Error on level name: " + levelName);
         }
     }
 
@@ -129,15 +138,26 @@ public class GameHandler : MonoBehaviour
                 currentEnnemies.RemoveAt(i);
             }
         }
+
+        // End of the level
+        if (currentEnnemies.Count == 0 && levelManager.AreAllEnnemiesDead())
+        {
+            state = State.LOAD_LEVEL;
+        }
     }
 
     private GameObject NextLevel()
     {
-        int rand = Random.Range(0, levelsLeft.Count);
-        GameObject nextLevel = levelsLeft[rand];
-        levelsLeft.RemoveAt(rand);
+        if (levelsLeft.Count > 0)
+        {
+            int rand = Random.Range(0, levelsLeft.Count);
+            GameObject nextLevel = levelsLeft[rand];
+            levelsLeft.RemoveAt(rand);
 
-        return nextLevel;
+            return nextLevel;
+        }
+
+        return null;
     }
 
     private Vector3 NextSpawnPoint()
