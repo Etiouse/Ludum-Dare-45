@@ -38,16 +38,6 @@ public class PoolManager : MonoBehaviour
         updateVisibleElements = true;
     }
 
-    private void OnEnable()
-    {
-        PowerShape.OnConfirmPowerShapeEvent += ConfirmPowerShape;
-    }
-
-    private void OnDisable()
-    {
-        PowerShape.OnConfirmPowerShapeEvent -= ConfirmPowerShape;
-    }
-
     private void Awake()
     {
         currentElementInPool = new List<int>();
@@ -70,6 +60,16 @@ public class PoolManager : MonoBehaviour
         updateVisibleElements = true;
 
         TMPAddAllPowerShapes();
+    }
+
+    private void OnEnable()
+    {
+        PowerShape.OnConfirmPowerShapeEvent += ConfirmPowerShape;
+    }
+
+    private void OnDisable()
+    {
+        PowerShape.OnConfirmPowerShapeEvent -= ConfirmPowerShape;
     }
 
     private void Update()
