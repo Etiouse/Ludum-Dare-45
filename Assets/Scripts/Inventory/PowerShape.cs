@@ -13,7 +13,7 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public delegate void ConfirmPowerShapeEvent(GameObject powerShape, bool isConfirmed);
     public static event ConfirmPowerShapeEvent OnConfirmPowerShapeEvent;
 
-    public enum PowerShapeType
+    public enum Type
     {
         FIRE_BALL,
         FIRE_BALL_UP1,
@@ -40,7 +40,7 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public Color SpriteColor;
     public string DisplayedName;
     public string Description;
-    public PowerShapeType CurrentPowerShapeType;
+    public Type PowerShapeType;
 
     public bool IsOnInventoryCase { get; set; }
     public bool IsMoving { get; private set; }
@@ -57,7 +57,7 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         IsMoving = false;
         OnUpdateSelectedPowerShapeEvent(null);
-        Debug.Log(IsOnInventoryCase);
+        //Debug.Log(IsOnInventoryCase);
         OnConfirmPowerShapeEvent(gameObject, IsOnInventoryCase);
     }
 

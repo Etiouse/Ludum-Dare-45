@@ -28,7 +28,7 @@ public class InventoryManager : MonoBehaviour
 
         maxNumberOfElementInOneCol = (int)(activePowerCols[0].GetComponent<RectTransform>().rect.height /
             (activePowerTextModel.GetComponent<RectTransform>().rect.height + 20));
-        Debug.Log(maxNumberOfElementInOneCol);
+        //Debug.Log(maxNumberOfElementInOneCol);
     }
 
     private void OnEnable()
@@ -41,10 +41,6 @@ public class InventoryManager : MonoBehaviour
         PoolManager.OnUpdateUsedPowerShapesEvent -= UpdateUsedPowerShapes;
     }
 
-    private void Update()
-    {
-    }
-
     private void UpdateActivePower()
     {
         // TODO : Update values for power
@@ -54,7 +50,7 @@ public class InventoryManager : MonoBehaviour
             DestroyImmediate(item.gameObject);
         }
         activePowerTexts.Clear();
-        Debug.Log("--> " + activePowerCols[0].transform.childCount);
+        //Debug.Log("--> " + activePowerCols[0].transform.childCount);
 
         int currentCol = 0;
         foreach (PowerShape powerShape in powerShapes)
