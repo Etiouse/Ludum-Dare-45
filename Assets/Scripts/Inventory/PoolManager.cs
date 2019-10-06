@@ -18,7 +18,6 @@ public class PoolManager : MonoBehaviour
     private List<int> currentElementInPool;
 
     private int firstVisibleElement;
-    private int previousFirstVisibleElement;
 
     private bool updateVisibleElements;
     private bool canIncrease;
@@ -67,7 +66,6 @@ public class PoolManager : MonoBehaviour
         }
 
         firstVisibleElement = 0;
-        previousFirstVisibleElement = 0;
         updateVisibleElements = true;
 
         TMPAddAllPowerShapes();
@@ -103,8 +101,6 @@ public class PoolManager : MonoBehaviour
 
     private void CheckChangeVisibleElementsInPool()
     {
-        previousFirstVisibleElement = firstVisibleElement;
-
         canReduce = firstVisibleElement > 0;
         canIncrease = firstVisibleElement + (slotsElements.Count - 1) < currentElementInPool.Count - 1 - currentUsedElements.Count;
 
@@ -128,9 +124,13 @@ public class PoolManager : MonoBehaviour
             updateVisibleElements = false;
 
             // Reset
-            for (int i = 0; i < currentVisibleElements.Count; i++)
+            foreach (GameObject item in availableElements)
             {
-                currentVisibleElements[i].SetActive(false);
+                if (!currentUsedElements.Contains(item) &&
+                    !item.GetComponent<InventoryPowerBloc>().IsMoving)
+                {
+                    item.SetActive(false);
+                }
             }
             currentVisibleElements.Clear();
 
@@ -148,20 +148,23 @@ public class PoolManager : MonoBehaviour
                 numberOfElementToDisplay = numberOfElementInPool;
             }
 
-            if (max > numberOfElementInPool - 1)
+            if (max > currentElementInPool.Count - 1)
             {
-                max = numberOfElementInPool - 1;
+                max = currentElementInPool.Count - 1;
                 min = max - numberOfElementToDisplay - 1;
 
                 if (min < 0)
                 {
                     min = 0;
                 }
+
+                Debug.Log("OK1");
             }
             else if (min < 0)
             {
                 min = 0;
                 max = numberOfElementToDisplay - 1;
+                Debug.Log("OK1");
             }
 
             Debug.Log(min + " " + max);
@@ -170,7 +173,7 @@ public class PoolManager : MonoBehaviour
             int currentSlotIndex = 0;
             int counter = 0;
             int offset = 0;
-            int index = 0;
+            int index;
             for (int i = min; i <= max; i++)
             {
                 index = i + offset;

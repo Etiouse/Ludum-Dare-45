@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4933421031883415122}
   - component: {fileID: 4933421031883415125}
   m_Layer: 5
-  m_Name: WaterShape
+  m_Name: IceBallShape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b5d00ff666f974bac30e1472d3b879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteColor: {r: 0, g: 0.4864049, b: 1, a: 1}
+  spriteColor: {r: 0, g: 0.33355188, b: 1, a: 1}
+  displayedName: Ice ball
+  description: Shoot ice balls in corner of the character
+  powerShapeType: 1
 --- !u!1001 &2964006694546128775
 PrefabInstance:
   m_ObjectHideFlags: 0

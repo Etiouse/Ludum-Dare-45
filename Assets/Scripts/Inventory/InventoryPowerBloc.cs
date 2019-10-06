@@ -12,15 +12,25 @@ public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUp
     public delegate void ConfirmPowerShapeEvent(GameObject powerShape, bool isConfirmed);
     public static event ConfirmPowerShapeEvent OnConfirmPowerShapeEvent;
 
+    public enum PowerShapeType
+    {
+        FIRE_BALL,
+        ICE_BALL,
+        ROCK_SHILD,
+        AIR_SHILD
+    }
+
     [SerializeField] private Color spriteColor;
+    [SerializeField] private string displayedName;
+    [SerializeField] private string description;
+    [SerializeField] private PowerShapeType powerShapeType;
 
     public bool IsOnInventoryCase { get; set; }
-
-    private bool isMoving;
+    public bool IsMoving { get; private set; }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        isMoving = true;
+        IsMoving = true;
         OnUpdateSelectedPowerShapeEvent(gameObject);
 
         OnConfirmPowerShapeEvent(gameObject, false);
@@ -28,7 +38,7 @@ public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        isMoving = false;
+        IsMoving = false;
         OnUpdateSelectedPowerShapeEvent(null);
         Debug.Log(IsOnInventoryCase);
         OnConfirmPowerShapeEvent(gameObject, IsOnInventoryCase);
@@ -51,7 +61,7 @@ public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     private void CheckIsMoving()
     {
-        if (isMoving)
+        if (IsMoving)
         {
             Vector3 mousePos = GetMousePosInApplication();
 
