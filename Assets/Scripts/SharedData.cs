@@ -8,11 +8,14 @@ public class SharedData : MonoBehaviour
     public const float DEFAULT_SCREEN_WIDTH = 1920;
 
     public static Camera SharedCam;
-    public static float ScreenRatio;
 
     private void Awake()
     {
         SharedCam = GetComponent<Camera>();
-        ScreenRatio = Screen.width / DEFAULT_SCREEN_WIDTH;
+    }
+
+    public static float GetScreenRatio()
+    {
+        return Screen.width / DEFAULT_SCREEN_WIDTH;
     }
 }

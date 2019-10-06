@@ -40,10 +40,10 @@ public class GridCaseManager : MonoBehaviour
 
         isMouseOnGridCase = false;
 
-        if (mousePos.x >= casePos.x - rect.width * SharedData.ScreenRatio / 2 &&
-            mousePos.x <= casePos.x + rect.width * SharedData.ScreenRatio / 2 &&
-            mousePos.y >= casePos.y - rect.height * SharedData.ScreenRatio / 2 &&
-            mousePos.y <= casePos.y + rect.height * SharedData.ScreenRatio / 2)
+        if (mousePos.x >= casePos.x - rect.width * SharedData.GetScreenRatio() / 2 &&
+            mousePos.x <= casePos.x + rect.width * SharedData.GetScreenRatio() / 2 &&
+            mousePos.y >= casePos.y - rect.height * SharedData.GetScreenRatio() / 2 &&
+            mousePos.y <= casePos.y + rect.height * SharedData.GetScreenRatio() / 2)
         {
             isMouseOnGridCase = true;
 
