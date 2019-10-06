@@ -12,6 +12,11 @@ public static class GameParameters
     public static readonly float DEFAULT_HEALTH = 20;
     public static readonly float COLLISION_DAMAGE = 5;
 
+    // Shockwave
+    public static readonly float DEFAULT_SHOCKWAVE_EXPANDING_SCALE = 2;
+    public static readonly float DEFAULT_SHOCKWAVE_EXPANDING_SPEED = 3;
+    public static readonly float DEFAULT_SHOCKWAVE_DAMAGE = 5;
+
     // Projectiles
     public static readonly float DEFAULT_PROJECTILE_SPEED = 20;
     public static readonly float DEFAULT_PROJECTILE_DAMAGE = 5;
@@ -46,4 +51,28 @@ public static class GameParameters
     public static readonly float WATERSPLASHER_TIME_BETWEEN_ATTACKS = 0.25f;
     public static readonly int WATERSPLASHER_NUMBER_OF_SHOOTS = 10;
     public static readonly float WATERSPLASHER_MOVEMENT_SPEED = 1;
+
+    // Shooter Projectiles
+    public static float waterSplasherProjectileSpeed = 20;
+    public static float waterSplasherDamage = 5;
+
+    // Cone
+    public static readonly float CONE_MOVEMENT_TIME = 3f;
+    public static readonly float CONE_TIME_BETWEEN_ATTACKS = 0.25f;
+    public static readonly int CONE_NUMBER_OF_SHOOTS = 10;
+    public static readonly float CONE_MOVEMENT_SPEED = 1;
+
+    // Shooter Projectiles
+    public static float coneProjectileSpeed = 20;
+    public static float coneDamage = 5;
+
+    // Dasher
+    public static readonly float DASHER_MOVEMENT_TIME = 0.5f;
+    public static readonly float DASHER_WAIT_TIME = 3f;
+    public static readonly float DASHER_MOVEMENT_SPEED = 25;
+
+    // Dasher Shockwave
+    public static float dasherShockwaveExpandingScale = 3;
+    public static float dasherShockwaveExpandingSpeed = 0.25f;
+    public static float dasherShockwaveDamage = 5;
 }

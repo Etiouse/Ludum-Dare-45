@@ -27,6 +27,8 @@ public class CharacterController : MonoBehaviour
         health = startHealth;
         lifebar = transform.Find("LifeBar").Find("CurrentLifeParent").gameObject;
         startLifeBarWidth = lifebar.transform.localScale.x;
+
+        Physics2D.IgnoreCollision(mainCollider, GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>());
     }
 
     private void Update()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterSplasher : CharacterController
+public class WaterSplasherController : CharacterController
 {
 
     [SerializeField] private GameObject fireballModel;
@@ -48,7 +48,7 @@ public class WaterSplasher : CharacterController
         fireball.transform.up = spritesParent.transform.up;
 
         ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
-        projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.shooterProjectileSpeed, GameParameters.shooterDamage);
+        projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.waterSplasherProjectileSpeed, GameParameters.waterSplasherDamage);
 
         // Ignore collision between the player and the fireball (trigger ok)
         Physics2D.IgnoreCollision(mainCollider, fireball.GetComponent<CircleCollider2D>());
