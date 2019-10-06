@@ -10,6 +10,11 @@ public class GameHandler : MonoBehaviour
     public static event SetWheelRulesAction OnSetWheelRulesAction;
     public static event TransmitNewPowerAction OnTransmitNewPowerAction;
 
+    [Header("General informations")]
+    [SerializeField] GameObject levelsContainer;
+    [SerializeField] GameObject player;
+    [SerializeField] Camera mainCam;
+
     [Header("Wheel of fortune")]
     [SerializeField] Canvas wheelCanvas = null;
     [SerializeField] GameObject winner = null;
@@ -17,13 +22,12 @@ public class GameHandler : MonoBehaviour
     [SerializeField] Button continueButton = null;
     [SerializeField] List<Rule> rules = null;
 
-    [Header("General informations")]
-    [SerializeField] GameObject levelsContainer;
-    [SerializeField] GameObject player;
-    [SerializeField] Camera mainCam;
+    [Header("Inventory")]
+    [SerializeField] Canvas inventoryCanvas = null;
+    [SerializeField] float timeInInventory = 2f;
 
-    private enum GameState { LOAD_LEVEL, PLAYING, WHEEL, INVENTORY };
-    private enum SwapState { FADE_OUT, DISPLAY_WHEEL, WAIT_CHOICE, FADE_IN, FINISHED };
+    private enum GameState { PLAYING, TRANSITION, END };
+    private enum SwapState { FADE_OUT, DISPLAY_WHEEL, DISPLAY_INVENTORY, WAIT_CHOICE, FADE_IN, FINISHED };
 
     private GameObject display;
     private GameObject currentLevel;
@@ -38,11 +42,24 @@ public class GameHandler : MonoBehaviour
 
     private float timePassed;
     private float initSwapTime;
+    private float initInventoryTime;
     private bool swapDirectionLeft;
+    private bool loadSuccess;
 
     private const float SCALE = 0.5f;
     private const float SWAP_DURATION = 1.5f;
     private const float CAMERA_MAX_OFFSET = 100;
+
+    public void WheelContinueButtonPressed()
+    {
+        if (swapState == SwapState.DISPLAY_WHEEL)
+        {
+            swapState = SwapState.DISPLAY_INVENTORY;
+            wheelCanvas.gameObject.SetActive(false);
+            inventoryCanvas.gameObject.SetActive(true);
+            initInventoryTime = Time.time;
+        }
+    }
 
     private void OnEnable()
     {
@@ -70,7 +87,8 @@ public class GameHandler : MonoBehaviour
         
         levelsData = levelsContainer.GetComponent<LevelsData>();
 
-        gameState = GameState.LOAD_LEVEL;
+        LoadLevel();
+        gameState = GameState.PLAYING;
     }
 
     private void Update()
@@ -79,13 +97,12 @@ public class GameHandler : MonoBehaviour
 
         switch (gameState)
         {
-            case GameState.LOAD_LEVEL:
-                LoadLevel();
+            case GameState.END:
                 break;
             case GameState.PLAYING:
                 Playing();
                 break;
-            case GameState.WHEEL:
+            case GameState.TRANSITION:
                 Wheel();
                 break;
             default:
@@ -93,7 +110,7 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    private void LoadLevel()
+    private bool LoadLevel()
     {
         if (currentLevel != null)
         {
@@ -120,22 +137,24 @@ public class GameHandler : MonoBehaviour
                     currentSpawns = new List<GameObject>(levelManager.GetSpawns());
 
                     player.transform.position = NextSpawnPoint();
-
-                    gameState = GameState.PLAYING;
                 }
                 else
                 {
                     Debug.Log("Can't load ennemies of " + levelName);
+                    return false;
                 }
             }
             else
             {
                 Debug.Log("Error on level name: " + levelName);
+                return false;
             }
+
+            return true;
         }
         else
         {
-            // TODO END
+            return false;
         }
     }
 
@@ -162,7 +181,7 @@ public class GameHandler : MonoBehaviour
         // End of the level
         if (currentEnnemies.Count == 0 && levelManager.AreAllEnnemiesDead())
         {
-            gameState = GameState.WHEEL;
+            gameState = GameState.TRANSITION;
             swapState = SwapState.FADE_OUT;
             initCamPos = mainCam.transform.position;
             initSwapTime = Time.time;
@@ -191,16 +210,24 @@ public class GameHandler : MonoBehaviour
             case SwapState.DISPLAY_WHEEL:
                 break;
 
-            /*case SwapState.WAIT_CHOICE:
+            case SwapState.DISPLAY_INVENTORY:
+                float inventoryPassed = Time.time - initInventoryTime;
+                if (inventoryPassed > timeInInventory)
+                {
+                    swapState = SwapState.FADE_IN;
+                    loadSuccess = LoadLevel();
+                    inventoryCanvas.gameObject.SetActive(false);
+                    initSwapTime = Time.time;
+                }
                 break;
 
             case SwapState.FADE_IN:
-                if (Mathf.Abs(SWAP_DURATION - timePassed) > 0.1f)
+                if (Mathf.Abs(SWAP_DURATION - swapPassed) > 0.1f)
                 {
-                    float cameraOffsetIn = Mathf.Pow(SWAP_DURATION - timePassed, factor);
+                    float cameraOffsetIn = Mathf.Pow(SWAP_DURATION - swapPassed, factor);
                     mainCam.transform.position = initCamPos - direction * new Vector3(cameraOffsetIn, 0, 0);
                 }
-                if (timePassed >= SWAP_DURATION)
+                if (swapPassed >= SWAP_DURATION)
                 {
                     swapState = SwapState.FINISHED;
                 }
@@ -208,10 +235,16 @@ public class GameHandler : MonoBehaviour
 
             case SwapState.FINISHED:
                 mainCam.transform.position = initCamPos;
-                swapLevel = false;
-                Description.text = "";
-                currentGameState = GameState.START;
-                break;*/
+
+                if (loadSuccess)
+                {
+                    gameState = GameState.PLAYING;
+                }
+                else
+                {
+                    gameState = GameState.END;
+                }
+                break;
 
             default:
                 break;

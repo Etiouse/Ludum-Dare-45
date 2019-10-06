@@ -41,7 +41,6 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         IsMoving = false;
         OnUpdateSelectedPowerShapeEvent(null);
-        Debug.Log(IsOnInventoryCase);
         OnConfirmPowerShapeEvent(gameObject, IsOnInventoryCase);
     }
 
