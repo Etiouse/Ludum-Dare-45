@@ -43,8 +43,8 @@ public class InventoryManager : MonoBehaviour
 
     private void UpdateActivePower()
     {
-        // TODO : Update values for power
-
+        //Reset
+        PlayerCharacteristics.ResetAll();
         foreach (TMP_Text item in activePowerTexts)
         {
             DestroyImmediate(item.gameObject);
@@ -62,6 +62,7 @@ public class InventoryManager : MonoBehaviour
 
             TMP_Text text = Instantiate(activePowerTextModel);
             text.text = powerShape.DisplayedName;
+            PlayerCharacteristics.ChangeValue(powerShape.PowerShapeType, true);
             // TODO : Change col when full
             text.transform.SetParent(activePowerCols[currentCol].transform);
             text.transform.localScale = Vector3.one;

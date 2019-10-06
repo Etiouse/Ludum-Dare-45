@@ -114,7 +114,7 @@ public class PoolManager : MonoBehaviour
 
     private void TMPAddAllPowerShapes()
     {
-        // TODO : Remove when the power shapes
+        // TODO : Remove when the power shapes are added between each levels
         for (int i = 0; i < availableElements.Count; i++)
         {
             currentElementInPool.Add(i);

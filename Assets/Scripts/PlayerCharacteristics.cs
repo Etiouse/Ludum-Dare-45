@@ -4,26 +4,26 @@ using UnityEngine;
 
 public static class PlayerCharacteristics
 {
-    public static bool FireBall { get; set; }
-    public static bool FireBallUp1 { get; set; }
-    public static bool IceBall { get; set; }
-    public static bool IceBallUp1 { get; set; }
-    public static bool RockShield { get; set; }
-    public static bool RockShieldUp1 { get; set; }
-    public static bool AirShield { get; set; }
-    public static bool AirShieldUp1 { get; set; }
-    public static bool PrimMovement { get; set; }
-    public static bool PrimNocVision { get; set; }
-    public static bool PrimLifebarVision { get; set; }
-    public static bool MaxHealth { get; set; }
-    public static bool MaxHealthUp1 { get; set; }
-    public static bool AttackSpeed { get; set; }
-    public static bool AttackSpeedUp1 { get; set; }
-    public static bool AttackDamage { get; set; }
-    public static bool AttackDamageUp1 { get; set; }
-    public static bool SpeedMovement { get; set; }
-    public static bool SpeedMovementUp1 { get; set; }
-    public static bool LifeSteal { get; set; }
+    public static bool FireBall { get; private set; }
+    public static bool FireBallUp1 { get; private set; }
+    public static bool IceBall { get; private set; }
+    public static bool IceBallUp1 { get; private set; }
+    public static bool RockShield { get; private set; }
+    public static bool RockShieldUp1 { get; private set; }
+    public static bool AirShield { get; private set; }
+    public static bool AirShieldUp1 { get; private set; }
+    public static bool PrimMovement { get; private set; }
+    public static bool PrimNocVision { get; private set; }
+    public static bool PrimLifebarVision { get; private set; }
+    public static bool MaxHealth { get; private set; }
+    public static bool MaxHealthUp1 { get; private set; }
+    public static bool AttackSpeed { get; private set; }
+    public static bool AttackSpeedUp1 { get; private set; }
+    public static bool AttackDamage { get; private set; }
+    public static bool AttackDamageUp1 { get; private set; }
+    public static bool SpeedMovement { get; private set; }
+    public static bool SpeedMovementUp1 { get; private set; }
+    public static bool LifeSteal { get; private set; }
 
     public static void ResetAll()
     {
