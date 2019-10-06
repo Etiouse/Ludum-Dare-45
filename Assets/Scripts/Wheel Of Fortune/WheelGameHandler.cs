@@ -38,5 +38,7 @@ public class WheelGameHandler : MonoBehaviour
         rule.transform.SetParent(winner.transform);
         rule.transform.localScale = new Vector3(SCALE, SCALE, SCALE);
         rule.transform.localPosition = new Vector3(100, 0, 0);
+
+        description.text = rule.GetComponent<PowerShape>().Description;
     }
 }

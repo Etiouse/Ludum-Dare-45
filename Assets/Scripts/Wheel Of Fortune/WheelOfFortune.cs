@@ -14,7 +14,6 @@ public class WheelOfFortune : MonoBehaviour
     [SerializeField] float friction = 1.005f;
     [SerializeField] float minSpeedAccepted = 10f;
     [SerializeField] float scaleOfRules = 0.4f;
-    [SerializeField] List<Rarity> rarities;
 
     public delegate void ResultAction(GameObject rule);
     public static event ResultAction OnResultAction;
@@ -31,7 +30,6 @@ public class WheelOfFortune : MonoBehaviour
     private List<Rule> rules;
     private List<GameObject> allRules;
     private List<GameObject> rulesObjects;
-    private List<int> occurences;
 
     private const float MAGIC_HEIGHT = 17f;
     private const float SOUND_OFFSET = 12;
@@ -44,15 +42,22 @@ public class WheelOfFortune : MonoBehaviour
         height = rulesSlots.GetComponent<RectTransform>().rect.height;
         clickDistance = -SOUND_OFFSET;
 
+        // Destroy previous instances
+        if (rulesObjects != null)
+        {
+            for (int i = rulesObjects.Count - 1; i >= 0; i--)
+            {
+                Destroy(rulesObjects[i]);
+            }
+        }
+
         // Generate all rules with the correspondingnumber of occurences
         allRules = new List<GameObject>();
-        occurences = new List<int>();
         foreach (Rule rule in rules)
         {
             for (int i = 0; i < rule.Occurences; i++)
             {
                 allRules.Add(rule.Object);
-                occurences.Add(rule.Occurences);
             }
         }
 
@@ -80,7 +85,7 @@ public class WheelOfFortune : MonoBehaviour
             bg.transform.localScale = new Vector3(4, 4, 4);
             bg.transform.position = ruleObject.transform.position;
             bg.transform.SetAsFirstSibling();
-            bg.GetComponent<Image>().color = RarityColor(occurences[counter - 1]);
+            bg.GetComponent<Image>().color = ruleObject.GetComponent<PowerShape>().SpriteColor;
 
             rulesObjects.Add(ruleObject);
             counter++;
@@ -206,24 +211,7 @@ public class WheelOfFortune : MonoBehaviour
             GameObject tmp = allRules[i];
             allRules[i] = allRules[j];
             allRules[j] = tmp;
-
-            int tmpRarity = occurences[i];
-            occurences[i] = occurences[j];
-            occurences[j] = tmpRarity;
         }
-    }
-
-    private Color RarityColor(int occurences)
-    {
-        foreach(Rarity rarity in rarities)
-        {
-            if (occurences <= rarity.Occurences)
-            {
-                return rarity.Color;
-            }
-        }
-
-        return Color.gray;
     }
 
     private GameObject ClosestToCenter()
