@@ -12,12 +12,12 @@ public class GridCaseManager : MonoBehaviour
 
     private void OnEnable()
     {
-        InventoryPowerBloc.OnUpdateSelectedPowerShapeEvent += UpdatePowerShape;
+        PowerShape.OnUpdateSelectedPowerShapeEvent += UpdatePowerShape;
     }
 
     private void OnDisable()
     {
-        InventoryPowerBloc.OnUpdateSelectedPowerShapeEvent -= UpdatePowerShape;
+        PowerShape.OnUpdateSelectedPowerShapeEvent -= UpdatePowerShape;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

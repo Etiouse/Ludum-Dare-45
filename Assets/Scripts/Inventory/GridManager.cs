@@ -9,12 +9,12 @@ public class GridManager : MonoBehaviour
 
     private void OnEnable()
     {
-        InventoryPowerBloc.OnUpdateSelectedPowerShapeEvent += UpdatePowerShape;
+        PowerShape.OnUpdateSelectedPowerShapeEvent += UpdatePowerShape;
     }
 
     private void OnDisable()
     {
-        InventoryPowerBloc.OnUpdateSelectedPowerShapeEvent -= UpdatePowerShape;
+        PowerShape.OnUpdateSelectedPowerShapeEvent -= UpdatePowerShape;
     }
 
     private void Awake()
@@ -46,7 +46,7 @@ public class GridManager : MonoBehaviour
 
         if (currentPowerShape != null)
         {
-            currentPowerShape.GetComponent<InventoryPowerBloc>().IsOnInventoryCase = isPowerShapeOnOneCase;
+            currentPowerShape.GetComponent<PowerShape>().IsOnInventoryCase = isPowerShapeOnOneCase;
         }
     }
 

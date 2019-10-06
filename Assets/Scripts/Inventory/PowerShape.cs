@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public delegate void UpdateSelectedPowerShapeEvent(GameObject powerShape);
     public static event UpdateSelectedPowerShapeEvent OnUpdateSelectedPowerShapeEvent;
@@ -20,10 +21,10 @@ public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUp
         AIR_SHILD
     }
 
-    [SerializeField] private Color spriteColor;
-    [SerializeField] private string displayedName;
-    [SerializeField] private string description;
-    [SerializeField] private PowerShapeType powerShapeType;
+    public Color SpriteColor;
+    public string DisplayedName;
+    public string Description;
+    public PowerShapeType CurrentPowerShapeType;
 
     public bool IsOnInventoryCase { get; set; }
     public bool IsMoving { get; private set; }
@@ -48,7 +49,7 @@ public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUp
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).GetComponent<Image>().color = spriteColor;
+            transform.GetChild(i).GetComponent<Image>().color = SpriteColor;
         }
 
         IsOnInventoryCase = false;
