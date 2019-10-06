@@ -262,7 +262,8 @@ MonoBehaviour:
   - {fileID: 5081918558772477167}
   rockShieldModel: {fileID: 0}
   rockOrigin: {fileID: 0}
-  numberOfShield: 5
+  numberOfShield: 3
+  airShieldModel: {fileID: 0}
 --- !u!50 &2911141670037085359
 Rigidbody2D:
   serializedVersion: 4

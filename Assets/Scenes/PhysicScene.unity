@@ -881,6 +881,12 @@ PrefabInstance:
       propertyPath: rockOrigin
       value: 
       objectReference: {fileID: 1883292059}
+    - target: {fileID: 8274803006735106677, guid: cc120d2695c222d42bb6f3b11f45ade0,
+        type: 3}
+      propertyPath: airShieldModel
+      value: 
+      objectReference: {fileID: 3325852831522768831, guid: 376feb4d02ccc38459366d93b99c7516,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc120d2695c222d42bb6f3b11f45ade0, type: 3}
 --- !u!1001 &9218953482366292963

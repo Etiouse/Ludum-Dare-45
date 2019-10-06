@@ -8,19 +8,24 @@ public class PlayerController : CharacterController
 
     [SerializeField] private GameObject fireballModel;
     [SerializeField] private Transform fireballOrigin;
+
     [SerializeField] private GameObject iceballModel;
     [SerializeField] private List<Transform> iceBallOrigins;
 
     [SerializeField] private GameObject rockShieldModel;
     [SerializeField] private Transform rockOrigin;
     [SerializeField] private int numberOfShield = 5;
+    
+    [SerializeField] private GameObject airShieldModel;
 
     private List<GameObject> rockshield;
+    private AirShield airshield;
 
     private void Start()
     {
         rockshield = new List<GameObject>();
         GenerateRockShield();
+        CreateAirShield();
     }
 
     public override void Attack()
@@ -61,6 +66,7 @@ public class PlayerController : CharacterController
         // Ignore collision between the player and the fireball (trigger ok)
         Physics2D.IgnoreCollision(mainCollider, fireballCollider);
         IgnoreCollisionWithRockShield(fireballCollider);
+        IgnoreCollisionWithAirShield(fireballCollider);
     }
 
     private void IceBallAttack()
@@ -78,6 +84,7 @@ public class PlayerController : CharacterController
             Physics2D.IgnoreCollision(mainCollider, iceballCollider);
 
             IgnoreCollisionWithRockShield(iceballCollider);
+            IgnoreCollisionWithAirShield(iceballCollider);
         }
 
     }
@@ -91,7 +98,6 @@ public class PlayerController : CharacterController
             GameObject rock = Instantiate(rockShieldModel);
             float shieldDistance = (rockOrigin.transform.position - transform.position).magnitude;
             rock.transform.position = transform.position + Quaternion.Euler(0, 0, angle) * (transform.position - rockOrigin.position);
-            Debug.Log(shieldDistance);
             rock.GetComponent<RockShield>().Init(transform, shieldDistance, angle);
 
             // Ignore collision between the player and the fireball (trigger ok)
@@ -106,6 +112,11 @@ public class PlayerController : CharacterController
         rockshield.Select(rock => rock.GetComponent<CircleCollider2D>()).ToList().ForEach(rock => Physics2D.IgnoreCollision(collider, rock));
     }
 
+    private void IgnoreCollisionWithAirShield(Collider2D collider)
+    {
+        Physics2D.IgnoreCollision(collider, airshield.GetComponent<CircleCollider2D>());
+    }
+
     private void ActivateRockShield()
     {
         rockshield.ForEach(rock => rock.SetActive(true));
@@ -114,5 +125,11 @@ public class PlayerController : CharacterController
     private void DeactivateRockShield()
     {
         rockshield.ForEach(rock => rock.SetActive(false));
+    }
+
+    private void CreateAirShield()
+    {
+        airshield = Instantiate(airShieldModel).GetComponent<AirShield>();
+        airshield.Target = transform;
     }
 }

@@ -8,7 +8,7 @@ public class EnemyController : CharacterController
     [SerializeField] private GameObject fireballModel;
     [SerializeField] private Transform fireballOrigin;
 
-    float attackDelay = 5;
+    float attackDelay = 1;
     float currentAttack = 0;
 
     // Update is called once per frame
