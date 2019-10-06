@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class PoolManager : MonoBehaviour
 {
-    [SerializeField] private Button inscreaseButton;
-    [SerializeField] private Button reduceButton;
-    [SerializeField] private GameObject slotsParent;
-    [SerializeField] private List<GameObject> powerShapeModels;
+    [SerializeField] private Button inscreaseButton = null;
+    [SerializeField] private Button reduceButton = null;
+    [SerializeField] private GameObject slotsParent = null;
+    [SerializeField] private List<GameObject> powerShapeModels = null;
 
     public List<GameObject> UsedPowerShapes { get; private set; }
 

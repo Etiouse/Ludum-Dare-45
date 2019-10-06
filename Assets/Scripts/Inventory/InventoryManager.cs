@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] private PoolManager poolManager;
+    [SerializeField] private PoolManager poolManager = null;
 
     private List<PowerShape> powerShapes;
 
