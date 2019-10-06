@@ -31,7 +31,7 @@ public class WheelOfFortune : MonoBehaviour
     private List<GameObject> allRules;
     private List<GameObject> rulesObjects;
 
-    private const float MAGIC_HEIGHT = 17f;
+    private const float MAGIC_HEIGHT = 4f;
     private const float SOUND_OFFSET = 12;
     
     public void ResetWheel()
@@ -105,12 +105,12 @@ public class WheelOfFortune : MonoBehaviour
 
     private void OnEnable()
     {
-        WheelGameHandler.OnSetWheelRulesAction += SetRules;
+        GameHandler.OnSetWheelRulesAction += SetRules;
     }
     
     private void OnDisable()
     {
-        WheelGameHandler.OnSetWheelRulesAction -= SetRules;
+        GameHandler.OnSetWheelRulesAction -= SetRules;
     }
 
     private void Update()
@@ -146,11 +146,8 @@ public class WheelOfFortune : MonoBehaviour
 
             shift = shift + speed * Time.deltaTime;
             clickDistance += speed * Time.deltaTime;
-
-            // Responsivity
-            float ratio = (float) Screen.width / Screen.height;
-            float factor = 9.5543f * ratio + 0.0650f;
-            float ruleDiameter = factor / canvas.scaleFactor;
+            
+            float ruleDiameter = MAGIC_HEIGHT / canvas.scaleFactor;
 
             // Sound
             if (clickDistance > ruleDiameter)

@@ -3,13 +3,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class WheelGameHandler : MonoBehaviour
+public class GameHandler : MonoBehaviour
 {
     public delegate void SetWheelRulesAction(List<Rule> rules);
     public delegate void TransmitNewPowerAction(GameObject newPower);
     public static event SetWheelRulesAction OnSetWheelRulesAction;
     public static event TransmitNewPowerAction OnTransmitNewPowerAction;
 
+    [Header("Wheel of fortune")]
     [SerializeField] GameObject winner = null;
     [SerializeField] TMP_Text description = null;
     [SerializeField] Button continueButton = null;
