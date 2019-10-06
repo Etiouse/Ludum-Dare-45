@@ -6,12 +6,16 @@ using UnityEngine.UI;
 public class WheelGameHandler : MonoBehaviour
 {
     public delegate void SetWheelRulesAction(List<Rule> rules);
+    public delegate void TransmitNewPowerAction(GameObject newPower);
     public static event SetWheelRulesAction OnSetWheelRulesAction;
+    public static event TransmitNewPowerAction OnTransmitNewPowerAction;
 
     [SerializeField] GameObject winner = null;
     [SerializeField] TMP_Text description = null;
     [SerializeField] Button continueButton = null;
     [SerializeField] List<Rule> rules = null;
+
+    private GameObject display;
 
     private const float SCALE = 0.5f;
 
@@ -31,18 +35,29 @@ public class WheelGameHandler : MonoBehaviour
         continueButton.gameObject.SetActive(false);
     }
 
-    private void Update()
+    private void ResultRule(GameObject power)
     {
-        
-    }
+        if (power != null)
+        {
+            if (display != null)
+            {
+                Destroy(display);
+            }
 
-    private void ResultRule(GameObject rule)
-    {
-        rule.transform.SetParent(winner.transform);
-        rule.transform.localScale = new Vector3(SCALE, SCALE, SCALE);
-        rule.transform.localPosition = new Vector3(100, 0, 0);
+            display = Instantiate(power);
+            display.transform.SetParent(winner.transform);
+            display.transform.localScale = new Vector3(SCALE, SCALE, SCALE);
+            display.transform.localPosition = new Vector3(100, 0, 0);
+            display.SetActive(true);
 
-        description.text = rule.GetComponent<PowerShape>().Description;
-        continueButton.gameObject.SetActive(true);
+            description.text = power.GetComponent<PowerShape>().Description;
+            continueButton.gameObject.SetActive(true);
+
+            //OnTransmitNewPowerAction(power);
+        }
+        else
+        {
+            Debug.Log(":(");
+        }
     }
 }

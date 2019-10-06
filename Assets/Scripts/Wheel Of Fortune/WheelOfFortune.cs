@@ -59,6 +59,7 @@ public class WheelOfFortune : MonoBehaviour
             {
                 allRules.Add(rule.Object);
             }
+            rule.Name = rule.Object.GetComponent<PowerShape>().DisplayedName;
         }
 
         // Shuffle the rules
@@ -229,6 +230,15 @@ public class WheelOfFortune : MonoBehaviour
             }
         }
 
-        return Instantiate(winner);
+        string name = winner.GetComponent<PowerShape>().DisplayedName;
+        foreach (Rule rule in rules)
+        {
+            if (rule.Name.Equals(name))
+            {
+                return rule.Object;
+            }
+        }
+
+        return null;
     }
 }
