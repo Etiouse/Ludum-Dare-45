@@ -5,13 +5,19 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public delegate void UpdateSelectedPowerShapeEvent(GameObject powerShape);
     public static event UpdateSelectedPowerShapeEvent OnUpdateSelectedPowerShapeEvent;
 
     public delegate void ConfirmPowerShapeEvent(GameObject powerShape, bool isConfirmed);
     public static event ConfirmPowerShapeEvent OnConfirmPowerShapeEvent;
+
+    public delegate void MouseOverPowerShapeEvent(PowerShape powerShape);
+    public static event MouseOverPowerShapeEvent OnMouseOverPowerShapeEvent;
+
+    public delegate void EnableChangingDisplayEvent(bool value);
+    public static event EnableChangingDisplayEvent OnEnableChangingDisplayEvent;
 
     public enum Type
     {
@@ -45,20 +51,35 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public bool IsOnInventoryCase { get; set; }
     public bool IsMoving { get; private set; }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        OnMouseOverPowerShapeEvent(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnMouseOverPowerShapeEvent(null);
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         IsMoving = true;
         OnUpdateSelectedPowerShapeEvent(gameObject);
 
         OnConfirmPowerShapeEvent(gameObject, false);
+        OnEnableChangingDisplayEvent(false);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         IsMoving = false;
+
         OnUpdateSelectedPowerShapeEvent(null);
-        //Debug.Log(IsOnInventoryCase);
+
         OnConfirmPowerShapeEvent(gameObject, IsOnInventoryCase);
+
+        OnMouseOverPowerShapeEvent(null);
+        OnEnableChangingDisplayEvent(true);
     }
 
     private void Awake()
