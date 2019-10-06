@@ -65,6 +65,7 @@ public class WheelOfFortune : MonoBehaviour
         foreach (GameObject rule in allRules)
         {
             GameObject ruleObject = Instantiate(rule);
+            ruleObject.SetActive(true);
 
             // Prefab parameters
             ruleObject.transform.SetParent(rulesSlots.transform);

@@ -7,16 +7,6 @@ public class GridManager : MonoBehaviour
     private GameObject currentPowerShape;
     private List<GameObject> gridCase;
 
-    private void OnEnable()
-    {
-        InventoryPowerBloc.OnUpdateSelectedPowerShapeEvent += UpdatePowerShape;
-    }
-
-    private void OnDisable()
-    {
-        InventoryPowerBloc.OnUpdateSelectedPowerShapeEvent -= UpdatePowerShape;
-    }
-
     private void Awake()
     {
         gridCase = new List<GameObject>();
@@ -30,6 +20,16 @@ public class GridManager : MonoBehaviour
                 gridCase.Add(child.GetChild(j).gameObject);
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        PowerShape.OnUpdateSelectedPowerShapeEvent += UpdatePowerShape;
+    }
+
+    private void OnDisable()
+    {
+        PowerShape.OnUpdateSelectedPowerShapeEvent -= UpdatePowerShape;
     }
 
     private void Update()
@@ -46,7 +46,7 @@ public class GridManager : MonoBehaviour
 
         if (currentPowerShape != null)
         {
-            currentPowerShape.GetComponent<InventoryPowerBloc>().IsOnInventoryCase = isPowerShapeOnOneCase;
+            currentPowerShape.GetComponent<PowerShape>().IsOnInventoryCase = isPowerShapeOnOneCase;
         }
     }
 

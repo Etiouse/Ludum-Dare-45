@@ -5,20 +5,23 @@ using UnityEngine.UI;
 
 public class PoolManager : MonoBehaviour
 {
-    [SerializeField] private Button inscreaseButton;
-    [SerializeField] private Button reduceButton;
-    [SerializeField] private GameObject slotsParent;
-    [SerializeField] private List<GameObject> powerShapeModels;
+    public delegate void UpdateUsedPowerShapesEvent();
+    public static event UpdateUsedPowerShapesEvent OnUpdateUsedPowerShapesEvent;
+
+    [SerializeField] private Button inscreaseButton = null;
+    [SerializeField] private Button reduceButton = null;
+    [SerializeField] private GameObject slotsParent = null;
+    [SerializeField] private List<GameObject> powerShapeModels = null;
+
+    public List<GameObject> UsedPowerShapes { get; private set; }
 
     private List<GameObject> slotsElements;
     private List<GameObject> availableElements;
-    private List<GameObject> currentVisibleElements;
-    private List<GameObject> currentUsedElements;
+    private List<GameObject> visibleElements;
 
     private List<int> currentElementInPool;
 
     private int firstVisibleElement;
-    private int previousFirstVisibleElement;
 
     private bool updateVisibleElements;
     private bool canIncrease;
@@ -38,21 +41,11 @@ public class PoolManager : MonoBehaviour
         updateVisibleElements = true;
     }
 
-    private void OnEnable()
-    {
-        InventoryPowerBloc.OnConfirmPowerShapeEvent += UpdatePowerShape;
-    }
-
-    private void OnDisable()
-    {
-        InventoryPowerBloc.OnConfirmPowerShapeEvent -= UpdatePowerShape;
-    }
-
     private void Awake()
     {
         currentElementInPool = new List<int>();
-        currentVisibleElements = new List<GameObject>();
-        currentUsedElements = new List<GameObject>();
+        visibleElements = new List<GameObject>();
+        UsedPowerShapes = new List<GameObject>();
 
         availableElements = new List<GameObject>();
         for (int i = 0; i < powerShapeModels.Count; i++)
@@ -67,10 +60,19 @@ public class PoolManager : MonoBehaviour
         }
 
         firstVisibleElement = 0;
-        previousFirstVisibleElement = 0;
         updateVisibleElements = true;
 
         TMPAddAllPowerShapes();
+    }
+
+    private void OnEnable()
+    {
+        PowerShape.OnConfirmPowerShapeEvent += ConfirmPowerShape;
+    }
+
+    private void OnDisable()
+    {
+        PowerShape.OnConfirmPowerShapeEvent -= ConfirmPowerShape;
     }
 
     private void Update()
@@ -103,10 +105,8 @@ public class PoolManager : MonoBehaviour
 
     private void CheckChangeVisibleElementsInPool()
     {
-        previousFirstVisibleElement = firstVisibleElement;
-
         canReduce = firstVisibleElement > 0;
-        canIncrease = firstVisibleElement + (slotsElements.Count - 1) < currentElementInPool.Count - 1 - currentUsedElements.Count;
+        canIncrease = firstVisibleElement + (slotsElements.Count - 1) < currentElementInPool.Count - 1 - UsedPowerShapes.Count;
 
         inscreaseButton.enabled = canIncrease;
         reduceButton.enabled = canReduce;
@@ -128,19 +128,23 @@ public class PoolManager : MonoBehaviour
             updateVisibleElements = false;
 
             // Reset
-            for (int i = 0; i < currentVisibleElements.Count; i++)
+            foreach (GameObject item in availableElements)
             {
-                currentVisibleElements[i].SetActive(false);
+                if (!UsedPowerShapes.Contains(item) &&
+                    !item.GetComponent<PowerShape>().IsMoving)
+                {
+                    item.SetActive(false);
+                }
             }
-            currentVisibleElements.Clear();
+            visibleElements.Clear();
 
             // Find the min and max index of element to display in the current pool elements
             int min = firstVisibleElement;
             int max = firstVisibleElement + slotsElements.Count - 1;
             int numberOfElementToDisplay = slotsElements.Count;
-            int numberOfElementInPool = currentElementInPool.Count - currentUsedElements.Count;
+            int numberOfElementInPool = currentElementInPool.Count - UsedPowerShapes.Count;
 
-            Debug.Log("-:- " + currentUsedElements.Count);
+            Debug.Log("-:- " + UsedPowerShapes.Count);
             Debug.Log("-- " + min + " " + max);
 
             if (numberOfElementToDisplay > numberOfElementInPool)
@@ -148,20 +152,23 @@ public class PoolManager : MonoBehaviour
                 numberOfElementToDisplay = numberOfElementInPool;
             }
 
-            if (max > numberOfElementInPool - 1)
+            if (max > currentElementInPool.Count - 1)
             {
-                max = numberOfElementInPool - 1;
+                max = currentElementInPool.Count - 1;
                 min = max - numberOfElementToDisplay - 1;
 
                 if (min < 0)
                 {
                     min = 0;
                 }
+
+                Debug.Log("OK1");
             }
             else if (min < 0)
             {
                 min = 0;
                 max = numberOfElementToDisplay - 1;
+                Debug.Log("OK1");
             }
 
             Debug.Log(min + " " + max);
@@ -170,20 +177,20 @@ public class PoolManager : MonoBehaviour
             int currentSlotIndex = 0;
             int counter = 0;
             int offset = 0;
-            int index = 0;
+            int index;
             for (int i = min; i <= max; i++)
             {
                 index = i + offset;
                 GameObject powerShape = availableElements[currentElementInPool[index]];
                 powerShape.SetActive(true);
 
-                if (!currentUsedElements.Contains(powerShape))
+                if (!UsedPowerShapes.Contains(powerShape))
                 {
-                    currentVisibleElements.Add(powerShape);
+                    visibleElements.Add(powerShape);
 
-                    currentVisibleElements[currentSlotIndex].transform.SetParent(slotsElements[currentSlotIndex].transform);
-                    currentVisibleElements[currentSlotIndex].transform.localScale = Vector3.one;
-                    currentVisibleElements[currentSlotIndex].transform.localPosition = Vector3.zero;
+                    visibleElements[currentSlotIndex].transform.SetParent(slotsElements[currentSlotIndex].transform);
+                    visibleElements[currentSlotIndex].transform.localScale = Vector3.one;
+                    visibleElements[currentSlotIndex].transform.localPosition = Vector3.zero;
                     currentSlotIndex++;
                 }
                 else
@@ -203,19 +210,20 @@ public class PoolManager : MonoBehaviour
         }
     }
 
-    private void UpdatePowerShape(GameObject powerShape, bool isConfirmed)
+    private void ConfirmPowerShape(GameObject powerShape, bool isConfirmed)
     {
         if (isConfirmed)
         {
-            currentUsedElements.Add(powerShape);
+            UsedPowerShapes.Add(powerShape);
         }
-        else if (currentUsedElements.Contains(powerShape))
+        else if (UsedPowerShapes.Contains(powerShape))
         {
-            currentUsedElements.Remove(powerShape);
+            UsedPowerShapes.Remove(powerShape);
         }
 
         updateVisibleElements = true;
+        OnUpdateUsedPowerShapesEvent();
 
-        Debug.Log(currentUsedElements.Count);
+        Debug.Log(UsedPowerShapes.Count);
     }
 }

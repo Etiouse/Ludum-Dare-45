@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public delegate void UpdateSelectedPowerShapeEvent(GameObject powerShape);
     public static event UpdateSelectedPowerShapeEvent OnUpdateSelectedPowerShapeEvent;
@@ -12,15 +13,25 @@ public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUp
     public delegate void ConfirmPowerShapeEvent(GameObject powerShape, bool isConfirmed);
     public static event ConfirmPowerShapeEvent OnConfirmPowerShapeEvent;
 
-    [SerializeField] private Color spriteColor;
+    public enum PowerShapeType
+    {
+        FIRE_BALL,
+        ICE_BALL,
+        ROCK_SHILD,
+        AIR_SHILD
+    }
+
+    public Color SpriteColor;
+    public string DisplayedName;
+    public string Description;
+    public PowerShapeType CurrentPowerShapeType;
 
     public bool IsOnInventoryCase { get; set; }
-
-    private bool isMoving;
+    public bool IsMoving { get; private set; }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        isMoving = true;
+        IsMoving = true;
         OnUpdateSelectedPowerShapeEvent(gameObject);
 
         OnConfirmPowerShapeEvent(gameObject, false);
@@ -28,7 +39,7 @@ public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        isMoving = false;
+        IsMoving = false;
         OnUpdateSelectedPowerShapeEvent(null);
         Debug.Log(IsOnInventoryCase);
         OnConfirmPowerShapeEvent(gameObject, IsOnInventoryCase);
@@ -38,7 +49,7 @@ public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUp
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).GetComponent<Image>().color = spriteColor;
+            transform.GetChild(i).GetComponent<Image>().color = SpriteColor;
         }
 
         IsOnInventoryCase = false;
@@ -51,7 +62,7 @@ public class InventoryPowerBloc : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     private void CheckIsMoving()
     {
-        if (isMoving)
+        if (IsMoving)
         {
             Vector3 mousePos = GetMousePosInApplication();
 

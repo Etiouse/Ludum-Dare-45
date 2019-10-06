@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4914209652143681295
+--- !u!1 &4933421031883415123
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,30 +8,29 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4914209652143681294}
-  - component: {fileID: 4914209652143681289}
-  - component: {fileID: 8092024480618509739}
+  - component: {fileID: 4933421031883415122}
+  - component: {fileID: 4933421031883415125}
   m_Layer: 5
-  m_Name: FireAttackShape
+  m_Name: IceBallShape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &4914209652143681294
+  m_IsActive: 0
+--- !u!224 &4933421031883415122
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4914209652143681295}
+  m_GameObject: {fileID: 4933421031883415123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4914209651101712584}
-  - {fileID: 2983506711579202389}
-  - {fileID: 2983506713333967747}
+  - {fileID: 4933421030774223252}
+  - {fileID: 2964006692991787529}
+  - {fileID: 2964006694445144799}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -40,33 +39,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4914209652143681289
+--- !u!114 &4933421031883415125
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4914209652143681295}
+  m_GameObject: {fileID: 4933421031883415123}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24b5d00ff666f974bac30e1472d3b879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!222 &8092024480618509739
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4914209652143681295}
-  m_CullTransparentMesh: 0
---- !u!1001 &2983506713233510107
+  SpriteColor: {r: 0, g: 0.97866297, b: 1, a: 1}
+  DisplayedName: 
+  Description: 
+  CurrentPowerShapeType: 0
+--- !u!1001 &2964006694546128775
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4914209652143681294}
+    m_TransformParent: {fileID: 4933421031883415122}
     m_Modifications:
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
@@ -180,18 +174,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}
---- !u!224 &4914209651101712584 stripped
+--- !u!224 &4933421030774223252 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
     type: 3}
-  m_PrefabInstance: {fileID: 2983506713233510107}
+  m_PrefabInstance: {fileID: 2964006694546128775}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4914209651000845712
+--- !u!1001 &4933421030874567884
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4914209652143681294}
+    m_TransformParent: {fileID: 4933421031883415122}
     m_Modifications:
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
@@ -305,18 +299,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}
---- !u!224 &2983506713333967747 stripped
+--- !u!224 &2964006694445144799 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
     type: 3}
-  m_PrefabInstance: {fileID: 4914209651000845712}
+  m_PrefabInstance: {fileID: 4933421030874567884}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4914209652723162438
+--- !u!1001 &4933421032361421850
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4914209652143681294}
+    m_TransformParent: {fileID: 4933421031883415122}
     m_Modifications:
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
@@ -376,12 +370,12 @@ PrefabInstance:
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000015258789
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
@@ -430,9 +424,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}
---- !u!224 &2983506711579202389 stripped
+--- !u!224 &2964006692991787529 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
     type: 3}
-  m_PrefabInstance: {fileID: 4914209652723162438}
+  m_PrefabInstance: {fileID: 4933421032361421850}
   m_PrefabAsset: {fileID: 0}
