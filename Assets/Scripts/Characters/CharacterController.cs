@@ -7,11 +7,13 @@ public class CharacterController : MonoBehaviour
     [SerializeField] protected GameObject spritesParent;
     protected CircleCollider2D mainCollider;
 
-    protected float startHealth = 20;
-    protected float characterSpeed = 20;
+    protected float startHealth = GameParameters.DEFAULT_HEALTH;
+    protected float characterSpeed = GameParameters.DEFAULT_MOVEMENT_SPEED;
     
     private Rigidbody2D rigid2d;
     private float health;
+    private GameObject lifebar;
+    private float startLifeBarWidth;
 
     // Start is called before the first frame update
     void Awake()
@@ -23,6 +25,13 @@ public class CharacterController : MonoBehaviour
         rigid2d = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<CircleCollider2D>();
         health = startHealth;
+        lifebar = transform.Find("LifeBar").Find("CurrentLifeParent").gameObject;
+        startLifeBarWidth = lifebar.transform.localScale.x;
+    }
+
+    private void Update()
+    {
+        lifebar.transform.localScale = new Vector2(health / startHealth * startLifeBarWidth, lifebar.transform.localScale.y);
     }
 
     public void Move(Vector2 direction)
@@ -40,7 +49,7 @@ public class CharacterController : MonoBehaviour
 
     }
 
-    public void Damage(float damage)
+    public virtual void Damage(float damage)
     {
         health -= damage;
         if (health <= 0)

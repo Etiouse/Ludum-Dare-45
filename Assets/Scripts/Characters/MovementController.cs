@@ -47,7 +47,7 @@ public class MovementController : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         float moveX = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetMouseButton(0))
         {
             controller.Attack();
         }

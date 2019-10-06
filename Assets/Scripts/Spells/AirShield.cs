@@ -6,8 +6,6 @@ public class AirShield : MonoBehaviour
 {
 
     public Transform Target { get; set; }
-    private RangeInt activationRange = new RangeInt(3, 10);
-    private float activationTime = 1;
     private int nextActivation;
     private SpriteRenderer renderer;
     private CircleCollider2D collider;
@@ -26,10 +24,10 @@ public class AirShield : MonoBehaviour
 
     IEnumerator ActivateShield()
     {
-        nextActivation = Random.Range(activationRange.start, activationRange.end);
+        nextActivation = Random.Range(GameParameters.airShieldActivationRange.start, GameParameters.airShieldActivationRange.end);
         yield return new WaitForSeconds(nextActivation);
         Enabled(true);
-        yield return new WaitForSeconds(activationTime);
+        yield return new WaitForSeconds(GameParameters.AIR_SHIELD_ACTIVATION_TIME);
         Enabled(false);
 
         StartCoroutine(ActivateShield());
