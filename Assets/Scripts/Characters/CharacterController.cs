@@ -31,7 +31,10 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        lifebar.transform.localScale = new Vector2(health / startHealth * startLifeBarWidth, lifebar.transform.localScale.y);
+        if (health != startHealth)
+        {
+            lifebar.transform.localScale = new Vector2(health / startHealth * startLifeBarWidth, lifebar.transform.localScale.y);
+        }
     }
 
     public void Move(Vector2 direction)

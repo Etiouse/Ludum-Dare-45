@@ -40,4 +40,10 @@ public static class GameParameters
     // Shooter Projectiles
     public static float shooterProjectileSpeed = 20;
     public static float shooterDamage = 5;
+
+    // Water Splasher
+    public static readonly float WATERSPLASHER_MOVEMENT_TIME = 3f;
+    public static readonly float WATERSPLASHER_TIME_BETWEEN_ATTACKS = 0.25f;
+    public static readonly int WATERSPLASHER_NUMBER_OF_SHOOTS = 10;
+    public static readonly float WATERSPLASHER_MOVEMENT_SPEED = 1;
 }
