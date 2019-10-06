@@ -30,18 +30,12 @@ public class LevelsData : MonoBehaviour
         levels.Add(new List<(GameObject, float)>
         {
             (shooter, 1f),
-            (shooter, 3f),
-            (shooter, 5f),
-            (shooter, 7f),
         });
 
         // Level 2
         levels.Add(new List<(GameObject, float)>
         {
             (shooter, 1f),
-            (shooter, 3f),
-            (shooter, 5f),
-            (shooter, 7f),
         });
     }
 }

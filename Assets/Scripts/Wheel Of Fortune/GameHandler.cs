@@ -20,8 +20,10 @@ public class GameHandler : MonoBehaviour
     [Header("General informations")]
     [SerializeField] GameObject levelsContainer;
     [SerializeField] GameObject player;
+    [SerializeField] Camera mainCam;
 
-    private enum State { LOAD_LEVEL, PLAYING, WHEEL, INVENTORY };
+    private enum GameState { LOAD_LEVEL, PLAYING, WHEEL, INVENTORY };
+    private enum SwapState { FADE_OUT, DISPLAY_WHEEL, WAIT_CHOICE, FADE_IN, FINISHED };
 
     private GameObject display;
     private GameObject currentLevel;
@@ -30,11 +32,17 @@ public class GameHandler : MonoBehaviour
     private List<GameObject> currentSpawns;
     private List<GameObject> levelsLeft;
     private LevelsData levelsData;
-    private State state;
+    private Vector3 initCamPos;
+    private GameState gameState;
+    private SwapState swapState;
 
     private float timePassed;
+    private float initSwapTime;
+    private bool swapDirectionLeft;
 
     private const float SCALE = 0.5f;
+    private const float SWAP_DURATION = 1.5f;
+    private const float CAMERA_MAX_OFFSET = 100;
 
     private void OnEnable()
     {
@@ -51,7 +59,6 @@ public class GameHandler : MonoBehaviour
         // Variables
         timePassed = 0f;
 
-        //OnSetWheelRulesAction(rules);
         continueButton.gameObject.SetActive(false);
 
         // Fill the levels in script
@@ -63,20 +70,23 @@ public class GameHandler : MonoBehaviour
         
         levelsData = levelsContainer.GetComponent<LevelsData>();
 
-        state = State.LOAD_LEVEL;
+        gameState = GameState.LOAD_LEVEL;
     }
 
     private void Update()
     {
         timePassed += Time.deltaTime;
 
-        switch (state)
+        switch (gameState)
         {
-            case State.LOAD_LEVEL:
+            case GameState.LOAD_LEVEL:
                 LoadLevel();
                 break;
-            case State.PLAYING:
+            case GameState.PLAYING:
                 Playing();
+                break;
+            case GameState.WHEEL:
+                Wheel();
                 break;
             default:
                 break;
@@ -111,7 +121,7 @@ public class GameHandler : MonoBehaviour
 
                     player.transform.position = NextSpawnPoint();
 
-                    state = State.PLAYING;
+                    gameState = GameState.PLAYING;
                 }
                 else
                 {
@@ -152,7 +162,59 @@ public class GameHandler : MonoBehaviour
         // End of the level
         if (currentEnnemies.Count == 0 && levelManager.AreAllEnnemiesDead())
         {
-            state = State.LOAD_LEVEL;
+            gameState = GameState.WHEEL;
+            swapState = SwapState.FADE_OUT;
+            initCamPos = mainCam.transform.position;
+            initSwapTime = Time.time;
+        }
+    }
+
+    private void Wheel()
+    {
+        float swapPassed = Time.time - initSwapTime;
+        float factor = Mathf.Log(CAMERA_MAX_OFFSET) / Mathf.Log(SWAP_DURATION);
+        float direction = swapDirectionLeft ? -1 : 1;
+
+        switch (swapState)
+        {
+            case SwapState.FADE_OUT:
+                float cameraOffsetOut = Mathf.Pow(swapPassed, factor);
+                mainCam.transform.position = initCamPos + direction * new Vector3(cameraOffsetOut, 0, 0);
+                if (swapPassed > SWAP_DURATION)
+                {
+                    swapState = SwapState.DISPLAY_WHEEL;
+                    wheelCanvas.gameObject.SetActive(true);
+                    OnSetWheelRulesAction(rules);
+                }
+                break;
+
+            case SwapState.DISPLAY_WHEEL:
+                break;
+
+            /*case SwapState.WAIT_CHOICE:
+                break;
+
+            case SwapState.FADE_IN:
+                if (Mathf.Abs(SWAP_DURATION - timePassed) > 0.1f)
+                {
+                    float cameraOffsetIn = Mathf.Pow(SWAP_DURATION - timePassed, factor);
+                    mainCam.transform.position = initCamPos - direction * new Vector3(cameraOffsetIn, 0, 0);
+                }
+                if (timePassed >= SWAP_DURATION)
+                {
+                    swapState = SwapState.FINISHED;
+                }
+                break;
+
+            case SwapState.FINISHED:
+                mainCam.transform.position = initCamPos;
+                swapLevel = false;
+                Description.text = "";
+                currentGameState = GameState.START;
+                break;*/
+
+            default:
+                break;
         }
     }
 

@@ -219,7 +219,7 @@ public class WheelOfFortune : MonoBehaviour
 
         foreach (GameObject rule in rulesObjects)
         {
-            float dist = Mathf.Abs(rule.transform.position.x);
+            float dist = Mathf.Abs(rule.transform.position.x - rulesSlots.transform.position.x);
             if (dist < minDist)
             {
                 minDist = dist;
