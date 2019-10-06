@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b5d00ff666f974bac30e1472d3b879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteColor: {r: 0, g: 1, b: 0.19758415, a: 1}
-  DisplayedName: 
-  Description: 
-  CurrentPowerShapeType: 0
+  SpriteColor: {r: 0, g: 0.91636705, b: 1, a: 1}
+  DisplayedName: Air Shild
+  Description: Deploy an air shild randomly
+  CurrentPowerShapeType: 3
 --- !u!1001 &3580663508194199130
 PrefabInstance:
   m_ObjectHideFlags: 0

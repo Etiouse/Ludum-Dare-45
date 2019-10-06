@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b5d00ff666f974bac30e1472d3b879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteColor: {r: 0.8867924, g: 0.44548586, b: 0, a: 1}
-  DisplayedName: 
-  Description: 
-  CurrentPowerShapeType: 0
+  SpriteColor: {r: 0.5943396, g: 0.28054032, b: 0, a: 1}
+  DisplayedName: Rock shild
+  Description: Deploy 3 rock that turn around you and protect you
+  CurrentPowerShapeType: 2
 --- !u!1001 &3213214892736861403
 PrefabInstance:
   m_ObjectHideFlags: 0
