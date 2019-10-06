@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class WheelGameHandler : MonoBehaviour
 {
     public delegate void SetWheelRulesAction(List<Rule> rules);
     public static event SetWheelRulesAction OnSetWheelRulesAction;
 
-    [SerializeField] GameObject winner;
-    [SerializeField] TMP_Text description;
+    [SerializeField] GameObject winner = null;
+    [SerializeField] TMP_Text description = null;
+    [SerializeField] Button continueButton = null;
     [SerializeField] List<Rule> rules = null;
 
     private const float SCALE = 0.5f;
@@ -26,6 +28,7 @@ public class WheelGameHandler : MonoBehaviour
     private void Start()
     {
         OnSetWheelRulesAction(rules);
+        continueButton.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -40,5 +43,6 @@ public class WheelGameHandler : MonoBehaviour
         rule.transform.localPosition = new Vector3(100, 0, 0);
 
         description.text = rule.GetComponent<PowerShape>().Description;
+        continueButton.gameObject.SetActive(true);
     }
 }
