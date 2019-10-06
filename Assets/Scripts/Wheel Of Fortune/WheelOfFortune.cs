@@ -10,8 +10,7 @@ public class WheelOfFortune : MonoBehaviour
     [SerializeField] float initSpeedDeviation = 50f;
     [SerializeField] float friction = 1.005f;
     [SerializeField] float minSpeedAccepted = 10f;
-
-    private int numberOfRulesDisplayed;
+    
     private float speed;
     private float shift;
     private float x;
@@ -23,7 +22,7 @@ public class WheelOfFortune : MonoBehaviour
     private List<Image> allRules;
     private List<GameObject> rulesObjects;
 
-    private const float MAGIC_WIDTH = 50;
+    private const float MAGIC_HEIGHT = 12f;
     
     public void ResetWheel()
     {
@@ -64,7 +63,6 @@ public class WheelOfFortune : MonoBehaviour
 
         speed = initSpeedAverage + Random.Range(-initSpeedDeviation, initSpeedDeviation);
         shift = 0;
-
     }
 
     public void SetRules(List<Rule> rules)
@@ -83,10 +81,6 @@ public class WheelOfFortune : MonoBehaviour
         WheelGameHandler.OnSetWheelRulesAction -= SetRules;
     }
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         x = rulesSlots.transform.position.x;
@@ -94,10 +88,9 @@ public class WheelOfFortune : MonoBehaviour
         width = rulesSlots.GetComponent<RectTransform>().rect.width;
         height = rulesSlots.GetComponent<RectTransform>().rect.height;
 
-        //numberOfRulesDisplayed = Mathf.CeilToInt(width / height);
-
         if (allRules.Count > 0)
         {
+            // Speed adjustment
             shift = shift + speed * Time.deltaTime;
             if (speed > minSpeedAccepted)
             {
@@ -112,25 +105,44 @@ public class WheelOfFortune : MonoBehaviour
                 speed /= Mathf.Pow(friction, 4);
             }
 
-            float middle = MAGIC_WIDTH * (rulesObjects.Count / 2);
+            // TODO Find the origin of the magic height
+            float ruleDiameter = MAGIC_HEIGHT / canvas.scaleFactor;
+
+            // Position of each rule
+            float middle = ruleDiameter * (rulesObjects.Count / 2);
             for (int i = 0; i < rulesObjects.Count; i++)
             {
                 GameObject ruleObject = rulesObjects[i];
 
-                float indepShift = (MAGIC_WIDTH * i) + shift;
-                int cycles = 1 + Mathf.FloorToInt((indepShift - middle) / (MAGIC_WIDTH * rulesObjects.Count));
+                float indepShift = (ruleDiameter * i) + shift;
+                int cycles = 1 + Mathf.FloorToInt((indepShift - middle) / (ruleDiameter * rulesObjects.Count));
 
+                // Cycling shifting
                 if (indepShift > middle)
                 {
                     indepShift -= 2 * middle * cycles;
+
+                    // Odd numbers cornercase
                     if (rulesObjects.Count % 2 != 0)
                     {
-                        indepShift -= MAGIC_WIDTH + (cycles - 1) * MAGIC_WIDTH;
+                        indepShift -= ruleDiameter + (cycles - 1) * ruleDiameter;
                     }
                 }
 
+                // Position modification
                 ruleObject.transform.position = rulesSlots.transform.position
                     + new Vector3(indepShift * canvas.scaleFactor, 0, 0);
+
+                // Hide or show depending on the position
+                if (indepShift > -ruleDiameter * rulesObjects.Count / 3 
+                    && indepShift < ruleDiameter * rulesObjects.Count / 3)
+                {
+                    ruleObject.SetActive(true);
+                }
+                else
+                {
+                    ruleObject.SetActive(false);
+                }
             }
         }
     }
