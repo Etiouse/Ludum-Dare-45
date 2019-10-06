@@ -11,9 +11,9 @@ public class GameHandler : MonoBehaviour
     public static event TransmitNewPowerAction OnTransmitNewPowerAction;
 
     [Header("General informations")]
-    [SerializeField] GameObject levelsContainer;
-    [SerializeField] GameObject player;
-    [SerializeField] Camera mainCam;
+    [SerializeField] GameObject levelsContainer = null;
+    [SerializeField] GameObject player = null;
+    [SerializeField] Camera mainCam = null;
 
     [Header("Wheel of fortune")]
     [SerializeField] Canvas wheelCanvas = null;
@@ -43,7 +43,6 @@ public class GameHandler : MonoBehaviour
     private float timePassed;
     private float initSwapTime;
     private float initInventoryTime;
-    private bool swapDirectionLeft;
     private bool loadSuccess;
 
     private const float SCALE = 0.5f;
@@ -57,6 +56,12 @@ public class GameHandler : MonoBehaviour
             swapState = SwapState.DISPLAY_INVENTORY;
             wheelCanvas.gameObject.SetActive(false);
             inventoryCanvas.gameObject.SetActive(true);
+            continueButton.gameObject.SetActive(false);
+            description.text = "";
+            if (winner.transform.childCount > 0)
+            {
+                Destroy(winner.transform.GetChild(0).gameObject);
+            }
             initInventoryTime = Time.time;
         }
     }
@@ -110,7 +115,7 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    private bool LoadLevel()
+    private void LoadLevel()
     {
         if (currentLevel != null)
         {
@@ -128,8 +133,7 @@ public class GameHandler : MonoBehaviour
             string levelName = currentLevel.gameObject.name;
             if (levelName.Length > 2)
             {
-                int levelIndex = (int)char.GetNumericValue(levelName[levelName.Length - 1]) - 1;
-                currentEnnemies = new List<(GameObject, float)>(levelsData.GetLevel(levelIndex));
+                currentEnnemies = new List<(GameObject, float)>(levelsData.NextLevel());
 
                 if (currentEnnemies != null)
                 {
@@ -141,20 +145,12 @@ public class GameHandler : MonoBehaviour
                 else
                 {
                     Debug.Log("Can't load ennemies of " + levelName);
-                    return false;
                 }
             }
             else
             {
                 Debug.Log("Error on level name: " + levelName);
-                return false;
             }
-
-            return true;
-        }
-        else
-        {
-            return false;
         }
     }
 
@@ -181,10 +177,17 @@ public class GameHandler : MonoBehaviour
         // End of the level
         if (currentEnnemies.Count == 0 && levelManager.AreAllEnnemiesDead())
         {
-            gameState = GameState.TRANSITION;
-            swapState = SwapState.FADE_OUT;
-            initCamPos = mainCam.transform.position;
-            initSwapTime = Time.time;
+            if (levelsLeft.Count > 0)
+            {
+                gameState = GameState.TRANSITION;
+                swapState = SwapState.FADE_OUT;
+                initCamPos = mainCam.transform.position;
+                initSwapTime = Time.time;
+            }
+            else
+            {
+                gameState = GameState.END;
+            }
         }
     }
 
@@ -192,13 +195,12 @@ public class GameHandler : MonoBehaviour
     {
         float swapPassed = Time.time - initSwapTime;
         float factor = Mathf.Log(CAMERA_MAX_OFFSET) / Mathf.Log(SWAP_DURATION);
-        float direction = swapDirectionLeft ? -1 : 1;
 
         switch (swapState)
         {
             case SwapState.FADE_OUT:
                 float cameraOffsetOut = Mathf.Pow(swapPassed, factor);
-                mainCam.transform.position = initCamPos + direction * new Vector3(cameraOffsetOut, 0, 0);
+                mainCam.transform.position = initCamPos + new Vector3(cameraOffsetOut, 0, 0);
                 if (swapPassed > SWAP_DURATION)
                 {
                     swapState = SwapState.DISPLAY_WHEEL;
@@ -215,7 +217,7 @@ public class GameHandler : MonoBehaviour
                 if (inventoryPassed > timeInInventory)
                 {
                     swapState = SwapState.FADE_IN;
-                    loadSuccess = LoadLevel();
+                    LoadLevel();
                     inventoryCanvas.gameObject.SetActive(false);
                     initSwapTime = Time.time;
                 }
@@ -225,7 +227,7 @@ public class GameHandler : MonoBehaviour
                 if (Mathf.Abs(SWAP_DURATION - swapPassed) > 0.1f)
                 {
                     float cameraOffsetIn = Mathf.Pow(SWAP_DURATION - swapPassed, factor);
-                    mainCam.transform.position = initCamPos - direction * new Vector3(cameraOffsetIn, 0, 0);
+                    mainCam.transform.position = initCamPos - new Vector3(cameraOffsetIn, 0, 0);
                 }
                 if (swapPassed >= SWAP_DURATION)
                 {
@@ -235,15 +237,7 @@ public class GameHandler : MonoBehaviour
 
             case SwapState.FINISHED:
                 mainCam.transform.position = initCamPos;
-
-                if (loadSuccess)
-                {
-                    gameState = GameState.PLAYING;
-                }
-                else
-                {
-                    gameState = GameState.END;
-                }
+                gameState = GameState.PLAYING;
                 break;
 
             default:

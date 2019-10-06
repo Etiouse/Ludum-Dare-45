@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private GameObject walls;
-    [SerializeField] private GameObject content;
-    [SerializeField] private GameObject ennemies;
-    [SerializeField] private GameObject spawns;
+    [SerializeField] private GameObject ennemies = null;
+    [SerializeField] private GameObject spawns = null;
 
     public List<GameObject> GetSpawns()
     {

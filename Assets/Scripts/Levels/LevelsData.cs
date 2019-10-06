@@ -6,22 +6,24 @@ public class LevelsData : MonoBehaviour
     [Header("Ennemies")]
     [SerializeField] private GameObject shooter;
 
+    private int counter;
     private List<List<(GameObject, float)>> levels;
 
-    public List<(GameObject, float)> GetLevel(int index)
+    public List<(GameObject, float)> NextLevel()
     {
-        if (index >= levels.Count)
+        if (counter >= levels.Count)
         {
             return null;
         }
 
-        return levels[index];
+        return levels[counter++];
     }
 
     private void Start()
     {
         levels = new List<List<(GameObject, float)>>();
         FillLevels();
+        counter = 0;
     }
 
     private void FillLevels()
