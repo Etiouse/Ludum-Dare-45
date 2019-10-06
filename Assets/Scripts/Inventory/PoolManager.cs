@@ -11,6 +11,7 @@ public class PoolManager : MonoBehaviour
     [SerializeField] private List<GameObject> powerShapeModels;
 
     private List<GameObject> slotsElements;
+    private List<GameObject> availableElements;
     private List<GameObject> currentVisibleElements;
     private List<GameObject> currentUsedElements;
 
@@ -53,6 +54,12 @@ public class PoolManager : MonoBehaviour
         currentVisibleElements = new List<GameObject>();
         currentUsedElements = new List<GameObject>();
 
+        availableElements = new List<GameObject>();
+        for (int i = 0; i < powerShapeModels.Count; i++)
+        {
+            availableElements.Add(Instantiate(powerShapeModels[i]));
+        }
+
         slotsElements = new List<GameObject>();
         for (int i = 0; i < slotsParent.transform.childCount; i++)
         {
@@ -70,9 +77,9 @@ public class PoolManager : MonoBehaviour
     {
         TMPCheckIfNewPowerShape();
 
-        UpdateSlotsElements();
-
         CheckChangeVisibleElementsInPool();
+
+        UpdateSlotsElements();
     }
 
     private void TMPCheckIfNewPowerShape()
@@ -99,7 +106,7 @@ public class PoolManager : MonoBehaviour
         previousFirstVisibleElement = firstVisibleElement;
 
         canReduce = firstVisibleElement > 0;
-        canIncrease = firstVisibleElement + (slotsElements.Count - 1) < currentElementInPool.Count - 1;
+        canIncrease = firstVisibleElement + (slotsElements.Count - 1) < currentElementInPool.Count - 1 - currentUsedElements.Count;
 
         inscreaseButton.enabled = canIncrease;
         reduceButton.enabled = canReduce;
@@ -108,7 +115,7 @@ public class PoolManager : MonoBehaviour
     private void TMPAddAllPowerShapes()
     {
         // TODO : Remove when the power shapes
-        for (int i = 0; i < powerShapeModels.Count; i++)
+        for (int i = 0; i < availableElements.Count; i++)
         {
             currentElementInPool.Add(i);
         }
@@ -121,9 +128,9 @@ public class PoolManager : MonoBehaviour
             updateVisibleElements = false;
 
             // Reset
-            foreach (GameObject item in currentVisibleElements)
+            for (int i = 0; i < currentVisibleElements.Count; i++)
             {
-                Destroy(item);
+                currentVisibleElements[i].SetActive(false);
             }
             currentVisibleElements.Clear();
 
@@ -131,17 +138,19 @@ public class PoolManager : MonoBehaviour
             int min = firstVisibleElement;
             int max = firstVisibleElement + slotsElements.Count - 1;
             int numberOfElementToDisplay = slotsElements.Count;
+            int numberOfElementInPool = currentElementInPool.Count - currentUsedElements.Count;
 
+            Debug.Log("-:- " + currentUsedElements.Count);
             Debug.Log("-- " + min + " " + max);
 
-            if (numberOfElementToDisplay > currentElementInPool.Count)
+            if (numberOfElementToDisplay > numberOfElementInPool)
             {
-                numberOfElementToDisplay = currentElementInPool.Count;
+                numberOfElementToDisplay = numberOfElementInPool;
             }
 
-            if (max > currentElementInPool.Count - 1)
+            if (max > numberOfElementInPool - 1)
             {
-                max = currentElementInPool.Count - 1;
+                max = numberOfElementInPool - 1;
                 min = max - numberOfElementToDisplay - 1;
 
                 if (min < 0)
@@ -159,14 +168,37 @@ public class PoolManager : MonoBehaviour
 
             // Create elements and add them to next available slot
             int currentSlotIndex = 0;
+            int counter = 0;
+            int offset = 0;
+            int index = 0;
             for (int i = min; i <= max; i++)
             {
-                currentVisibleElements.Add(Instantiate(powerShapeModels[currentElementInPool[i]]));
+                index = i + offset;
+                GameObject powerShape = availableElements[currentElementInPool[index]];
+                powerShape.SetActive(true);
 
-                currentVisibleElements[currentSlotIndex].transform.SetParent(slotsElements[currentSlotIndex].transform);
-                currentVisibleElements[currentSlotIndex].transform.localScale = Vector3.one;
-                currentVisibleElements[currentSlotIndex].transform.localPosition = Vector3.zero;
-                currentSlotIndex++;
+                if (!currentUsedElements.Contains(powerShape))
+                {
+                    currentVisibleElements.Add(powerShape);
+
+                    currentVisibleElements[currentSlotIndex].transform.SetParent(slotsElements[currentSlotIndex].transform);
+                    currentVisibleElements[currentSlotIndex].transform.localScale = Vector3.one;
+                    currentVisibleElements[currentSlotIndex].transform.localPosition = Vector3.zero;
+                    currentSlotIndex++;
+                }
+                else
+                {
+                    i--;
+                    offset++;
+                    Debug.Log("OKOKOK");
+                }
+
+                counter++;
+                if (counter >= availableElements.Count)
+                {
+                    Debug.Log("OUPS");
+                    i = max + 1;
+                }
             }
         }
     }
@@ -181,6 +213,8 @@ public class PoolManager : MonoBehaviour
         {
             currentUsedElements.Remove(powerShape);
         }
+
+        updateVisibleElements = true;
 
         Debug.Log(currentUsedElements.Count);
     }

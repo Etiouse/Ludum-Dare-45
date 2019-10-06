@@ -31,6 +31,10 @@ public class GridCaseManager : MonoBehaviour
     private void Update()
     {
         rect = GetComponent<RectTransform>().rect;
+    }
+
+    private void LateUpdate()
+    {
         Vector3 casePos = transform.position;
         Vector3 mousePos = Input.mousePosition;
 
@@ -56,10 +60,6 @@ public class GridCaseManager : MonoBehaviour
                 IsPowerShapeOnCase = false;
             }
         }
-    }
-
-    private void LateUpdate()
-    {
     }
 
     private void OnDrawGizmos()
