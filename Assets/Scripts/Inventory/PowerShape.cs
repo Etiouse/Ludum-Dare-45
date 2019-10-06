@@ -16,9 +16,25 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public enum PowerShapeType
     {
         FIRE_BALL,
+        FIRE_BALL_UP1,
         ICE_BALL,
-        ROCK_SHILD,
-        AIR_SHILD
+        ICE_BALL_UP1,
+        ROCK_SHIELD,
+        ROCK_SHIELD_UP1,
+        AIR_SHIELD,
+        AIR_SHIELD_UP1,
+        PRIM_MOVEMENT,
+        PRIM_NOC_VISION,
+        PRIM_LIFEBAR_VISION,
+        MAX_HEALTH,
+        MAX_HEALTH_UP1,
+        ATTACK_SPEED,
+        ATTACK_SPEED_UP1,
+        ATTACK_DAMAGE,
+        ATTACK_DAMAGE_UP1,
+        SPEED_MOVEMENT,
+        SPEED_MOVEMENT_UP1,
+        LIFE_STEAL
     }
 
     public Color SpriteColor;
