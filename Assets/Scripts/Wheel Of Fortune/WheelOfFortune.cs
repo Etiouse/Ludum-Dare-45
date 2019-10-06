@@ -6,11 +6,18 @@ public class WheelOfFortune : MonoBehaviour
 {
     [SerializeField] Canvas canvas = null;
     [SerializeField] GameObject rulesSlots = null;
-    [SerializeField] AudioSource audioSource = null;
+    [SerializeField] AudioSource clickAudio = null;
+    [SerializeField] AudioSource tinAudio = null;
+    [SerializeField] GameObject background = null;
     [SerializeField] float initSpeedAverage = 300f;
     [SerializeField] float initSpeedDeviation = 50f;
     [SerializeField] float friction = 1.005f;
     [SerializeField] float minSpeedAccepted = 10f;
+    [SerializeField] float scaleOfRules = 0.4f;
+    [SerializeField] List<Rarity> rarities;
+
+    public delegate void ResultAction(GameObject rule);
+    public static event ResultAction OnResultAction;
 
     private float speed;
     private float shift;
@@ -19,13 +26,15 @@ public class WheelOfFortune : MonoBehaviour
     private float width;
     private float height;
     private float clickDistance;
+    private bool end;
 
     private List<Rule> rules;
-    private List<Image> allRules;
+    private List<GameObject> allRules;
     private List<GameObject> rulesObjects;
+    private List<int> occurences;
 
     private const float MAGIC_HEIGHT = 17f;
-    private const float SOUND_OFFSET = 20f;
+    private const float SOUND_OFFSET = 12;
     
     public void ResetWheel()
     {
@@ -36,12 +45,14 @@ public class WheelOfFortune : MonoBehaviour
         clickDistance = -SOUND_OFFSET;
 
         // Generate all rules with the correspondingnumber of occurences
-        allRules = new List<Image>();
+        allRules = new List<GameObject>();
+        occurences = new List<int>();
         foreach (Rule rule in rules)
         {
             for (int i = 0; i < rule.Occurences; i++)
             {
-                allRules.Add(rule.Image);
+                allRules.Add(rule.Object);
+                occurences.Add(rule.Occurences);
             }
         }
 
@@ -51,15 +62,24 @@ public class WheelOfFortune : MonoBehaviour
         // Instantiate corresponding game objects
         int counter = 1;
         rulesObjects = new List<GameObject>();
-        foreach (Image rule in allRules)
+        foreach (GameObject rule in allRules)
         {
-            GameObject ruleObject = Instantiate(rule.gameObject);
+            GameObject ruleObject = Instantiate(rule);
 
+            // Prefab parameters
             ruleObject.transform.SetParent(rulesSlots.transform);
             ruleObject.name = "Rule " + counter;
-            ruleObject.transform.localScale = new Vector3(1, 1, 1);
-            ruleObject.GetComponent<RectTransform>().sizeDelta = new Vector2(height, height);
+            ruleObject.transform.localScale = new Vector3(scaleOfRules, scaleOfRules, scaleOfRules);
             ruleObject.transform.position = rulesSlots.transform.position;
+
+            // Background image
+            GameObject bg = Instantiate(background);
+            bg.name = "Background";
+            bg.transform.SetParent(ruleObject.transform);
+            bg.transform.localScale = new Vector3(4, 4, 4);
+            bg.transform.position = ruleObject.transform.position;
+            bg.transform.SetAsFirstSibling();
+            bg.GetComponent<Image>().color = RarityColor(occurences[counter - 1]);
 
             rulesObjects.Add(ruleObject);
             counter++;
@@ -67,6 +87,7 @@ public class WheelOfFortune : MonoBehaviour
 
         speed = initSpeedAverage + Random.Range(-initSpeedDeviation, initSpeedDeviation);
         shift = 0;
+        end = false;
     }
 
     public void SetRules(List<Rule> rules)
@@ -108,6 +129,14 @@ public class WheelOfFortune : MonoBehaviour
                 speed /= Mathf.Pow(friction, 4);
             }
 
+            // End
+            if (speed == 0 && !end)
+            {
+                end = true;
+                tinAudio.Play();
+                OnResultAction(ClosestToCenter());
+            }
+
             shift = shift + speed * Time.deltaTime;
             clickDistance += speed * Time.deltaTime;
 
@@ -120,7 +149,7 @@ public class WheelOfFortune : MonoBehaviour
             if (clickDistance > ruleDiameter)
             {
                 clickDistance = shift % ruleDiameter - SOUND_OFFSET;
-                audioSource.Play();
+                clickAudio.Play();
             }
 
             // Position of each rule
@@ -149,8 +178,8 @@ public class WheelOfFortune : MonoBehaviour
                     + new Vector3(indepShift * canvas.scaleFactor, 0, 0);
 
                 // Hide or show depending on the position
-                if (indepShift > -ruleDiameter * rulesObjects.Count / 3 
-                    && indepShift < ruleDiameter * rulesObjects.Count / 3)
+                if (indepShift > -ruleDiameter * rulesObjects.Count / 2 
+                    && indepShift < ruleDiameter * rulesObjects.Count / 2)
                 {
                     ruleObject.SetActive(true);
                 }
@@ -160,6 +189,11 @@ public class WheelOfFortune : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown("space"))
+        {
+            ResetWheel();
+        }
     }
 
     private void ShuffleRules()
@@ -168,9 +202,44 @@ public class WheelOfFortune : MonoBehaviour
         {
             int j = Random.Range(0, allRules.Count);
 
-            Image tmp = allRules[i];
+            GameObject tmp = allRules[i];
             allRules[i] = allRules[j];
             allRules[j] = tmp;
+
+            int tmpRarity = occurences[i];
+            occurences[i] = occurences[j];
+            occurences[j] = tmpRarity;
         }
+    }
+
+    private Color RarityColor(int occurences)
+    {
+        foreach(Rarity rarity in rarities)
+        {
+            if (occurences <= rarity.Occurences)
+            {
+                return rarity.Color;
+            }
+        }
+
+        return Color.gray;
+    }
+
+    private GameObject ClosestToCenter()
+    {
+        GameObject winner = null;
+        float minDist = float.MaxValue;
+
+        foreach (GameObject rule in rulesObjects)
+        {
+            float dist = Mathf.Abs(rule.transform.position.x);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                winner = rule;
+            }
+        }
+
+        return Instantiate(winner);
     }
 }
