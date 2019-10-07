@@ -54,6 +54,7 @@ MonoBehaviour:
   DisplayedName: Ice Ball Upgarde 1
   Description: Upgardes for ice ball
   PowerShapeType: 3
+  Dependencies: 02000000
 --- !u!1001 &170894729252562414
 PrefabInstance:
   m_ObjectHideFlags: 0

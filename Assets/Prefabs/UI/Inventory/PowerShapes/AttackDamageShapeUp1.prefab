@@ -54,6 +54,7 @@ MonoBehaviour:
   DisplayedName: Attack Damage Upgrade 1
   Description: Upgrades for attack damage
   PowerShapeType: 16
+  Dependencies: 0f000000
 --- !u!1001 &6787047447898606273
 PrefabInstance:
   m_ObjectHideFlags: 0

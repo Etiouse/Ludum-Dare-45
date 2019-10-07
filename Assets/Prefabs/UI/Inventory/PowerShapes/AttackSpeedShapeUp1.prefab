@@ -54,6 +54,7 @@ MonoBehaviour:
   DisplayedName: Attack Speed Upgrade 1
   Description: Upgrades for attack speed
   PowerShapeType: 14
+  Dependencies: 0d000000
 --- !u!1001 &1738062456215800128
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -54,6 +54,7 @@ MonoBehaviour:
   DisplayedName: Rock Shield Upgarde 1
   Description: Upgardes for rock shield
   PowerShapeType: 5
+  Dependencies: 04000000
 --- !u!1001 &1619867583291680760
 PrefabInstance:
   m_ObjectHideFlags: 0

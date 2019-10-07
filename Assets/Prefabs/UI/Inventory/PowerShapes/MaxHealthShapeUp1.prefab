@@ -54,6 +54,7 @@ MonoBehaviour:
   DisplayedName: Max Health Upgrade 1
   Description: Upgardes for max health
   PowerShapeType: 12
+  Dependencies: 0b000000
 --- !u!1001 &524444374539884846
 PrefabInstance:
   m_ObjectHideFlags: 0

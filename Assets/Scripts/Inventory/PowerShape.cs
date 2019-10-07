@@ -48,11 +48,25 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     public string DisplayedName;
     public string Description;
     public Type PowerShapeType;
+    public List<Type> Dependencies;
 
     public bool IsOnInventoryCase { get; set; }
     public bool IsMoving { get; private set; }
     public int NumberOfCollisionWithOtherPowerShapes { get; private set; }
     public int NumberOfCollisionWithGridLimits { get; private set; }
+
+    public bool CanBePlacedOnInventory()
+    {
+        foreach (Type item in Dependencies)
+        {
+            if (!PlayerCharacteristics.GetValue(item))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {

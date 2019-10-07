@@ -54,6 +54,7 @@ MonoBehaviour:
   DisplayedName: Speed Movement Upgarde 1
   Description: Upgardes for speed movement
   PowerShapeType: 18
+  Dependencies: 11000000
 --- !u!1001 &6486817187186267737
 PrefabInstance:
   m_ObjectHideFlags: 0

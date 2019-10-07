@@ -54,6 +54,7 @@ MonoBehaviour:
   DisplayedName: Air Shield Upgrade 1
   Description: Upgrades for air shield
   PowerShapeType: 7
+  Dependencies: 06000000
 --- !u!1001 &1374400236146164031
 PrefabInstance:
   m_ObjectHideFlags: 0

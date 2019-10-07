@@ -55,6 +55,7 @@ MonoBehaviour:
   DisplayedName: Fire Ball Upgrade 1
   Description: Upgardes for fire ball
   PowerShapeType: 1
+  Dependencies: 00000000
 --- !u!1001 &1633864336365788509
 PrefabInstance:
   m_ObjectHideFlags: 0

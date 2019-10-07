@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +28,11 @@ public class GridCaseManager : MonoBehaviour
 
     private void LateUpdate()
     {
+        CheckPowerShapePlacement();
+    }
+
+    private void CheckPowerShapePlacement()
+    {
         Vector3 casePos = transform.position;
         Vector3 mousePos = Input.mousePosition;
 
@@ -42,7 +48,8 @@ public class GridCaseManager : MonoBehaviour
             if (currentPowerShape != null)
             {
                 if (currentPowerShape.GetComponent<PowerShape>().NumberOfCollisionWithOtherPowerShapes <= 0 &&
-                    currentPowerShape.GetComponent<PowerShape>().NumberOfCollisionWithGridLimits <= 0)
+                    currentPowerShape.GetComponent<PowerShape>().NumberOfCollisionWithGridLimits <= 0 &&
+                    currentPowerShape.GetComponent<PowerShape>().CanBePlacedOnInventory())
                 {
                     currentPowerShape.transform.position = casePos;
                     IsPowerShapeOnCase = true;
