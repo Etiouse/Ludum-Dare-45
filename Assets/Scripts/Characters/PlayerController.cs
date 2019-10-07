@@ -26,6 +26,8 @@ public class PlayerController : CharacterController
     private bool invincibility = false;
     private List<SpriteRenderer> rendererList = new List<SpriteRenderer>();
 
+    private float attackSpeed;
+
     private void Start()
     {
         maxHealth = PlayerCharacteristics.GetValue(PowerShape.Type.MAX_HEALTH_UP1) ? 
@@ -33,6 +35,12 @@ public class PlayerController : CharacterController
             (PlayerCharacteristics.GetValue(PowerShape.Type.MAX_HEALTH) ? 
             GameParameters.playerMaxHealthUpgrade1 : // upgrade 1
             GameParameters.playerMaxHealthDefault); // no upgrade
+
+        attackSpeed = PlayerCharacteristics.GetValue(PowerShape.Type.ATTACK_SPEED_UP1) ?
+            (GameParameters.playerAttackSpeedUpgrade2) : // upgrade 2
+            (PlayerCharacteristics.GetValue(PowerShape.Type.ATTACK_SPEED) ?
+            GameParameters.playerAttackSpeedUpgrade1 : // upgrade 1
+            GameParameters.playerAttackSpeedDefault); // no upgrade
 
         Debug.Log("MAX_HEALTH" + maxHealth);
         characterSpeed = GameParameters.playerSpeed;
@@ -98,7 +106,7 @@ public class PlayerController : CharacterController
     private IEnumerator AttackCooldown()
     {
         canAttack = false;
-        yield return new WaitForSeconds(GameParameters.playerAttackSpeed);
+        yield return new WaitForSeconds(attackSpeed);
         canAttack = true;
     }
 
@@ -152,8 +160,10 @@ public class PlayerController : CharacterController
             CircleCollider2D fireballCollider = fireball.GetComponent<CircleCollider2D>();
             // Ignore collision between the player and the fireball (trigger ok)
             Physics2D.IgnoreCollision(mainCollider, fireballCollider);
-            IgnoreCollisionWithRockShield(fireballCollider);
-            IgnoreCollisionWithAirShield(fireballCollider);
+            if (rockshield.Count > 0)
+                IgnoreCollisionWithRockShield(fireballCollider);
+            if (airshield != null)
+                IgnoreCollisionWithAirShield(fireballCollider);
         }
     }
 
@@ -174,8 +184,10 @@ public class PlayerController : CharacterController
             // Ignore collision between the player and the bullet (trigger ok)
             Physics2D.IgnoreCollision(mainCollider, iceballCollider);
 
-            IgnoreCollisionWithRockShield(iceballCollider);
-            IgnoreCollisionWithAirShield(iceballCollider);
+            if (rockshield.Count > 0)
+                IgnoreCollisionWithRockShield(iceballCollider);
+            if (airshield != null)
+                IgnoreCollisionWithAirShield(iceballCollider);
         }
 
     }

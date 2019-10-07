@@ -25,7 +25,9 @@ public static class GameParameters
     public static readonly float DEFAULT_PROJECTILE_DAMAGE = 5;
 
     // Player
-    public static float playerAttackSpeed = 1 / 2f; // The second number is the number of attack per seconds
+    public static float playerAttackSpeedDefault = 1 / 2f; // The second number is the number of attack per seconds
+    public static float playerAttackSpeedUpgrade1 = 1 / 3f; 
+    public static float playerAttackSpeedUpgrade2 = 1 / 5f; 
     public static int playerMaxHealthDefault = 20;
     public static int playerMaxHealthUpgrade1 = 30;
     public static int playerMaxHealthUpgrade2 = 40;
