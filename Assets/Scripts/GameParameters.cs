@@ -9,7 +9,7 @@ public static class GameParameters
 {
     // General
     public static readonly float DEFAULT_MOVEMENT_SPEED = 20;
-    public static readonly float DEFAULT_HEALTH = 20;
+    public static readonly float DEFAULT_HEALTH = 50;
     public static readonly float COLLISION_DAMAGE = 5;
 
     // Traps
@@ -40,12 +40,14 @@ public static class GameParameters
     public static int numberOfRockShield = 2;
     public static int numberOfRockShieldDefault = 2;
     public static int numberOfRockShieldUpgrade = 3;
+    public static float playerDamage = 5;
+    public static float playerDamageDefault = 5;
+    public static float playerDamageUpgrade1 = 10;
+    public static float playerDamageUpgrade2 = 25;
 
     // Player Projectiles
     public static float fireballSpeed = 20;
-    public static float fireballDamage = 5;
     public static float iceballSpeed = 5;
-    public static float iceballDamage = 3;
 
     // Shooter enemy
     public static readonly float SHOOTER_MOVEMENT_TIME = 2f;

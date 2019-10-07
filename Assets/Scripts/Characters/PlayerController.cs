@@ -27,22 +27,22 @@ public class PlayerController : CharacterController
     private List<SpriteRenderer> rendererList = new List<SpriteRenderer>();
 
     private float attackSpeed;
+    private float damage;
 
     private void Start()
     {
-        maxHealth = PlayerCharacteristics.GetValue(PowerShape.Type.MAX_HEALTH_UP1) ? 
-            (GameParameters.playerMaxHealthUpgrade2) : // upgrade 2
-            (PlayerCharacteristics.GetValue(PowerShape.Type.MAX_HEALTH) ? 
-            GameParameters.playerMaxHealthUpgrade1 : // upgrade 1
-            GameParameters.playerMaxHealthDefault); // no upgrade
-
         attackSpeed = PlayerCharacteristics.GetValue(PowerShape.Type.ATTACK_SPEED_UP1) ?
             (GameParameters.playerAttackSpeedUpgrade2) : // upgrade 2
             (PlayerCharacteristics.GetValue(PowerShape.Type.ATTACK_SPEED) ?
             GameParameters.playerAttackSpeedUpgrade1 : // upgrade 1
             GameParameters.playerAttackSpeedDefault); // no upgrade
 
-        Debug.Log("MAX_HEALTH" + maxHealth);
+        damage = PlayerCharacteristics.GetValue(PowerShape.Type.ATTACK_DAMAGE_UP1) ?
+            (GameParameters.playerDamageUpgrade2) : // upgrade 2
+            (PlayerCharacteristics.GetValue(PowerShape.Type.ATTACK_DAMAGE) ?
+            GameParameters.playerDamageUpgrade1 : // upgrade 1
+            GameParameters.playerDamageDefault); // no upgrade
+        
         characterSpeed = GameParameters.playerSpeed;
         rockshield = new List<GameObject>();
         if (PlayerCharacteristics.GetValue(PowerShape.Type.ROCK_SHIELD))
@@ -67,6 +67,15 @@ public class PlayerController : CharacterController
     private void OnTriggerStay2D(Collider2D collision)
     {
         CheckForEnemyCollision(collision);
+    }
+
+    protected override void SetMaxHealth()
+    {
+        maxHealth = PlayerCharacteristics.GetValue(PowerShape.Type.MAX_HEALTH_UP1) ?
+            (GameParameters.playerMaxHealthUpgrade2) : // upgrade 2
+            (PlayerCharacteristics.GetValue(PowerShape.Type.MAX_HEALTH) ?
+            GameParameters.playerMaxHealthUpgrade1 : // upgrade 1
+            GameParameters.playerMaxHealthDefault); // no upgrade
     }
 
     private void CheckForEnemyCollision(Collider2D collision)
@@ -155,7 +164,7 @@ public class PlayerController : CharacterController
             fireball.transform.SetParent(objects.transform);
 
             ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
-            projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.fireballSpeed, GameParameters.fireballDamage);
+            projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.fireballSpeed, damage);
 
             CircleCollider2D fireballCollider = fireball.GetComponent<CircleCollider2D>();
             // Ignore collision between the player and the fireball (trigger ok)
@@ -178,7 +187,7 @@ public class PlayerController : CharacterController
             iceball.transform.up = spritesParent.transform.up;
             iceball.transform.SetParent(objects.transform);
 
-            iceball.GetComponent<ProjectileController>().Shoot(iceBallOrigins[i].position - transform.position, gameObject.tag, GameParameters.iceballSpeed, GameParameters.iceballDamage);
+            iceball.GetComponent<ProjectileController>().Shoot(iceBallOrigins[i].position - transform.position, gameObject.tag, GameParameters.iceballSpeed, damage);
 
             CircleCollider2D iceballCollider = iceball.GetComponent<CircleCollider2D>();
             // Ignore collision between the player and the bullet (trigger ok)
