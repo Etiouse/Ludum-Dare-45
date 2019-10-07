@@ -19,6 +19,7 @@ public class GameHandler : MonoBehaviour
     [SerializeField] GameObject levelsContainer = null;
     [SerializeField] GameObject player = null;
     [SerializeField] Camera mainCam = null;
+    [SerializeField] TMP_Text warningAtLeastOne = null;
 
     [Header("Wheel of fortune")]
     [SerializeField] Canvas wheelCanvas = null;
@@ -82,18 +83,26 @@ public class GameHandler : MonoBehaviour
 
     public void CloseInventory()
     {
-        if (swapState == SwapState.DISPLAY_INVENTORY)
+        if (poolManager.UsedPowerShapes.Count > 0)
         {
-            swapState = SwapState.FADE_IN;
-            LoadLevel();
-            inventoryCanvas.enabled = false;
-            initSwapTime = Time.time;
+            if (swapState == SwapState.DISPLAY_INVENTORY)
+            {
+                swapState = SwapState.FADE_IN;
+                LoadLevel();
+                inventoryCanvas.enabled = false;
+                initSwapTime = Time.time;
+            }
+        }
+        else
+        {
+            warningAtLeastOne.enabled = true;
         }
     }
 
     private void OnEnable()
     {
         WheelOfFortune.OnResultAction += ResultingPower;
+        PoolManager.OnOnePowerShapePlacedEvent += OnePowerShapePlaced;
 
         InGameMenuManager.OnResumeGameEvent += ResumeOrPauseGame;
         InGameMenuManager.OnRestartGameEvent += RestartGame;
@@ -102,6 +111,7 @@ public class GameHandler : MonoBehaviour
     private void OnDisable()
     {
         WheelOfFortune.OnResultAction -= ResultingPower;
+        PoolManager.OnOnePowerShapePlacedEvent -= OnePowerShapePlaced;
 
         InGameMenuManager.OnResumeGameEvent -= ResumeOrPauseGame;
         InGameMenuManager.OnRestartGameEvent -= RestartGame;
@@ -119,12 +129,6 @@ public class GameHandler : MonoBehaviour
 
         continueButton.gameObject.SetActive(false);
 
-        // Primordial settings
-        foreach (GameObject prim in primordials)
-        {
-            poolManager.AddOnePowerShapeToPool(Instantiate(prim));
-        }
-
         // Fill the levels in script
         levelsLeft = new List<GameObject>();
         for (int i = 0; i < levelsContainer.transform.childCount; i++)
@@ -134,6 +138,33 @@ public class GameHandler : MonoBehaviour
 
         powersLeft = new List<PowerList>(classics);
         levelsData = levelsContainer.GetComponent<LevelsData>();
+
+        // Give primordials and fire ball
+        foreach (GameObject prim in primordials)
+        {
+            poolManager.AddOnePowerShapeToPool(Instantiate(prim));
+        }
+
+        for (int i = 0; i < powersLeft.Count; i++)
+        {
+            GameObject power = powersLeft[i].List[0];
+
+            if (power.GetComponent<PowerShape>().PowerShapeType == PowerShape.Type.FIRE_BALL)
+            {
+                poolManager.AddOnePowerShapeToPool(Instantiate(power));
+
+                DeletePowerReceived(power);
+            }
+        }
+
+        // TODO : for debug purpose
+        /*for (int i = 0; i < 5; i++)
+        {
+            GameObject power = powersLeft[i].List[0];
+            poolManager.AddOnePowerShapeToPool(Instantiate(power));
+
+            DeletePowerReceived(power);
+        }*/
 
         LoadLevel();
         gameState = GameState.PLAYING;
@@ -158,6 +189,11 @@ public class GameHandler : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void OnePowerShapePlaced()
+    {
+        warningAtLeastOne.enabled = false;
     }
 
     private void CheckInputs()
