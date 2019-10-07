@@ -140,9 +140,6 @@ public class PoolManager : MonoBehaviour
             int numberOfElementToDisplay = slotsElements.Count;
             int numberOfElementInPool = currentElementInPoolIndex.Count;
 
-            //Debug.Log("-:- " + currentElementInPool.Count);
-            //Debug.Log("-- " + min + " " + max);
-
             if (numberOfElementToDisplay > numberOfElementInPool)
             {
                 numberOfElementToDisplay = numberOfElementInPool;
@@ -157,8 +154,6 @@ public class PoolManager : MonoBehaviour
                 {
                     min = 0;
                 }
-                
-                Debug.Log("OK1");
             }
             else if (min < 0)
             {
@@ -169,10 +164,7 @@ public class PoolManager : MonoBehaviour
                 {
                     max = numberOfElementInPool - 1;
                 }
-                Debug.Log("OK1");
             }
-
-            //Debug.Log(min + " " + max);
 
             // Create elements and add them to next available slot
             int currentSlotIndex = 0;
@@ -180,7 +172,6 @@ public class PoolManager : MonoBehaviour
             {
                 if (currentElementInPoolIndex.Count > 0)
                 {
-                    //Debug.Log("--<> " + i);
                     GameObject powerShape = availableElements[currentElementInPoolIndex[i]];
                     powerShape.SetActive(true);
 
@@ -213,7 +204,6 @@ public class PoolManager : MonoBehaviour
                     index = i;
                 }
             }
-            Debug.Log("index : " + index);
 
             if (isConfirmed)
             {
@@ -268,8 +258,6 @@ public class PoolManager : MonoBehaviour
                 currentElementInPoolIndex.Add(available);
             }
         }
-
-        Debug.Log("Elements : " + availableElementIndex.Count + " " + usedPowerShapesIndex.Count + " " + currentElementInPoolIndex.Count);
 
         updateVisibleElements = true;
         OnUpdateUsedPowerShapesEvent();
