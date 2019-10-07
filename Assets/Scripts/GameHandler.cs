@@ -24,6 +24,7 @@ public class GameHandler : MonoBehaviour
     [SerializeField] List<PowerList> classics = null;
 
     [Header("Inventory")]
+    [SerializeField] PoolManager poolManager = null;
     [SerializeField] Canvas inventoryCanvas = null;
     [SerializeField] float timeInInventory = 2f;
 
@@ -57,7 +58,7 @@ public class GameHandler : MonoBehaviour
         {
             swapState = SwapState.DISPLAY_INVENTORY;
             wheelCanvas.gameObject.SetActive(false);
-            inventoryCanvas.gameObject.SetActive(true);
+            inventoryCanvas.enabled = true;
             continueButton.gameObject.SetActive(false);
             description.text = "";
             if (winner.transform.childCount > 0)
@@ -74,7 +75,7 @@ public class GameHandler : MonoBehaviour
         {
             swapState = SwapState.FADE_IN;
             LoadLevel();
-            inventoryCanvas.gameObject.SetActive(false);
+            inventoryCanvas.enabled = false;
             initSwapTime = Time.time;
         }
     }
@@ -95,6 +96,12 @@ public class GameHandler : MonoBehaviour
         timePassed = 0f;
 
         continueButton.gameObject.SetActive(false);
+
+        // Primordial settings
+        foreach (GameObject prim in primordials)
+        {
+            poolManager.AddOnePowerShapeToPool(Instantiate(prim));
+        }
 
         // Fill the levels in script
         levelsLeft = new List<GameObject>();
@@ -305,6 +312,8 @@ public class GameHandler : MonoBehaviour
 
             description.text = power.GetComponent<PowerShape>().Description;
             continueButton.gameObject.SetActive(true);
+
+            poolManager.AddOnePowerShapeToPool(Instantiate(power));
 
             DeletePowerReceived(power);
         }
