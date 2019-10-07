@@ -37,6 +37,8 @@ public class GameHandler : MonoBehaviour
     [SerializeField] Canvas inventoryCanvas = null;
     [SerializeField] float timeInInventory = 2f;
 
+    [Header("Player Sprites")]
+    [SerializeField] List<Sprite> playerSprites = null;
 
     [Header("Canvas")]
     [SerializeField] private Canvas inGameCanvas;
@@ -125,6 +127,13 @@ public class GameHandler : MonoBehaviour
 
     private void Start()
     {
+        int playerSpriteNbr = Random.Range(0, playerSprites.Count - 1);
+        GameParameters.PlayerSprite = playerSprites[playerSpriteNbr];
+        playerSprites.RemoveAt(playerSpriteNbr);
+
+        int bossSpriteNbr = Random.Range(0, playerSprites.Count - 1);
+        GameParameters.BossSprite = playerSprites[bossSpriteNbr];
+
         // Variables
         timePassed = 0f;
 

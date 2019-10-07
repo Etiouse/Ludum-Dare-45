@@ -139,5 +139,8 @@ public static class GameParameters
     public static float finalBossFireballDamage = 5;
     public static float finalBossIceballSpeed = 5;
     public static float finalBossIceballDamage = 3;
+
+    public static Sprite PlayerSprite;
+    public static Sprite BossSprite;
     
 }

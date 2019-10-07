@@ -40,6 +40,7 @@ public class FinalBossController : CharacterController
 
     private void Start()
     {
+        spritesParent.GetComponent<SpriteRenderer>().sprite = GameParameters.BossSprite;
         System.Random rnd = new System.Random();
         float[] attackspeeds = new float[] { GameParameters.playerAttackSpeedDefault, GameParameters.playerAttackSpeedUpgrade1, GameParameters.playerAttackSpeedUpgrade2 }.OrderBy(x => rnd.Next()).ToArray();
         float[] damages = new float[] { GameParameters.playerDamageDefault, GameParameters.playerDamageUpgrade1, GameParameters.playerDamageUpgrade2 }.OrderBy(x => rnd.Next()).ToArray();

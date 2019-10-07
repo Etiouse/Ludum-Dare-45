@@ -31,6 +31,7 @@ public class PlayerController : CharacterController
 
     private void Start()
     {
+        spritesParent.GetComponent<SpriteRenderer>().sprite = GameParameters.PlayerSprite;
         attackSpeed = PlayerCharacteristics.GetValue(PowerShape.Type.ATTACK_SPEED_UP1) ?
             (GameParameters.playerAttackSpeedUpgrade2) : // upgrade 2
             (PlayerCharacteristics.GetValue(PowerShape.Type.ATTACK_SPEED) ?
