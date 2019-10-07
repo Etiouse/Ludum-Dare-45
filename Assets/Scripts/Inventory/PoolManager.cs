@@ -12,6 +12,7 @@ public class PoolManager : MonoBehaviour
     [SerializeField] private Button reduceButton = null;
     [SerializeField] private GameObject slotsParent = null;
     [SerializeField] private GameObject powerShapeParent = null;
+    [SerializeField] private List<GameObject> powerShapeModelsDebugPurpose = null;
 
     public List<GameObject> UsedPowerShapes { get; private set; }
 
@@ -92,7 +93,7 @@ public class PoolManager : MonoBehaviour
         firstVisibleElement = 0;
         updateVisibleElements = true;
 
-        TMPAddAllPowerShapesToPool();
+        //AddAllPowerShapesToPoolDebug();
     }
 
     private void OnEnable()
@@ -107,30 +108,9 @@ public class PoolManager : MonoBehaviour
 
     private void Update()
     {
-        TMPCheckIfNewPowerShape();
-
         CheckChangeVisibleElementsInPool();
 
         UpdateSlotsElements();
-    }
-
-    private void TMPCheckIfNewPowerShape()
-    {
-        // TODO : Add element between each levels
-        for (int i = 0; i < 10; i++)
-        {
-            KeyCode key = KeyCode.Alpha1 + i;
-
-            if (Input.GetKeyDown(key))
-            {
-                if (!currentElementInPool.Contains(i))
-                {
-                    currentElementInPool.Add(i);
-
-                    updateVisibleElements = true;
-                }
-            }
-        }
     }
 
     private void CheckChangeVisibleElementsInPool()
@@ -142,9 +122,13 @@ public class PoolManager : MonoBehaviour
         reduceButton.enabled = canReduce;
     }
 
-    private void TMPAddAllPowerShapesToPool()
+    private void AddAllPowerShapesToPoolDebug()
     {
-        // TODO : Remove when the power shapes are added between each levels
+        foreach (GameObject item in powerShapeModelsDebugPurpose)
+        {
+            AddOnePowerShapeToPool(Instantiate(item));
+        }
+
         for (int i = 0; i < availableElements.Count; i++)
         {
             currentElementInPool.Add(i);
