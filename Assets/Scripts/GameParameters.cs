@@ -26,7 +26,9 @@ public static class GameParameters
 
     // Player
     public static float playerAttackSpeed = 1 / 2f; // The second number is the number of attack per seconds
-    public static int playerStartHealth = 20;
+    public static int playerMaxHealthDefault = 20;
+    public static int playerMaxHealthUpgrade1 = 30;
+    public static int playerMaxHealthUpgrade2 = 40;
     public static int playerSpeed = 20;
     public static float playerInvincibilityTime = 2;
     public static readonly float AIR_SHIELD_ACTIVATION_TIME = 1;

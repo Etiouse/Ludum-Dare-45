@@ -28,7 +28,13 @@ public class PlayerController : CharacterController
 
     private void Start()
     {
-        maxHealth = GameParameters.playerStartHealth;
+        maxHealth = PlayerCharacteristics.GetValue(PowerShape.Type.MAX_HEALTH_UP1) ? 
+            (GameParameters.playerMaxHealthUpgrade2) : // upgrade 2
+            (PlayerCharacteristics.GetValue(PowerShape.Type.MAX_HEALTH) ? 
+            GameParameters.playerMaxHealthUpgrade1 : // upgrade 1
+            GameParameters.playerMaxHealthDefault); // no upgrade
+
+        Debug.Log("MAX_HEALTH" + maxHealth);
         characterSpeed = GameParameters.playerSpeed;
         rockshield = new List<GameObject>();
         if (PlayerCharacteristics.GetValue(PowerShape.Type.ROCK_SHIELD))
