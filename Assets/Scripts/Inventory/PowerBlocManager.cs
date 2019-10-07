@@ -21,7 +21,7 @@ public class PowerBlocManager : MonoBehaviour
             if (PowerShapeType != collision.transform.parent.GetComponent<PowerShape>().PowerShapeType)
             {
                 NumberOfCollisionWithOtherPowerBlocs++;
-                Debug.Log(NumberOfCollisionWithOtherPowerBlocs + " " + transform.parent.name);
+                //Debug.Log(NumberOfCollisionWithOtherPowerBlocs + " " + transform.parent.name);
             }
         }
 
@@ -38,7 +38,7 @@ public class PowerBlocManager : MonoBehaviour
             if (PowerShapeType != collision.transform.parent.GetComponent<PowerShape>().PowerShapeType)
             {
                 NumberOfCollisionWithOtherPowerBlocs--;
-                Debug.Log(NumberOfCollisionWithOtherPowerBlocs + " " + transform.parent.name);
+                //Debug.Log(NumberOfCollisionWithOtherPowerBlocs + " " + transform.parent.name);
             }
         }
 

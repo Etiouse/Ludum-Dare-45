@@ -54,6 +54,8 @@ MonoBehaviour:
   DisplayedName: Air Shield
   Description: Deploy an air shild at random time
   PowerShapeType: 6
+  Dependencies: 
+  Enabled: 07000000
 --- !u!1001 &3580663508194199130
 PrefabInstance:
   m_ObjectHideFlags: 0

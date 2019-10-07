@@ -49,6 +49,7 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     public string Description;
     public Type PowerShapeType;
     public List<Type> Dependencies;
+    public List<Type> Enabled;
 
     public bool IsOnInventoryCase { get; set; }
     public bool IsMoving { get; private set; }

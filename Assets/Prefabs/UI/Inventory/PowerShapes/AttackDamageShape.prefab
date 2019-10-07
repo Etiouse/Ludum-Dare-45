@@ -55,6 +55,8 @@ MonoBehaviour:
   DisplayedName: Attack Damage
   Description: Increase the attack damage
   PowerShapeType: 15
+  Dependencies: 
+  Enabled: 10000000
 --- !u!1001 &1896371459422654609
 PrefabInstance:
   m_ObjectHideFlags: 0

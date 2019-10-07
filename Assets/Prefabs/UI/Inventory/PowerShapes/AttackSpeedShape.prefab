@@ -55,6 +55,8 @@ MonoBehaviour:
   DisplayedName: Attack Speed
   Description: Improve
   PowerShapeType: 13
+  Dependencies: 
+  Enabled: 0e000000
 --- !u!1001 &1133664463223883885
 PrefabInstance:
   m_ObjectHideFlags: 0

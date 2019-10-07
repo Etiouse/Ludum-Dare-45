@@ -54,6 +54,8 @@ MonoBehaviour:
   DisplayedName: Rock Shield
   Description: Deploy rocks that turn around and protect yourself
   PowerShapeType: 4
+  Dependencies: 
+  Enabled: 05000000
 --- !u!1001 &3213214892736861403
 PrefabInstance:
   m_ObjectHideFlags: 0

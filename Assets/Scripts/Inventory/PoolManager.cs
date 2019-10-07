@@ -244,6 +244,18 @@ public class PoolManager : MonoBehaviour
         else if (UsedPowerShapes.Contains(powerShape))
         {
             UsedPowerShapes.Remove(powerShape);
+
+            // Remove all dependencies
+            foreach (GameObject item in UsedPowerShapes)
+            {
+                foreach (PowerShape.Type type in powerShape.GetComponent<PowerShape>().Enabled)
+                {
+                    if (item.GetComponent<PowerShape>().PowerShapeType == type)
+                    {
+                        UsedPowerShapes.Remove(item);
+                    }
+                }
+            }
         }
 
         updateVisibleElements = true;

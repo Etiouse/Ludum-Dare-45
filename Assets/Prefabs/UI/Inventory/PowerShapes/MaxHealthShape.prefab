@@ -55,6 +55,8 @@ MonoBehaviour:
   DisplayedName: Max Health
   Description: Increase the maximum health
   PowerShapeType: 11
+  Dependencies: 
+  Enabled: 0c000000
 --- !u!1001 &74451509546714342
 PrefabInstance:
   m_ObjectHideFlags: 0

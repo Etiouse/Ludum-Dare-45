@@ -54,6 +54,8 @@ MonoBehaviour:
   DisplayedName: Ice Ball
   Description: Shoot ice balls behind the character
   PowerShapeType: 2
+  Dependencies: 
+  Enabled: 03000000
 --- !u!1001 &2964006694546128775
 PrefabInstance:
   m_ObjectHideFlags: 0

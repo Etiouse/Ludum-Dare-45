@@ -55,6 +55,8 @@ MonoBehaviour:
   DisplayedName: Speed Movement
   Description: Increase the movement speed
   PowerShapeType: 17
+  Dependencies: 
+  Enabled: 12000000
 --- !u!1001 &4676015485252284133
 PrefabInstance:
   m_ObjectHideFlags: 0

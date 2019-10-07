@@ -52,7 +52,9 @@ MonoBehaviour:
   SpriteColor: {r: 1, g: 0, b: 0, a: 1}
   DisplayedName: Fire Ball
   Description: Shoot fire ball in front of the character
-  CurrentPowerShapeType: 0
+  PowerShapeType: 0
+  Dependencies: 
+  Enabled: 01000000
 --- !u!1001 &2983506713233510107
 PrefabInstance:
   m_ObjectHideFlags: 0
