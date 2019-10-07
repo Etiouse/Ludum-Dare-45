@@ -41,7 +41,8 @@ public class GridCaseManager : MonoBehaviour
 
             if (currentPowerShape != null)
             {
-                if (currentPowerShape.GetComponent<PowerShape>().NumberOfCollisionWithOtherPowerShapes <= 0)
+                if (currentPowerShape.GetComponent<PowerShape>().NumberOfCollisionWithOtherPowerShapes <= 0 &&
+                    currentPowerShape.GetComponent<PowerShape>().NumberOfCollisionWithGridLimits <= 0)
                 {
                     currentPowerShape.transform.position = casePos;
                     IsPowerShapeOnCase = true;

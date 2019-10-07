@@ -52,6 +52,7 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     public bool IsOnInventoryCase { get; set; }
     public bool IsMoving { get; private set; }
     public int NumberOfCollisionWithOtherPowerShapes { get; private set; }
+    public int NumberOfCollisionWithGridLimits { get; private set; }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -111,6 +112,12 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         for (int i = 0; i < transform.childCount; i++)
         {
             NumberOfCollisionWithOtherPowerShapes += transform.GetChild(i).GetComponent<PowerBlocManager>().NumberOfCollisionWithOtherPowerBlocs;
+        }
+
+        NumberOfCollisionWithGridLimits = 0;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            NumberOfCollisionWithGridLimits += transform.GetChild(i).GetComponent<PowerBlocManager>().NumberOfCollisionWithGridLimits;
         }
     }
 

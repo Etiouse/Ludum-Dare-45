@@ -5,6 +5,7 @@ using UnityEngine;
 public class PowerBlocManager : MonoBehaviour
 {
     public int NumberOfCollisionWithOtherPowerBlocs { get; private set; }
+    public int NumberOfCollisionWithGridLimits { get; private set; }
     public PowerShape.Type PowerShapeType { get; private set; }
 
     private void Awake()
@@ -23,6 +24,11 @@ public class PowerBlocManager : MonoBehaviour
                 Debug.Log(NumberOfCollisionWithOtherPowerBlocs + " " + transform.parent.name);
             }
         }
+
+        if (collision.tag == "InventoryGrid")
+        {
+            NumberOfCollisionWithGridLimits++;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -34,6 +40,11 @@ public class PowerBlocManager : MonoBehaviour
                 NumberOfCollisionWithOtherPowerBlocs--;
                 Debug.Log(NumberOfCollisionWithOtherPowerBlocs + " " + transform.parent.name);
             }
+        }
+
+        if (collision.tag == "InventoryGrid")
+        {
+            NumberOfCollisionWithGridLimits--;
         }
     }
 }
