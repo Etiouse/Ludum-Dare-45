@@ -4450,6 +4450,7 @@ MonoBehaviour:
   friction: 1.01
   minSpeedAccepted: 200
   scaleOfRules: 0.4
+  powersCopies: 2
 --- !u!114 &1054742661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4803,7 +4804,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4f3bf05aa01ba48aadd59d5302d185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  braum: {fileID: 9218953482896141079, guid: 7f57927ea9cd8d44a9bd80110a02b31b, type: 3}
+  cone: {fileID: 9218953482896141079, guid: c39bf8f0d9a2e624096e183cbfbf076b, type: 3}
+  dasher: {fileID: 9218953482896141079, guid: 695e7dc670ac5da45835ace99259c2be, type: 3}
+  finalBoss: {fileID: 9218953482896141079, guid: 753f6bdafaaea3e48aeedf5f47bc55d0,
+    type: 3}
+  healer: {fileID: 9218953482896141079, guid: f91c26f008ce2564e9fe83dad1b45548, type: 3}
   shooter: {fileID: 9218953482896141079, guid: d705f3aeecfccf14d8e67df7fbfc5a34, type: 3}
+  waterSplasher: {fileID: 9218953482896141079, guid: b9270bc4282ad4545aff817c5d549bd6,
+    type: 3}
 --- !u!1001 &1260280120
 PrefabInstance:
   m_ObjectHideFlags: 0

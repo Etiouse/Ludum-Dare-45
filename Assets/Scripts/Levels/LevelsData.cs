@@ -4,7 +4,13 @@ using UnityEngine;
 public class LevelsData : MonoBehaviour
 {
     [Header("Ennemies")]
+    [SerializeField] private GameObject braum;
+    [SerializeField] private GameObject cone;
+    [SerializeField] private GameObject dasher;
+    [SerializeField] private GameObject finalBoss;
+    [SerializeField] private GameObject healer;
     [SerializeField] private GameObject shooter;
+    [SerializeField] private GameObject waterSplasher;
 
     private int counter;
     private List<List<(GameObject, float)>> levels;
@@ -37,13 +43,13 @@ public class LevelsData : MonoBehaviour
         // Level 2
         levels.Add(new List<(GameObject, float)>
         {
-            (shooter, 1f),
+            (healer, 1f),
         });
 
         // Level 2
         levels.Add(new List<(GameObject, float)>
         {
-            (shooter, 1f),
+            (dasher, 1f),
         });
     }
 }

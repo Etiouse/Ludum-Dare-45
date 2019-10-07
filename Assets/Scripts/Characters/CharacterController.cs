@@ -7,11 +7,11 @@ public class CharacterController : MonoBehaviour
     [SerializeField] protected GameObject spritesParent;
     protected CircleCollider2D mainCollider;
 
-    protected float startHealth = GameParameters.DEFAULT_HEALTH;
+    protected float maxHealth = GameParameters.DEFAULT_HEALTH;
     protected float characterSpeed = GameParameters.DEFAULT_MOVEMENT_SPEED;
-    
+
+    protected float health;
     private Rigidbody2D rigid2d;
-    private float health;
     private GameObject lifebar;
     private float startLifeBarWidth;
 
@@ -24,14 +24,16 @@ public class CharacterController : MonoBehaviour
         }
         rigid2d = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<CircleCollider2D>();
-        health = startHealth;
+        health = maxHealth;
         lifebar = transform.Find("LifeBar").Find("CurrentLifeParent").gameObject;
         startLifeBarWidth = lifebar.transform.localScale.x;
+
+        Physics2D.IgnoreCollision(mainCollider, GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>());
     }
 
     private void Update()
     {
-        lifebar.transform.localScale = new Vector2(health / startHealth * startLifeBarWidth, lifebar.transform.localScale.y);
+        lifebar.transform.localScale = new Vector2(health / maxHealth * startLifeBarWidth, lifebar.transform.localScale.y);
     }
 
     public void Move(Vector2 direction)
@@ -56,5 +58,10 @@ public class CharacterController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void Heal(float heal)
+    {
+        health = Mathf.Clamp(health + heal, 0, maxHealth);
     }
 }

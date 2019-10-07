@@ -19,7 +19,7 @@ public class ProjectileController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Ignore collision between same entities (enemies projectile to enemies) and projectile to projectile
-        if (collision.tag == "Projectile" || collision.tag == owner)
+        if (collision.tag == "Projectile" || collision.tag == owner || collision.tag == "Lava" || collision.tag == "Water")
         {
             return;
         }

@@ -25,10 +25,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4994410275161886212}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4056700761262159071}
+  m_LocalPosition: {x: 0.1, y: -0.129, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_Children: []
   m_Father: {fileID: 9218953482896141083}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -69,7 +68,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ce7fa5e5f8bbd99408e9beae460e5cc9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de75650b8782c404aaba8633ba4cd0de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -80,36 +79,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &6361016122493948848
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6065887175614417342}
-  m_Layer: 0
-  m_Name: Objects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6065887175614417342
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6361016122493948848}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9218953482896141083}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7858325277093763603
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,11 +103,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7858325277093763603}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.15, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8415241831222449602}
-  m_RootOrder: 0
+  m_Father: {fileID: 9218953482896141083}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9218953482896141079
 GameObject:
@@ -151,9 +120,9 @@ GameObject:
   - component: {fileID: 9218953482896141083}
   - component: {fileID: 9218953482896141077}
   - component: {fileID: 9218953482896141078}
-  - component: {fileID: 7536884880461958100}
+  - component: {fileID: 8323914461450458750}
   m_Layer: 0
-  m_Name: Shooter
+  m_Name: WaterSplasher
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,12 +136,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9218953482896141079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 9.02, y: 6.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8415241831222449602}
+  - {fileID: 4056700761262159071}
   - {fileID: 3692922356111428916}
-  - {fileID: 6065887175614417342}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -213,7 +182,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2
---- !u!114 &7536884880461958100
+--- !u!114 &8323914461450458750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,14 +191,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 9218953482896141079}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3dfef94a925ea34b9be888f2fbbe80b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e8f26716e5aeb146a2d0aa558fe1afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spritesParent: {fileID: 4994410275161886212}
   fireballModel: {fileID: 682038488975558710, guid: 71651131802d67a479e557fa30712344,
     type: 3}
   fireballOrigin: {fileID: 4056700761262159071}
-  objects: {fileID: 6361016122493948848}
 --- !u!1001 &2234055129340153528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -280,7 +248,7 @@ PrefabInstance:
     - target: {fileID: 3188284776262615948, guid: db68fc1895c05bd49b634c49307fc0d5,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3188284776262615948, guid: db68fc1895c05bd49b634c49307fc0d5,
         type: 3}

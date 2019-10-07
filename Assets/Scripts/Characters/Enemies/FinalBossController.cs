@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerController : CharacterController
+public class FinalBossController : CharacterController
 {
 
-    [SerializeField] private GameObject fireballModel = null;
-    [SerializeField] private Transform fireballOrigin = null;
+    [SerializeField] private GameObject fireballModel;
+    [SerializeField] private Transform fireballOrigin;
 
-    [SerializeField] private GameObject iceballModel = null;
-    [SerializeField] private List<Transform> iceBallOrigins = null;
+    [SerializeField] private GameObject iceballModel;
+    [SerializeField] private List<Transform> iceBallOrigins;
 
-    [SerializeField] private GameObject rockShieldModel = null;
-    [SerializeField] private Transform rockOrigin = null;
+    [SerializeField] private GameObject rockShieldModel;
+    [SerializeField] private Transform rockOrigin;
     
-    [SerializeField] private GameObject airShieldModel = null;
+    [SerializeField] private GameObject airShieldModel;
 
-    [SerializeField] private GameObject objects = null;
-
+    private GameObject target;
     private bool canAttack = true;
     private List<GameObject> rockshield;
     private AirShield airshield;
@@ -28,30 +27,32 @@ public class PlayerController : CharacterController
 
     private void Start()
     {
-        maxHealth = GameParameters.playerStartHealth;
-        characterSpeed = GameParameters.playerSpeed;
+        maxHealth = GameParameters.finalBossStartHealth;
+        characterSpeed = GameParameters.finalBossSpeed;
         rockshield = new List<GameObject>();
         GenerateRockShield();
         CreateAirShield();
         GetSpriteRenderer();
-    }
-    
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        CheckForEnemyCollision(collision);
+        target = GameObject.FindGameObjectWithTag("Player");
+
+        StartCoroutine(Actions());
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    IEnumerator Actions()
     {
-        CheckForEnemyCollision(collision);
-    }
+        Vector2 direction = new Vector2(Random.value - 0.5f, Random.value - 0.5f);
+        LookAt(direction);
 
-    private void CheckForEnemyCollision(Collision2D collision)
-    {
-        if (collision.collider.tag == "Enemy")
-        {
-            Damage(GameParameters.COLLISION_DAMAGE);
-        }
+        Move(direction.normalized);
+        yield return new WaitForSeconds(GameParameters.FINAL_BOSS_MOVEMENT_TIME);
+        Move(Vector2.zero);
+
+        Vector2 attackDirection = target.transform.position - transform.position;
+        LookAt(attackDirection);
+
+        Attack();
+
+        StartCoroutine(Actions());
     }
 
     public override void Damage(float damage)
@@ -88,7 +89,7 @@ public class PlayerController : CharacterController
     private IEnumerator AttackCooldown()
     {
         canAttack = false;
-        yield return new WaitForSeconds(GameParameters.playerAttackSpeed);
+        yield return new WaitForSeconds(GameParameters.finalBossAttackSpeed);
         canAttack = true;
     }
 
@@ -101,7 +102,7 @@ public class PlayerController : CharacterController
         for (int i = 0; i < numberOfBlink; i++)
         {
             SetAlphaAllSprites(blinkOn ? 0.5f : 1);
-            yield return new WaitForSeconds(GameParameters.playerInvincibilityTime / numberOfBlink);
+            yield return new WaitForSeconds(GameParameters.finalBossInvincibilityTime / numberOfBlink);
             blinkOn = !blinkOn;
         }
 
@@ -132,10 +133,9 @@ public class PlayerController : CharacterController
         fireball.transform.parent = transform;
         fireball.transform.position = fireballOrigin.position;
         fireball.transform.up = spritesParent.transform.up;
-        fireball.transform.SetParent(objects.transform);
 
         ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
-        projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.fireballSpeed, GameParameters.fireballDamage);
+        projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.finalBossFireballSpeed, GameParameters.finalBossFireballDamage);
 
         CircleCollider2D fireballCollider = fireball.GetComponent<CircleCollider2D>();
         // Ignore collision between the player and the fireball (trigger ok)
@@ -152,9 +152,8 @@ public class PlayerController : CharacterController
             iceball.transform.parent = transform;
             iceball.transform.position = t.position;
             iceball.transform.up = spritesParent.transform.up;
-            iceball.transform.SetParent(objects.transform);
 
-            iceball.GetComponent<ProjectileController>().Shoot(t.position - transform.position, gameObject.tag, GameParameters.iceballSpeed, GameParameters.iceballDamage);
+            iceball.GetComponent<ProjectileController>().Shoot(t.position - transform.position, gameObject.tag, GameParameters.finalBossIceballSpeed, GameParameters.finalBossIceballDamage);
 
             CircleCollider2D iceballCollider = iceball.GetComponent<CircleCollider2D>();
             // Ignore collision between the player and the bullet (trigger ok)
@@ -168,12 +167,12 @@ public class PlayerController : CharacterController
 
     private void GenerateRockShield()
     {
-        for (int i = 0; i < GameParameters.numberOfRockShield; i++)
+        for (int i = 0; i < GameParameters.finalBossNumberOfRockShield; i++)
         {
-            float angle = 360 / GameParameters.numberOfRockShield * i;
+            float angle = 360 / GameParameters.finalBossNumberOfRockShield * i;
 
             GameObject rock = Instantiate(rockShieldModel);
-            rock.transform.SetParent(objects.transform);
+            rock.transform.parent = transform;
             float shieldDistance = (rockOrigin.transform.position - transform.position).magnitude;
             rock.transform.position = transform.position + Quaternion.Euler(0, 0, angle) * (transform.position - rockOrigin.position);
             rock.GetComponent<RockShield>().Init(transform, shieldDistance, angle);
@@ -208,7 +207,6 @@ public class PlayerController : CharacterController
     private void CreateAirShield()
     {
         airshield = Instantiate(airShieldModel).GetComponent<AirShield>();
-        airshield.transform.SetParent(objects.transform);
         airshield.Target = transform;
     }
 }
