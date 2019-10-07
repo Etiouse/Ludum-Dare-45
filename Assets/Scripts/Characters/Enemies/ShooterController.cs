@@ -19,6 +19,11 @@ public class ShooterController : CharacterController
         StartCoroutine(Actions());
     }
 
+    protected override void SetMaxHealth()
+    {
+        maxHealth = GameParameters.SHOOTER_LIFE;
+    }
+
     IEnumerator Actions()
     {
         Vector2 direction = new Vector2(Random.value - 0.5f, Random.value -0.5f);

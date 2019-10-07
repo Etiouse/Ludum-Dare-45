@@ -14,6 +14,11 @@ public class DasherController : CharacterController
         StartCoroutine(Actions());
     }
 
+    protected override void SetMaxHealth()
+    {
+        maxHealth = GameParameters.DASHER_LIFE;
+    }
+
     IEnumerator Actions()
     {
         Vector2 direction = target.transform.position - transform.position;

@@ -15,6 +15,10 @@ public class HealerController : CharacterController
         target = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(Actions());
     }
+    protected override void SetMaxHealth()
+    {
+        maxHealth = GameParameters.HEALER_LIFE;
+    }
 
     IEnumerator Actions()
     {

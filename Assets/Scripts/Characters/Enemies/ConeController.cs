@@ -16,6 +16,11 @@ public class ConeController : CharacterController
         target = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(Actions());
     }
+    
+    protected override void SetMaxHealth()
+    {
+        maxHealth = GameParameters.CONE_LIFE;
+    }
 
     IEnumerator Actions()
     {

@@ -52,6 +52,7 @@ public static class GameParameters
     public static float iceballSpeed = 5;
 
     // Shooter enemy
+    public static readonly float SHOOTER_LIFE = 20f;
     public static readonly float SHOOTER_MOVEMENT_TIME = 2f;
     public static readonly float SHOOTER_TIME_BETWEEN_ATTACKS = 0.25f;
     public static readonly int SHOOTER_NUMBER_OF_SHOOTS = 3;
@@ -62,6 +63,7 @@ public static class GameParameters
     public static float shooterDamage = 5;
 
     // Water Splasher
+    public static readonly float WATERSPLASHER_LIFE = 30f;
     public static readonly float WATERSPLASHER_MOVEMENT_TIME = 3f;
     public static readonly float WATERSPLASHER_TIME_BETWEEN_ATTACKS = 0.25f;
     public static readonly int WATERSPLASHER_NUMBER_OF_SHOOTS = 10;
@@ -72,6 +74,7 @@ public static class GameParameters
     public static float waterSplasherDamage = 5;
 
     // Cone
+    public static readonly float CONE_LIFE = 15f;
     public static readonly float CONE_MOVEMENT_TIME = 3f;
     public static readonly float CONE_TIME_BETWEEN_ATTACKS = 0.25f;
     public static readonly int CONE_NUMBER_OF_SHOOTS = 10;
@@ -82,6 +85,7 @@ public static class GameParameters
     public static float coneDamage = 5;
 
     // Dasher
+    public static readonly float DASHER_LIFE = 40f;
     public static readonly float DASHER_MOVEMENT_TIME = 0.5f;
     public static readonly float DASHER_WAIT_TIME = 3f;
     public static readonly float DASHER_MOVEMENT_SPEED = 25;
@@ -92,11 +96,13 @@ public static class GameParameters
     public static float dasherShockwaveDamage = 5;
 
     // Braum
+    public static readonly float BRAUM_LIFE = 45f;
     public static readonly float BRAUM_MOVEMENT_TIME = 3f;
     public static readonly float BRAUM_WAIT_TIME = 3f;
     public static readonly float BRAUM_MOVEMENT_SPEED = 10;
 
     // Healer
+    public static readonly float HEALER_LIFE = 30f;
     public static readonly float HEALER_MOVEMENT_TIME = 3f;
     public static readonly float HEALER_WAIT_TIME = 3f;
     public static readonly float HEALER_MOVEMENT_SPEED = 10;
@@ -108,6 +114,14 @@ public static class GameParameters
 
     // Braum shield
     public static readonly float BRAUM_SHIELD_DEACTIVATION_TIME = 2;
+
+    // Middle Boss
+    public static readonly float MIDDLE_BOSS_LIFE = 70f;
+    public static readonly float MIDDLE_BOSS_MOVEMENT_TIME = 2f;
+    public static readonly float MIDDLE_BOSS_TIME_BETWEEN_ATTACKS = 5f;
+    public static readonly float MIDDLE_BOSS_MOVEMENT_SPEED = 5;
+    public static readonly float MIDDLE_BOSS_PROJECTILE_TIME = 1;
+    public static readonly float MIDDLE_BOSS_PROJECTILE_SPEED = 10;
 
     // FinalBoss
     public static float finalBossAttackSpeed = 1 / 2f; // The second number is the number of attack per seconds
