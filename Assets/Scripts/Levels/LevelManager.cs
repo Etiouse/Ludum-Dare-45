@@ -21,6 +21,10 @@ public class LevelManager : MonoBehaviour
     public void AddEnnemy(GameObject ennemy)
     {
         ennemy.transform.SetParent(ennemies.transform);
+        foreach (Transform child in ennemies.transform)
+        {
+            Physics2D.IgnoreCollision(child.GetComponent<Collider2D>(), ennemy.GetComponent<Collider2D>());
+        }
     }
 
     public bool AreAllEnnemiesDead()
