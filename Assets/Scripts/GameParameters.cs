@@ -86,4 +86,22 @@ public static class GameParameters
 
     // Braum shield
     public static readonly float BRAUM_SHIELD_DEACTIVATION_TIME = 2;
+
+    // FinalBoss
+    public static float finalBossAttackSpeed = 1 / 2f; // The second number is the number of attack per seconds
+    public static int finalBossStartHealth = 20;
+    public static int finalBossSpeed = 10;
+    public static float finalBossInvincibilityTime = 2;
+    public static readonly float FINAL_BOSS_AIR_SHIELD_ACTIVATION_TIME = 1;
+    public static RangeInt finalBossAirShieldActivationRange = new RangeInt(3, 10);
+    public static int finalBossNumberOfRockShield = 3;
+
+    public static readonly float FINAL_BOSS_MOVEMENT_TIME = 1f;
+
+    // FinalBoss Projectiles
+    public static float finalBossFireballSpeed = 20;
+    public static float finalBossFireballDamage = 5;
+    public static float finalBossIceballSpeed = 5;
+    public static float finalBossIceballDamage = 3;
+    
 }
