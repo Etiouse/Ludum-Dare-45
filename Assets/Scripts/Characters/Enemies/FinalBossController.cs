@@ -112,10 +112,7 @@ public class FinalBossController : CharacterController
             health -= damage;
             if (health <= 0)
             {
-                if (tag == "Player")
-                {
-                    SceneManager.LoadScene("OutroScene");
-                }
+                SceneManager.LoadScene("OutroScene");
                 Destroy(gameObject);
             }
             StartCoroutine(Invincibility());
