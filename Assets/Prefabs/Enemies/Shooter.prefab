@@ -69,7 +69,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ce7fa5e5f8bbd99408e9beae460e5cc9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fc1c7c2671e431340bf0dd04bfab63cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,7 +108,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9218953482896141083}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7858325277093763603
 GameObject:
@@ -168,7 +168,7 @@ Transform:
   m_GameObject: {fileID: 9218953482896141079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 8415241831222449602}
   - {fileID: 3692922356111428916}
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spritesParent: {fileID: 4994410275161886212}
-  fireballModel: {fileID: 682038488975558710, guid: 71651131802d67a479e557fa30712344,
+  fireballModel: {fileID: 682038488975558710, guid: afb706ec0a1651e4cba6698b6949010c,
     type: 3}
   fireballOrigin: {fileID: 4056700761262159071}
   objects: {fileID: 6361016122493948848}
