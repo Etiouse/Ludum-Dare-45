@@ -14,6 +14,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private TMP_Text activePowerTextModel = null;
     [SerializeField] private TMP_Text powerShapeTitle = null;
     [SerializeField] private TMP_Text powerShapeDesc = null;
+    [SerializeField] private TMP_Text warningMsg = null;
 
     private List<PowerShape> powerShapes;
     private List<TMP_Text> activePowerTexts;
@@ -120,6 +121,7 @@ public class InventoryManager : MonoBehaviour
             {
                 powerShapeTitle.text = "";
                 powerShapeDesc.text = "";
+                warningMsg.text = "";
             }
             else
             {
@@ -135,6 +137,11 @@ public class InventoryManager : MonoBehaviour
 
                 powerShapeTitle.text = powerShape.DisplayedName;
                 powerShapeDesc.text = powerShape.Description;
+
+                if (!powerShape.CanBePlacedOnInventory())
+                {
+                    warningMsg.text = "This upgrade can't be placed until the basic one is !";
+                }
             }
         }
     }

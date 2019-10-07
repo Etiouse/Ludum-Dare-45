@@ -114,13 +114,13 @@ public class GameHandler : MonoBehaviour
         }
 
         // TODO : for debug purpose
-        for (int i = 0; i < 5; i++)
+        /*for (int i = 0; i < 5; i++)
         {
             GameObject power = powersLeft[i].List[0];
             poolManager.AddOnePowerShapeToPool(Instantiate(power));
 
             DeletePowerReceived(power);
-        }
+        }*/
 
         LoadLevel();
         gameState = GameState.PLAYING;
