@@ -97,12 +97,6 @@ public class GameHandler : MonoBehaviour
 
         continueButton.gameObject.SetActive(false);
 
-        // Primordial settings
-        foreach (GameObject prim in primordials)
-        {
-            poolManager.AddOnePowerShapeToPool(Instantiate(prim));
-        }
-
         // Fill the levels in script
         levelsLeft = new List<GameObject>();
         for (int i = 0; i < levelsContainer.transform.childCount; i++)
@@ -112,6 +106,21 @@ public class GameHandler : MonoBehaviour
 
         powersLeft = new List<PowerList>(classics);
         levelsData = levelsContainer.GetComponent<LevelsData>();
+
+        // Primordial settings
+        foreach (GameObject prim in primordials)
+        {
+            poolManager.AddOnePowerShapeToPool(Instantiate(prim));
+        }
+
+        // TODO : for debug purpose
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject power = powersLeft[i].List[0];
+            poolManager.AddOnePowerShapeToPool(Instantiate(power));
+
+            DeletePowerReceived(power);
+        }
 
         LoadLevel();
         gameState = GameState.PLAYING;
