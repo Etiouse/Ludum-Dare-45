@@ -18,6 +18,7 @@ public class GameHandler : MonoBehaviour
     [Header("General informations")]
     [SerializeField] GameObject levelsContainer = null;
     [SerializeField] GameObject player = null;
+    [SerializeField] GameObject playerModel = null;
     [SerializeField] Camera mainCam = null;
     [SerializeField] TMP_Text warningAtLeastOne = null;
 
@@ -166,8 +167,11 @@ public class GameHandler : MonoBehaviour
             DeletePowerReceived(power);
         }*/
 
-        LoadLevel();
-        gameState = GameState.PLAYING;
+        //LoadLevel();
+
+        swapState = SwapState.DISPLAY_INVENTORY;
+        inventoryCanvas.enabled = true;
+        gameState = GameState.END;
     }
 
     private void Update()
@@ -222,6 +226,14 @@ public class GameHandler : MonoBehaviour
 
     private void LoadLevel()
     {
+        GameObject previousPlayer = GameObject.FindGameObjectWithTag("Player");
+        if (previousPlayer != null)
+        {
+            Destroy(previousPlayer);
+        }
+
+        player = Instantiate(playerModel);
+
         if (currentLevel != null)
         {
             currentLevel.SetActive(false);
@@ -257,10 +269,12 @@ public class GameHandler : MonoBehaviour
                 Debug.Log("Error on level name: " + levelName);
             }
         }
+        gameState = GameState.PLAYING;
     }
 
     private void Playing()
     {
+        mainCam.transform.position = new Vector3(0, 1, -10);
         timePassed += Time.deltaTime;
 
         // Spawns ennemies

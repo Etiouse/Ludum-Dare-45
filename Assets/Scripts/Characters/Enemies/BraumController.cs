@@ -22,7 +22,6 @@ public class BraumController : CharacterController
     public override void Damage(float damage)
     {
         base.Damage(damage);
-        Debug.Log("health" + health);
     }
 
     private void FixedUpdate()
