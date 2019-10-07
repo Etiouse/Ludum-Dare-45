@@ -53,7 +53,7 @@ MonoBehaviour:
   SpriteColor: {r: 0, g: 0.91636705, b: 1, a: 1}
   DisplayedName: Air Shield
   Description: Deploy an air shild at random time
-  CurrentPowerShapeType: 6
+  PowerShapeType: 6
 --- !u!1001 &3580663508194199130
 PrefabInstance:
   m_ObjectHideFlags: 0

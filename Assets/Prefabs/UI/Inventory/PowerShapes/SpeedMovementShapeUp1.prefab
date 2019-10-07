@@ -53,7 +53,7 @@ MonoBehaviour:
   SpriteColor: {r: 0.654902, g: 1, b: 0, a: 1}
   DisplayedName: Speed Movement Upgarde 1
   Description: Upgardes for speed movement
-  CurrentPowerShapeType: 18
+  PowerShapeType: 18
 --- !u!1001 &6486817187186267737
 PrefabInstance:
   m_ObjectHideFlags: 0

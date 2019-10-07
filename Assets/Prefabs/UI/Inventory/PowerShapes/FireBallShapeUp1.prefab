@@ -54,7 +54,7 @@ MonoBehaviour:
   SpriteColor: {r: 1, g: 0, b: 0, a: 1}
   DisplayedName: Fire Ball Upgrade 1
   Description: Upgardes for fire ball
-  CurrentPowerShapeType: 1
+  PowerShapeType: 1
 --- !u!1001 &1633864336365788509
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -54,7 +54,7 @@ MonoBehaviour:
   SpriteColor: {r: 1, g: 0, b: 0.38606977, a: 1}
   DisplayedName: Max Health
   Description: Increase the maximum health
-  CurrentPowerShapeType: 11
+  PowerShapeType: 11
 --- !u!1001 &74451509546714342
 PrefabInstance:
   m_ObjectHideFlags: 0

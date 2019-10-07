@@ -52,7 +52,7 @@ MonoBehaviour:
   SpriteColor: {r: 1, g: 0, b: 0.7607843, a: 1}
   DisplayedName: Nocture Vision
   Description: You can see in the dark
-  CurrentPowerShapeType: 9
+  PowerShapeType: 9
 --- !u!1001 &474047623916129841
 PrefabInstance:
   m_ObjectHideFlags: 0

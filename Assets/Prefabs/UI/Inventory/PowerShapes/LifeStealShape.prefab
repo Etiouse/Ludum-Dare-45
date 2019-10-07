@@ -55,7 +55,7 @@ MonoBehaviour:
   SpriteColor: {r: 1, g: 0.23765773, b: 0, a: 1}
   DisplayedName: Life Steal
   Description: Heal yourself each time you kill an enemy
-  CurrentPowerShapeType: 19
+  PowerShapeType: 19
 --- !u!1001 &4462850963399810904
 PrefabInstance:
   m_ObjectHideFlags: 0

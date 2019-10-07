@@ -53,7 +53,7 @@ MonoBehaviour:
   SpriteColor: {r: 0, g: 0.33355188, b: 1, a: 1}
   DisplayedName: Ice Ball Upgarde 1
   Description: Upgardes for ice ball
-  CurrentPowerShapeType: 3
+  PowerShapeType: 3
 --- !u!1001 &170894729252562414
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ MonoBehaviour:
   SpriteColor: {r: 1, g: 0, b: 0.7581153, a: 1}
   DisplayedName: Lifebar Vision
   Description: Display the lifebars
-  CurrentPowerShapeType: 10
+  PowerShapeType: 10
 --- !u!1001 &8071498804856242667
 PrefabInstance:
   m_ObjectHideFlags: 0

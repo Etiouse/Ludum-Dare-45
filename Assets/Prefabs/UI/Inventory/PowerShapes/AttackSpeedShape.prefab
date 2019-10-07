@@ -54,7 +54,7 @@ MonoBehaviour:
   SpriteColor: {r: 1, g: 0.99501103, b: 0, a: 1}
   DisplayedName: Attack Speed
   Description: Improve
-  CurrentPowerShapeType: 13
+  PowerShapeType: 13
 --- !u!1001 &1133664463223883885
 PrefabInstance:
   m_ObjectHideFlags: 0

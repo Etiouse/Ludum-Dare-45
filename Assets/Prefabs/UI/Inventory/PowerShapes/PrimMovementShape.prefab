@@ -52,7 +52,7 @@ MonoBehaviour:
   SpriteColor: {r: 1, g: 0, b: 0.7607843, a: 1}
   DisplayedName: Movement
   Description: You can move
-  CurrentPowerShapeType: 8
+  PowerShapeType: 8
 --- !u!1001 &8979429325094274748
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -53,7 +53,7 @@ MonoBehaviour:
   SpriteColor: {r: 0, g: 0.91636705, b: 1, a: 1}
   DisplayedName: Air Shield Upgrade 1
   Description: Upgrades for air shield
-  CurrentPowerShapeType: 7
+  PowerShapeType: 7
 --- !u!1001 &1374400236146164031
 PrefabInstance:
   m_ObjectHideFlags: 0

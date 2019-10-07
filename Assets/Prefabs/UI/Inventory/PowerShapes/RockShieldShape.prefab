@@ -53,7 +53,7 @@ MonoBehaviour:
   SpriteColor: {r: 0.5943396, g: 0.28054032, b: 0, a: 1}
   DisplayedName: Rock Shield
   Description: Deploy rocks that turn around and protect yourself
-  CurrentPowerShapeType: 4
+  PowerShapeType: 4
 --- !u!1001 &3213214892736861403
 PrefabInstance:
   m_ObjectHideFlags: 0

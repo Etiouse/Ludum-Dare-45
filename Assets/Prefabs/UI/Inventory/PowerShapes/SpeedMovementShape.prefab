@@ -54,7 +54,7 @@ MonoBehaviour:
   SpriteColor: {r: 0.6531472, g: 1, b: 0, a: 1}
   DisplayedName: Speed Movement
   Description: Increase the movement speed
-  CurrentPowerShapeType: 17
+  PowerShapeType: 17
 --- !u!1001 &4676015485252284133
 PrefabInstance:
   m_ObjectHideFlags: 0

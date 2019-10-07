@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -50,6 +51,7 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
     public bool IsOnInventoryCase { get; set; }
     public bool IsMoving { get; private set; }
+    public int NumberOfCollisionWithOtherPowerShapes { get; private set; }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -99,6 +101,17 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     private void Update()
     {
         CheckIsMoving();
+
+        CountCollisionNumber();
+    }
+
+    private void CountCollisionNumber()
+    {
+        NumberOfCollisionWithOtherPowerShapes = 0;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            NumberOfCollisionWithOtherPowerShapes += transform.GetChild(i).GetComponent<PowerBlocManager>().NumberOfCollisionWithOtherPowerBlocs;
+        }
     }
 
     private void CheckIsMoving()
