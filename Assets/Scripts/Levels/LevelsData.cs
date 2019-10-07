@@ -11,6 +11,7 @@ public class LevelsData : MonoBehaviour
     [SerializeField] private GameObject healer;
     [SerializeField] private GameObject shooter;
     [SerializeField] private GameObject waterSplasher;
+    [SerializeField] private GameObject middleBoss;
 
     private int counter;
     private List<List<(GameObject, float)>> levels;
@@ -37,24 +38,164 @@ public class LevelsData : MonoBehaviour
         // Level 1
         levels.Add(new List<(GameObject, float)>
         {
-            (braum, 1f),
-            (cone, 1f),
-            (dasher, 1f),
-            (healer, 1f),
-            (shooter, 1f),
-            (waterSplasher, 1f),
+            (shooter, 4f),
+            (shooter, 4f),
         });
 
         // Level 2
         levels.Add(new List<(GameObject, float)>
         {
-            (healer, 1f),
+            (cone, 5f),
+            (cone, 5f),
+            (shooter, 12f),
+            (shooter, 12f),
+            (shooter, 20f),
+            (cone, 25f),
         });
 
-        // Level 2
+        // Level 3
         levels.Add(new List<(GameObject, float)>
         {
-            (dasher, 1f),
+            (dasher, 4f),
+            (shooter, 12f),
+            (shooter, 12f),
+            (cone, 20f),
+            (dasher, 30f),
+            (dasher, 35f),
+            (dasher, 40f),
+            (dasher, 45f),
+        });
+
+        // Level 4
+        levels.Add(new List<(GameObject, float)>
+        {
+            (healer, 4f),
+            (shooter, 12f),
+            (shooter, 12f),
+            (shooter, 20f),
+            (healer, 30f),
+            (cone, 40f),
+            (cone, 45f),
+            (cone, 50f),
+            (dasher, 60f),
+            (dasher, 65f),
+            (dasher, 70f),
+        });
+
+        // Level 5
+        levels.Add(new List<(GameObject, float)>
+        {
+            (waterSplasher, 4f),
+            (braum, 4f),
+            (waterSplasher, 12f),
+            (dasher, 20f),
+            (dasher, 25f),
+            (dasher, 30f),
+            (shooter, 40f),
+            (shooter, 40f),
+            (dasher, 50f),
+            (dasher, 55f),
+            (braum, 70f),
+            (braum, 75f),
+            (waterSplasher, 80f),
+            (cone, 90f),
+            (cone, 100f),
+        });
+
+        // Level 6
+        levels.Add(new List<(GameObject, float)>
+        {
+            (middleBoss, 4f),
+        });
+
+        // Level 7
+        levels.Add(new List<(GameObject, float)>
+        {
+            (braum, 4f),
+            (braum, 4f),
+            (braum, 4f),
+            (waterSplasher, 20f),
+            (dasher, 20f),
+            (waterSplasher, 30f),
+            (dasher, 30f),
+            (healer, 50f),
+            (braum, 50f),
+            (braum, 50f),
+            (cone, 60f),
+            (cone, 75f),
+            (cone, 80f),
+        });
+
+        // Level 8
+        levels.Add(new List<(GameObject, float)>
+        {
+            (braum, 4f),
+            (braum, 10f),
+            (healer, 20f),
+            (braum, 30f),
+            (healer, 40f),
+            (braum, 50f),
+            (braum, 60f),
+            (waterSplasher, 65f),
+            (waterSplasher, 65f),
+            (braum, 70f),
+            (healer, 80f),
+            (braum, 90f),
+            (braum, 100f),
+        });
+
+        // Level 9
+        levels.Add(new List<(GameObject, float)>
+        {
+            (braum, 4f),
+            (braum, 10f),
+            (healer, 20f),
+            (braum, 30f),
+            (healer, 40f),
+            (braum, 50f),
+            (braum, 60f),
+            (dasher, 65f),
+            (dasher, 65f),
+            (shooter, 65f),
+            (shooter, 65f),
+            (braum, 70f),
+            (healer, 80f),
+            (braum, 90f),
+            (braum, 100f),
+        });
+
+        // Level 10
+        levels.Add(new List<(GameObject, float)>
+        {
+            (dasher, 4f),
+            (braum, 10f),
+            (braum, 10f),
+            (dasher, 10f),
+            (dasher, 20f),
+            (dasher, 30f),
+            (healer, 40f),
+            (healer, 40f),
+            (dasher, 50f),
+            (waterSplasher, 60f),
+            (waterSplasher, 70f),
+            (dasher, 90f),
+            (dasher, 100f),
+            (shooter, 120f),
+            (shooter, 120f),
+            (shooter, 120f),
+            (cone, 140f),
+            (cone, 140f),
+            (dasher, 140f),
+            (braum, 16f),
+            (dasher, 160f),
+            (braum, 180f),
+            (dasher, 180f),
+        });
+
+        // Level 11
+        levels.Add(new List<(GameObject, float)>
+        {
+            (finalBoss, 4f),
         });
     }
 }
