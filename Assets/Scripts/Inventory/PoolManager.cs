@@ -11,8 +11,7 @@ public class PoolManager : MonoBehaviour
     [SerializeField] private Button inscreaseButton = null;
     [SerializeField] private Button reduceButton = null;
     [SerializeField] private GameObject slotsParent = null;
-    [SerializeField] private GameObject models = null;
-    [SerializeField] private List<GameObject> powerShapeModels = null;
+    [SerializeField] private GameObject powerShapeParent = null;
 
     public List<GameObject> UsedPowerShapes { get; private set; }
 
@@ -66,6 +65,16 @@ public class PoolManager : MonoBehaviour
         updateVisibleElements = true;
     }
 
+    public void AddOnePowerShapeToPool(GameObject powerShape)
+    {
+        powerShape.transform.SetParent(powerShapeParent.transform);
+
+        availableElements.Add(powerShape);
+        currentElementInPool.Add(availableElements.Count - 1);
+
+        updateVisibleElements = true;
+    }
+
     private void Awake()
     {
         currentElementInPool = new List<int>();
@@ -73,12 +82,6 @@ public class PoolManager : MonoBehaviour
         UsedPowerShapes = new List<GameObject>();
 
         availableElements = new List<GameObject>();
-        for (int i = 0; i < powerShapeModels.Count; i++)
-        {
-            GameObject model = Instantiate(powerShapeModels[i]);
-            model.transform.SetParent(models.transform);
-            availableElements.Add(model);
-        }
 
         slotsElements = new List<GameObject>();
         for (int i = 0; i < slotsParent.transform.childCount; i++)
