@@ -38,4 +38,19 @@ public class ProjectileController : MonoBehaviour
         this.owner = owner;
         rigid2d.velocity = direction * speed;
     }
+
+    private void OnEnable()
+    {
+        GameHandler.OnRestartGameEvent += RestartGame;
+    }
+
+    private void OnDisable()
+    {
+        GameHandler.OnRestartGameEvent -= RestartGame;
+    }
+
+    private void RestartGame()
+    {
+        //Destroy(gameObject);
+    }
 }

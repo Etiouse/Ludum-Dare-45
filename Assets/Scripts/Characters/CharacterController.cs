@@ -9,7 +9,7 @@ public class CharacterController : MonoBehaviour
 
     protected float maxHealth = GameParameters.DEFAULT_HEALTH;
     protected float characterSpeed = GameParameters.DEFAULT_MOVEMENT_SPEED;
-
+    
     protected float health;
     private Rigidbody2D rigid2d;
     private GameObject lifebar;
@@ -33,6 +33,21 @@ public class CharacterController : MonoBehaviour
         startLifeBarWidth = lifebar.transform.localScale.x;
 
         Physics2D.IgnoreCollision(mainCollider, GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>());
+    }
+
+    private void OnEnable()
+    {
+        GameHandler.OnRestartGameEvent += RestartGame;
+    }
+
+    private void OnDisable()
+    {
+        GameHandler.OnRestartGameEvent -= RestartGame;
+    }
+    
+    private void RestartGame()
+    {
+        Destroy(gameObject);
     }
 
     protected virtual void SetMaxHealth()

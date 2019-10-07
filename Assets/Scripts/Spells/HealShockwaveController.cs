@@ -18,6 +18,22 @@ public class HealShockwaveController : ShockwaveController
         }
     }
 
+
+    private void OnEnable()
+    {
+        GameHandler.OnRestartGameEvent += RestartGame;
+    }
+
+    private void OnDisable()
+    {
+        GameHandler.OnRestartGameEvent -= RestartGame;
+    }
+
+    private void RestartGame()
+    {
+        Destroy(gameObject);
+    }
+
     public override void Activate(string owner, float speed, float scale, float heal)
     {
         this.owner = owner;

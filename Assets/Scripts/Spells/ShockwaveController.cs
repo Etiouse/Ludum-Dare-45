@@ -40,6 +40,21 @@ public class ShockwaveController : MonoBehaviour
         StartCoroutine(Scale(scale, speed));
     }
 
+    private void OnEnable()
+    {
+        GameHandler.OnRestartGameEvent += RestartGame;
+    }
+
+    private void OnDisable()
+    {
+        GameHandler.OnRestartGameEvent -= RestartGame;
+    }
+    
+    private void RestartGame()
+    {
+        Destroy(gameObject);
+    }
+
     protected IEnumerator Scale(float finalScale, float time)
     {
         float scale = 1;

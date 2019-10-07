@@ -44,6 +44,21 @@ public class PokeballController : MonoBehaviour
         SpawnMob();
     }
 
+    private void OnEnable()
+    {
+        GameHandler.OnRestartGameEvent += RestartGame;
+    }
+
+    private void OnDisable()
+    {
+        GameHandler.OnRestartGameEvent -= RestartGame;
+    }
+
+    private void RestartGame()
+    {
+        Destroy(gameObject);
+    }
+
     private void SpawnMob()
     {
         GameObject mob = Instantiate(enemyModel);

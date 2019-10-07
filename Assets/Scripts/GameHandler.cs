@@ -8,6 +8,13 @@ public class GameHandler : MonoBehaviour
     public delegate void SetWheelRulesAction(List<GameObject> rules);
     public static event SetWheelRulesAction OnSetWheelRulesAction;
 
+
+    public delegate void PauseResumeGameEvent(bool isPaused);
+    public static event PauseResumeGameEvent OnPauseResumeGameEvent;
+
+    public delegate void RestartGameEvent();
+    public static event RestartGameEvent OnRestartGameEvent;
+
     [Header("General informations")]
     [SerializeField] GameObject levelsContainer = null;
     [SerializeField] GameObject player = null;
@@ -28,7 +35,11 @@ public class GameHandler : MonoBehaviour
     [SerializeField] Canvas inventoryCanvas = null;
     [SerializeField] float timeInInventory = 2f;
 
-    private enum GameState { PLAYING, TRANSITION, END };
+
+    [Header("Canvas")]
+    [SerializeField] private Canvas inGameCanvas;
+
+    private enum GameState { PLAYING, TRANSITION, PAUSE, END };
     private enum SwapState { FADE_OUT, DISPLAY_WHEEL, DISPLAY_INVENTORY, WAIT_CHOICE, FADE_IN, FINISHED };
 
     private GameObject display;
@@ -83,11 +94,22 @@ public class GameHandler : MonoBehaviour
     private void OnEnable()
     {
         WheelOfFortune.OnResultAction += ResultingPower;
+
+        InGameMenuManager.OnResumeGameEvent += ResumeOrPauseGame;
+        InGameMenuManager.OnRestartGameEvent += RestartGame;
     }
 
     private void OnDisable()
     {
         WheelOfFortune.OnResultAction -= ResultingPower;
+
+        InGameMenuManager.OnResumeGameEvent -= ResumeOrPauseGame;
+        InGameMenuManager.OnRestartGameEvent -= RestartGame;
+    }
+
+    private void RestartGame()
+    {
+        OnRestartGameEvent();
     }
 
     private void Start()
@@ -121,6 +143,8 @@ public class GameHandler : MonoBehaviour
     {
         timePassed += Time.deltaTime;
 
+        CheckInputs();
+
         switch (gameState)
         {
             case GameState.END:
@@ -133,6 +157,30 @@ public class GameHandler : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private void CheckInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ResumeOrPauseGame();
+        }
+    }
+
+    private void ResumeOrPauseGame()
+    {
+        if (gameState == GameState.PLAYING)
+        {
+            gameState = GameState.PAUSE;
+
+            inGameCanvas.gameObject.SetActive(true);
+        }
+        else if (gameState == GameState.PAUSE)
+        {
+            gameState = GameState.PLAYING;
+
+            inGameCanvas.gameObject.SetActive(false);
         }
     }
 

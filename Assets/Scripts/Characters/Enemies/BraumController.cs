@@ -14,6 +14,11 @@ public class BraumController : CharacterController
         StartCoroutine(Actions());
     }
 
+    protected override void SetMaxHealth()
+    {
+        maxHealth = GameParameters.BRAUM_LIFE;
+    }
+
     public override void Damage(float damage)
     {
         base.Damage(damage);

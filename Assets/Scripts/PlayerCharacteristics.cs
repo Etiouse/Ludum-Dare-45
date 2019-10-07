@@ -54,15 +54,15 @@ public static class PlayerCharacteristics
         switch (powerShapeType)
         {
             case PowerShape.Type.FIRE_BALL:
-                return FireBall;
+                return true;
             case PowerShape.Type.FIRE_BALL_UP1:
                 return FireBallUp1;
             case PowerShape.Type.ICE_BALL:
-                return IceBall;
+                return true;
             case PowerShape.Type.ICE_BALL_UP1:
                 return IceBallUp1;
             case PowerShape.Type.ROCK_SHIELD:
-                return RockShield;
+                return true;
             case PowerShape.Type.ROCK_SHIELD_UP1:
                 return RockShieldUp1;
             case PowerShape.Type.AIR_SHIELD:
