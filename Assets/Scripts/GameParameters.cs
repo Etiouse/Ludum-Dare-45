@@ -34,7 +34,7 @@ public static class GameParameters
     public static int playerSpeedDefault = 10;
     public static int playerSpeedUpgrade1 = 15;
     public static int playerSpeedUpgrade2 = 25;
-    public static float playerInvincibilityTime = 2;
+    public static float playerInvincibilityTime = 1;
     public static readonly float AIR_SHIELD_ACTIVATION_TIME = 1;
     public static RangeInt airShieldActivationRange = new RangeInt(5, 15);
     public static RangeInt airShieldActivationRangeDefault = new RangeInt(5, 15);
@@ -45,6 +45,7 @@ public static class GameParameters
     public static float playerDamageDefault = 5;
     public static float playerDamageUpgrade1 = 10;
     public static float playerDamageUpgrade2 = 25;
+    public static float lifeSteal = 10;
 
     // Player Projectiles
     public static float fireballSpeed = 20;

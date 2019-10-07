@@ -128,7 +128,7 @@ public class PlayerController : CharacterController
     {
         invincibility = true;
         bool blinkOn = true;
-        int numberOfBlink = 20;
+        int numberOfBlink = 30;
 
         for (int i = 0; i < numberOfBlink; i++)
         {

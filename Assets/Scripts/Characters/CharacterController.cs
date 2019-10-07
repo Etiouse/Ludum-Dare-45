@@ -65,6 +65,10 @@ public class CharacterController : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            if (tag != "Player" && PlayerCharacteristics.GetValue(PowerShape.Type.LIFE_STEAL))
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>().Heal(GameParameters.lifeSteal) ;
+            }
             Destroy(gameObject);
         }
     }
