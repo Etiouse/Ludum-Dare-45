@@ -42,6 +42,11 @@ public class LevelsData : MonoBehaviour
             (shooter, 4f),
         });
 
+        levels.Add(new List<(GameObject, float)>
+        {
+            (finalBoss, 4f),
+        });
+
         // Level 2
         levels.Add(new List<(GameObject, float)>
         {

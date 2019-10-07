@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinalBossController : CharacterController
 {
@@ -108,7 +109,15 @@ public class FinalBossController : CharacterController
     {
         if (!invincibility)
         {
-            base.Damage(damage);
+            health -= damage;
+            if (health <= 0)
+            {
+                if (tag == "Player")
+                {
+                    SceneManager.LoadScene("OutroScene");
+                }
+                Destroy(gameObject);
+            }
             StartCoroutine(Invincibility());
         }
     }
@@ -264,4 +273,5 @@ public class FinalBossController : CharacterController
         airshield.transform.SetParent(objects.transform);
         airshield.Target = transform;
     }
+    
 }

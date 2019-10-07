@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterController : MonoBehaviour
 {
@@ -83,6 +84,10 @@ public class CharacterController : MonoBehaviour
             if (tag != "Player" && PlayerCharacteristics.GetValue(PowerShape.Type.LIFE_STEAL))
             {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>().Heal(GameParameters.lifeSteal) ;
+            }
+            if (tag == "Player")
+            {
+                SceneManager.LoadScene("MainMenuScene");
             }
             Destroy(gameObject);
         }
