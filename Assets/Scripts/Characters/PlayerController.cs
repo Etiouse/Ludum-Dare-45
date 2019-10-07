@@ -42,8 +42,13 @@ public class PlayerController : CharacterController
             (PlayerCharacteristics.GetValue(PowerShape.Type.ATTACK_DAMAGE) ?
             GameParameters.playerDamageUpgrade1 : // upgrade 1
             GameParameters.playerDamageDefault); // no upgrade
+
+        characterSpeed = PlayerCharacteristics.GetValue(PowerShape.Type.SPEED_MOVEMENT_UP1) ?
+            (GameParameters.playerSpeedUpgrade2) : // upgrade 2
+            (PlayerCharacteristics.GetValue(PowerShape.Type.SPEED_MOVEMENT) ?
+            GameParameters.playerSpeedUpgrade1 : // upgrade 1
+            GameParameters.playerSpeedDefault); // no upgrade
         
-        characterSpeed = GameParameters.playerSpeed;
         rockshield = new List<GameObject>();
         if (PlayerCharacteristics.GetValue(PowerShape.Type.ROCK_SHIELD))
         {

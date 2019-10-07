@@ -31,7 +31,9 @@ public static class GameParameters
     public static int playerMaxHealthDefault = 20;
     public static int playerMaxHealthUpgrade1 = 30;
     public static int playerMaxHealthUpgrade2 = 40;
-    public static int playerSpeed = 20;
+    public static int playerSpeedDefault = 10;
+    public static int playerSpeedUpgrade1 = 15;
+    public static int playerSpeedUpgrade2 = 25;
     public static float playerInvincibilityTime = 2;
     public static readonly float AIR_SHIELD_ACTIVATION_TIME = 1;
     public static RangeInt airShieldActivationRange = new RangeInt(5, 15);
@@ -40,7 +42,6 @@ public static class GameParameters
     public static int numberOfRockShield = 2;
     public static int numberOfRockShieldDefault = 2;
     public static int numberOfRockShieldUpgrade = 3;
-    public static float playerDamage = 5;
     public static float playerDamageDefault = 5;
     public static float playerDamageUpgrade1 = 10;
     public static float playerDamageUpgrade2 = 25;
