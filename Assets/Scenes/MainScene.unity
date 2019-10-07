@@ -390,13 +390,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 70910175}
-    characterCount: 0
+    characterCount: 13
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 0
+    spaceCount: 6
+    wordCount: 7
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -2561,13 +2561,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 738453800}
-    characterCount: 0
+    characterCount: 11
     spriteCount: 0
     spaceCount: 0
-    wordCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -5506,13 +5506,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1240307916}
-    characterCount: 0
+    characterCount: 5
     spriteCount: 0
     spaceCount: 0
-    wordCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -8673,6 +8673,10 @@ MonoBehaviour:
   - List:
     - {fileID: 4291260283637413320, guid: a30cb14377c9c5549a529cb3a490161f, type: 3}
     - {fileID: 2408538418312236404, guid: f5afd2c4b8e18c344b1ef78c99ef1e08, type: 3}
+  - List:
+    - {fileID: 6143736533930423660, guid: 18bffd11770126c478fd33dcb249fbc9, type: 3}
+  - List:
+    - {fileID: 6445879153894210441, guid: 9d6d84c2ff2b0d44ca063684645cc956, type: 3}
   poolManager: {fileID: 1478710983}
   inventoryCanvas: {fileID: 504319717}
   timeInInventory: 10

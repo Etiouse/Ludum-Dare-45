@@ -41,7 +41,9 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         ATTACK_DAMAGE_UP1,
         SPEED_MOVEMENT,
         SPEED_MOVEMENT_UP1,
-        LIFE_STEAL
+        LIFE_STEAL,
+        LAVA_RESISTANT,
+        WATTER_WALK
     }
 
     public Color SpriteColor;

@@ -24,6 +24,8 @@ public static class PlayerCharacteristics
     public static bool SpeedMovement { get; private set; }
     public static bool SpeedMovementUp1 { get; private set; }
     public static bool LifeSteal { get; private set; }
+    public static bool LavaResistant { get; private set; }
+    public static bool WatterWalk { get; private set; }
 
     public static void ResetAll()
     {
@@ -93,6 +95,10 @@ public static class PlayerCharacteristics
                 return SpeedMovementUp1;
             case PowerShape.Type.LIFE_STEAL:
                 return LifeSteal;
+            case PowerShape.Type.LAVA_RESISTANT:
+                return LavaResistant;
+            case PowerShape.Type.WATTER_WALK:
+                return WatterWalk;
         }
 
         return false;
@@ -161,6 +167,12 @@ public static class PlayerCharacteristics
                 break;
             case PowerShape.Type.LIFE_STEAL:
                 LifeSteal = value;
+                break;
+            case PowerShape.Type.LAVA_RESISTANT:
+                LavaResistant = value;
+                break;
+            case PowerShape.Type.WATTER_WALK:
+                WatterWalk = value;
                 break;
         }
     }
