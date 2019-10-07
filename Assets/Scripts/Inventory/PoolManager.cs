@@ -32,40 +32,14 @@ public class PoolManager : MonoBehaviour
 
     public void IncreaseFirstVisibleElementIndex()
     {
-        bool isOk = false;
-
-        while (!isOk)
-        {
-            firstVisibleElementIndex++;
-
-            GameObject powerShape = availableElements[currentElementInPoolIndex[firstVisibleElementIndex]];
-
-            if (!UsedPowerShapes.Contains(powerShape) ||
-                firstVisibleElementIndex >= availableElements.Count)
-            {
-                isOk = true;
-            }
-        }
+        firstVisibleElementIndex++;
 
         updateVisibleElements = true;
     }
 
     public void ReduceFirstVisibleElementIndex()
     {
-        bool isOk = false;
-
-        while (!isOk)
-        {
-            firstVisibleElementIndex--;
-
-            GameObject powerShape = availableElements[currentElementInPoolIndex[firstVisibleElementIndex]];
-
-            if (!UsedPowerShapes.Contains(powerShape) ||
-                firstVisibleElementIndex <= 0)
-            {
-                isOk = true;
-            }
-        }
+        firstVisibleElementIndex--;
 
         updateVisibleElements = true;
     }
@@ -246,11 +220,6 @@ public class PoolManager : MonoBehaviour
                 UsedPowerShapes.Add(powerShape);
 
                 usedPowerShapesIndex.Add(index);
-
-                if (index == firstVisibleElementIndex)
-                {
-                    firstVisibleElementIndex--;
-                }
             }
             else if (UsedPowerShapes.Contains(powerShape))
             {
