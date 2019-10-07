@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public delegate void UpdateSelectedPowerShapeEvent(GameObject powerShape);
     public static event UpdateSelectedPowerShapeEvent OnUpdateSelectedPowerShapeEvent;
@@ -13,21 +13,55 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public delegate void ConfirmPowerShapeEvent(GameObject powerShape, bool isConfirmed);
     public static event ConfirmPowerShapeEvent OnConfirmPowerShapeEvent;
 
-    public enum PowerShapeType
+    public delegate void MouseOverPowerShapeEvent(PowerShape powerShape);
+    public static event MouseOverPowerShapeEvent OnMouseOverPowerShapeEvent;
+
+    public delegate void EnableChangingDisplayEvent(bool value);
+    public static event EnableChangingDisplayEvent OnEnableChangingDisplayEvent;
+
+    public enum Type
     {
         FIRE_BALL,
+        FIRE_BALL_UP1,
         ICE_BALL,
-        ROCK_SHILD,
-        AIR_SHILD
+        ICE_BALL_UP1,
+        ROCK_SHIELD,
+        ROCK_SHIELD_UP1,
+        AIR_SHIELD,
+        AIR_SHIELD_UP1,
+        PRIM_MOVEMENT,
+        PRIM_NOC_VISION,
+        PRIM_LIFEBAR_VISION,
+        MAX_HEALTH,
+        MAX_HEALTH_UP1,
+        ATTACK_SPEED,
+        ATTACK_SPEED_UP1,
+        ATTACK_DAMAGE,
+        ATTACK_DAMAGE_UP1,
+        SPEED_MOVEMENT,
+        SPEED_MOVEMENT_UP1,
+        LIFE_STEAL
     }
 
     public Color SpriteColor;
     public string DisplayedName;
     public string Description;
-    public PowerShapeType CurrentPowerShapeType;
+    public Type PowerShapeType;
 
     public bool IsOnInventoryCase { get; set; }
     public bool IsMoving { get; private set; }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        OnMouseOverPowerShapeEvent(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnMouseOverPowerShapeEvent(null);
+
+        RemoveHighlight();
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -35,13 +69,21 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         OnUpdateSelectedPowerShapeEvent(gameObject);
 
         OnConfirmPowerShapeEvent(gameObject, false);
+        OnEnableChangingDisplayEvent(false);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         IsMoving = false;
+
         OnUpdateSelectedPowerShapeEvent(null);
+
         OnConfirmPowerShapeEvent(gameObject, IsOnInventoryCase);
+
+        OnMouseOverPowerShapeEvent(null);
+        OnEnableChangingDisplayEvent(true);
+
+        RemoveHighlight();
     }
 
     private void Awake()
@@ -92,5 +134,21 @@ public class PowerShape : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
         return mousePos;
+    }
+
+    private void RemoveHighlight()
+    {
+        if (!IsMoving)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Transform child = transform.GetChild(i);
+
+                for (int j = 0; j < child.childCount; j++)
+                {
+                    Destroy(child.GetChild(j).gameObject);
+                }
+            }
+        }
     }
 }

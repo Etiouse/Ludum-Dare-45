@@ -29,14 +29,38 @@ public class PoolManager : MonoBehaviour
 
     public void IncreaseFirstVisibleElementIndex()
     {
-        firstVisibleElement++;
+        bool isOk = false;
+
+        while (!isOk)
+        {
+            firstVisibleElement++;
+
+            GameObject powerShape = availableElements[currentElementInPool[firstVisibleElement]];
+            if (!UsedPowerShapes.Contains(powerShape) ||
+                firstVisibleElement > availableElements.Count)
+            {
+                isOk = true;
+            }
+        }
 
         updateVisibleElements = true;
     }
 
     public void ReduceFirstVisibleElementIndex()
     {
-        firstVisibleElement--;
+        bool isOk = false;
+
+        while (!isOk)
+        {
+            firstVisibleElement--;
+
+            GameObject powerShape = availableElements[currentElementInPool[firstVisibleElement]];
+            if (!UsedPowerShapes.Contains(powerShape) ||
+                firstVisibleElement <= 0)
+            {
+                isOk = true;
+            }
+        }
 
         updateVisibleElements = true;
     }
@@ -62,7 +86,7 @@ public class PoolManager : MonoBehaviour
         firstVisibleElement = 0;
         updateVisibleElements = true;
 
-        TMPAddAllPowerShapes();
+        TMPAddAllPowerShapesToPool();
     }
 
     private void OnEnable()
@@ -106,15 +130,15 @@ public class PoolManager : MonoBehaviour
     private void CheckChangeVisibleElementsInPool()
     {
         canReduce = firstVisibleElement > 0;
-        canIncrease = firstVisibleElement + (slotsElements.Count - 1) < currentElementInPool.Count - 1 - UsedPowerShapes.Count;
+        canIncrease = firstVisibleElement + (slotsElements.Count - 1) < currentElementInPool.Count - 1;
 
         inscreaseButton.enabled = canIncrease;
         reduceButton.enabled = canReduce;
     }
 
-    private void TMPAddAllPowerShapes()
+    private void TMPAddAllPowerShapesToPool()
     {
-        // TODO : Remove when the power shapes
+        // TODO : Remove when the power shapes are added between each levels
         for (int i = 0; i < availableElements.Count; i++)
         {
             currentElementInPool.Add(i);
@@ -173,6 +197,7 @@ public class PoolManager : MonoBehaviour
             for (int i = min; i <= max; i++)
             {
                 index = i + offset;
+                //Debug.Log("--<> " + index);
                 GameObject powerShape = availableElements[currentElementInPool[index]];
                 powerShape.SetActive(true);
 
@@ -213,5 +238,7 @@ public class PoolManager : MonoBehaviour
 
         updateVisibleElements = true;
         OnUpdateUsedPowerShapesEvent();
+
+        //Debug.Log(UsedPowerShapes.Count);
     }
 }
