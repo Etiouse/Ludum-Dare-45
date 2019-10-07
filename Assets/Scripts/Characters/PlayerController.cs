@@ -31,8 +31,17 @@ public class PlayerController : CharacterController
         maxHealth = GameParameters.playerStartHealth;
         characterSpeed = GameParameters.playerSpeed;
         rockshield = new List<GameObject>();
-        GenerateRockShield();
-        CreateAirShield();
+        if (PlayerCharacteristics.GetValue(PowerShape.Type.ROCK_SHIELD))
+        {
+            GameParameters.numberOfRockShield = PlayerCharacteristics.GetValue(PowerShape.Type.ROCK_SHIELD_UP1) ? GameParameters.numberOfRockShieldUpgrade : GameParameters.numberOfRockShieldDefault;
+            GenerateRockShield();
+            ActivateRockShield();
+        }
+        if (PlayerCharacteristics.GetValue(PowerShape.Type.AIR_SHIELD))
+        {
+            GameParameters.airShieldActivationRange = PlayerCharacteristics.GetValue(PowerShape.Type.AIR_SHIELD) ? GameParameters.airShieldActivationRangeUpgrade : GameParameters.airShieldActivationRangeDefault;
+            CreateAirShield();
+        }
         GetSpriteRenderer();
     }
 
@@ -67,19 +76,14 @@ public class PlayerController : CharacterController
     {
         if (canAttack)
         {
-            //if (...) // TODO get bool parameter
+            if (PlayerCharacteristics.GetValue(PowerShape.Type.FIRE_BALL)) 
             {
                 FireballAttack();
             }
 
-            // if (...) // TODO get bool parameter
+            if (PlayerCharacteristics.GetValue(PowerShape.Type.ICE_BALL)) // TODO get bool parameter
             {
                 IceBallAttack();
-            }
-
-            // if (...) // TODO get bool parameter
-            {
-                ActivateRockShield();
             }
             StartCoroutine(AttackCooldown());
         }
@@ -127,12 +131,13 @@ public class PlayerController : CharacterController
 
     private void FireballAttack()
     {
-        foreach(Transform origin in fireballOrigins)
+        int numberProjectile = PlayerCharacteristics.GetValue(PowerShape.Type.FIRE_BALL_UP1) ? 3 : 1;
+        for (int i = 0; i < numberProjectile; i++)
         {
             // Generate fireball
             GameObject fireball = Instantiate(fireballModel);
-            fireball.transform.position = origin.position;
-            fireball.transform.right = origin.right;
+            fireball.transform.position = fireballOrigins[i].position;
+            fireball.transform.right = fireballOrigins[i].right;
             fireball.transform.SetParent(objects.transform);
 
             ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
@@ -148,15 +153,16 @@ public class PlayerController : CharacterController
 
     private void IceBallAttack()
     {
-        foreach (Transform t in iceBallOrigins)
+        int numberProjectile = PlayerCharacteristics.GetValue(PowerShape.Type.ICE_BALL_UP1) ? 4 : 2;
+        for (int i = 0; i < numberProjectile; i++)
         {
             GameObject iceball = Instantiate(iceballModel);
             iceball.transform.parent = transform;
-            iceball.transform.position = t.position;
+            iceball.transform.position = iceBallOrigins[i].position;
             iceball.transform.up = spritesParent.transform.up;
             iceball.transform.SetParent(objects.transform);
 
-            iceball.GetComponent<ProjectileController>().Shoot(t.position - transform.position, gameObject.tag, GameParameters.iceballSpeed, GameParameters.iceballDamage);
+            iceball.GetComponent<ProjectileController>().Shoot(iceBallOrigins[i].position - transform.position, gameObject.tag, GameParameters.iceballSpeed, GameParameters.iceballDamage);
 
             CircleCollider2D iceballCollider = iceball.GetComponent<CircleCollider2D>();
             // Ignore collision between the player and the bullet (trigger ok)

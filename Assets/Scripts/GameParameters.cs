@@ -30,8 +30,12 @@ public static class GameParameters
     public static int playerSpeed = 20;
     public static float playerInvincibilityTime = 2;
     public static readonly float AIR_SHIELD_ACTIVATION_TIME = 1;
-    public static RangeInt airShieldActivationRange = new RangeInt(3, 10);
-    public static int numberOfRockShield = 3;
+    public static RangeInt airShieldActivationRange = new RangeInt(5, 15);
+    public static RangeInt airShieldActivationRangeDefault = new RangeInt(5, 15);
+    public static RangeInt airShieldActivationRangeUpgrade = new RangeInt(5, 10);
+    public static int numberOfRockShield = 2;
+    public static int numberOfRockShieldDefault = 2;
+    public static int numberOfRockShieldUpgrade = 3;
 
     // Player Projectiles
     public static float fireballSpeed = 20;

@@ -66,9 +66,9 @@ public static class PlayerCharacteristics
             case PowerShape.Type.ROCK_SHIELD_UP1:
                 return RockShieldUp1;
             case PowerShape.Type.AIR_SHIELD:
-                return AirShield;
+                return true;
             case PowerShape.Type.AIR_SHIELD_UP1:
-                return AirShieldUp1;
+                return true;
             case PowerShape.Type.PRIM_MOVEMENT:
                 return PrimMovement;
             case PowerShape.Type.PRIM_NOC_VISION:
