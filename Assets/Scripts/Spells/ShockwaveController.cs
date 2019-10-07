@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ShockwaveController : MonoBehaviour
 {
-    private float damage = GameParameters.DEFAULT_SHOCKWAVE_DAMAGE;
-    private float speed = GameParameters.DEFAULT_SHOCKWAVE_EXPANDING_SPEED;
-    private float scale = GameParameters.DEFAULT_SHOCKWAVE_EXPANDING_SCALE;
+    protected float damage = GameParameters.DEFAULT_SHOCKWAVE_DAMAGE;
+    protected float speed = GameParameters.DEFAULT_SHOCKWAVE_EXPANDING_SPEED;
+    protected float scale = GameParameters.DEFAULT_SHOCKWAVE_EXPANDING_SCALE;
 
     private Rigidbody2D rigid2d;
-    private string owner;
+    protected string owner;
 
     // Start is called before the first frame update
     void Awake()
@@ -17,7 +17,7 @@ public class ShockwaveController : MonoBehaviour
         rigid2d = GetComponent<Rigidbody2D>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         // Ignore collision between same entities (enemies projectile to enemies) and projectile to projectile
         if (collision.tag == "Projectile" || collision.tag == owner)
@@ -32,16 +32,15 @@ public class ShockwaveController : MonoBehaviour
         }
     }
 
-    public void Activate(string owner, float speed, float scale, float damage)
+    public virtual void Activate(string owner, float speed, float scale, float damage)
     {
         this.damage = damage;
         this.owner = owner;
 
         StartCoroutine(Scale(scale, speed));
-
     }
 
-    private IEnumerator Scale(float finalScale, float time)
+    protected IEnumerator Scale(float finalScale, float time)
     {
         float scale = 1;
         float elapsedTime = 0;

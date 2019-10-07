@@ -27,7 +27,7 @@ public class FinalBossController : CharacterController
 
     private void Start()
     {
-        startHealth = GameParameters.finalBossStartHealth;
+        maxHealth = GameParameters.finalBossStartHealth;
         characterSpeed = GameParameters.finalBossSpeed;
         rockshield = new List<GameObject>();
         GenerateRockShield();

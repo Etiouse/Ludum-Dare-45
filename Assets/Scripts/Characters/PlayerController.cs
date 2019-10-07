@@ -26,7 +26,7 @@ public class PlayerController : CharacterController
 
     private void Start()
     {
-        startHealth = GameParameters.playerStartHealth;
+        maxHealth = GameParameters.playerStartHealth;
         characterSpeed = GameParameters.playerSpeed;
         rockshield = new List<GameObject>();
         GenerateRockShield();

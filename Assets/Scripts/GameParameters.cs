@@ -84,6 +84,16 @@ public static class GameParameters
     public static readonly float BRAUM_WAIT_TIME = 3f;
     public static readonly float BRAUM_MOVEMENT_SPEED = 10;
 
+    // Healer
+    public static readonly float HEALER_MOVEMENT_TIME = 3f;
+    public static readonly float HEALER_WAIT_TIME = 3f;
+    public static readonly float HEALER_MOVEMENT_SPEED = 10;
+
+    // Healer shockwave
+    public static float healerhockwaveExpandingScale = 30;
+    public static float healerShockwaveExpandingSpeed = 0.25f;
+    public static float healerShockwaveHeal= 10;
+
     // Braum shield
     public static readonly float BRAUM_SHIELD_DEACTIVATION_TIME = 2;
 
