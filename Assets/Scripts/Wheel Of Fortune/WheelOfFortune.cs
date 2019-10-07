@@ -14,6 +14,7 @@ public class WheelOfFortune : MonoBehaviour
     [SerializeField] float friction = 1.005f;
     [SerializeField] float minSpeedAccepted = 10f;
     [SerializeField] float scaleOfRules = 0.4f;
+    [SerializeField] int powersCopies = 2;
 
     public delegate void ResultAction(GameObject rule);
     public static event ResultAction OnResultAction;
@@ -27,8 +28,7 @@ public class WheelOfFortune : MonoBehaviour
     private float clickDistance;
     private bool end;
 
-    private List<Rule> rules;
-    private List<GameObject> allRules;
+    private List<GameObject> rules;
     private List<GameObject> rulesObjects;
 
     private const float MAGIC_HEIGHT = 4f;
@@ -51,53 +51,45 @@ public class WheelOfFortune : MonoBehaviour
             }
         }
 
-        // Generate all rules with the correspondingnumber of occurences
-        allRules = new List<GameObject>();
-        foreach (Rule rule in rules)
-        {
-            for (int i = 0; i < rule.Occurences; i++)
-            {
-                allRules.Add(rule.Object);
-            }
-            rule.Name = rule.Object.GetComponent<PowerShape>().DisplayedName;
-        }
-
-        // Shuffle the rules
-        ShuffleRules();
-
         // Instantiate corresponding game objects
         int counter = 1;
         rulesObjects = new List<GameObject>();
-        foreach (GameObject rule in allRules)
+        foreach (GameObject rule in rules)
         {
-            GameObject ruleObject = Instantiate(rule);
-            ruleObject.SetActive(true);
+            for (int i = 0; i < powersCopies; i++)
+            {
+                GameObject ruleObject = Instantiate(rule);
+                ruleObject.SetActive(true);
 
-            // Prefab parameters
-            ruleObject.transform.SetParent(rulesSlots.transform);
-            ruleObject.name = "Rule " + counter;
-            ruleObject.transform.localScale = new Vector3(scaleOfRules, scaleOfRules, scaleOfRules);
-            ruleObject.transform.position = rulesSlots.transform.position;
+                // Prefab parameters
+                ruleObject.transform.SetParent(rulesSlots.transform);
+                ruleObject.name = "Rule " + counter;
+                ruleObject.transform.localScale = new Vector3(scaleOfRules, scaleOfRules, scaleOfRules);
+                ruleObject.transform.position = rulesSlots.transform.position;
 
-            // Background image
-            GameObject bg = Instantiate(background);
-            bg.name = "Background";
-            bg.transform.SetParent(ruleObject.transform);
-            bg.transform.localScale = new Vector3(4, 4, 4);
-            bg.transform.position = ruleObject.transform.position;
-            bg.transform.SetAsFirstSibling();
-            bg.GetComponent<Image>().color = ruleObject.GetComponent<PowerShape>().SpriteColor;
+                // Background image
+                GameObject bg = Instantiate(background);
+                bg.name = "Background";
+                bg.transform.SetParent(ruleObject.transform);
+                bg.transform.localScale = new Vector3(4, 4, 4);
+                bg.transform.position = ruleObject.transform.position;
+                bg.transform.SetAsFirstSibling();
+                bg.GetComponent<Image>().color = ruleObject.GetComponent<PowerShape>().SpriteColor;
 
-            rulesObjects.Add(ruleObject);
-            counter++;
+                rulesObjects.Add(ruleObject);
+                counter++;
+            }
         }
+
+        // Shuffle powers
+        ShufflePowers();
 
         speed = initSpeedAverage + Random.Range(-initSpeedDeviation, initSpeedDeviation);
         shift = 0;
         end = false;
     }
 
-    public void SetRules(List<Rule> rules)
+    public void SetRules(List<GameObject> rules)
     {
         this.rules = rules;
         ResetWheel();
@@ -120,7 +112,7 @@ public class WheelOfFortune : MonoBehaviour
         width = rulesSlots.GetComponent<RectTransform>().rect.width;
         height = rulesSlots.GetComponent<RectTransform>().rect.height;
 
-        if (allRules.Count > 0)
+        if (rules.Count > 0)
         {
             // Speed adjustment
             if (speed > minSpeedAccepted)
@@ -200,15 +192,15 @@ public class WheelOfFortune : MonoBehaviour
         }
     }
 
-    private void ShuffleRules()
+    private void ShufflePowers()
     {
-        for (int i = 0; i < allRules.Count; i++)
+        for (int i = 0; i < rulesObjects.Count; i++)
         {
-            int j = Random.Range(0, allRules.Count);
+            int j = Random.Range(0, rulesObjects.Count);
 
-            GameObject tmp = allRules[i];
-            allRules[i] = allRules[j];
-            allRules[j] = tmp;
+            GameObject tmp = rulesObjects[i];
+            rulesObjects[i] = rulesObjects[j];
+            rulesObjects[j] = tmp;
         }
     }
 
@@ -228,11 +220,11 @@ public class WheelOfFortune : MonoBehaviour
         }
 
         string name = winner.GetComponent<PowerShape>().DisplayedName;
-        foreach (Rule rule in rules)
+        foreach (GameObject rule in rules)
         {
-            if (rule.Name.Equals(name))
+            if (rule.GetComponent<PowerShape>().DisplayedName.Equals(name))
             {
-                return rule.Object;
+                return rule;
             }
         }
 

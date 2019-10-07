@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
-    public delegate void SetWheelRulesAction(List<Rule> rules);
+    public delegate void SetWheelRulesAction(List<GameObject> rules);
     public delegate void TransmitNewPowerAction(GameObject newPower);
     public static event SetWheelRulesAction OnSetWheelRulesAction;
     public static event TransmitNewPowerAction OnTransmitNewPowerAction;
@@ -20,7 +20,10 @@ public class GameHandler : MonoBehaviour
     [SerializeField] GameObject winner = null;
     [SerializeField] TMP_Text description = null;
     [SerializeField] Button continueButton = null;
-    [SerializeField] List<Rule> rules = null;
+
+    [Header("All powers")]
+    [SerializeField] List<GameObject> primordials = null;
+    [SerializeField] List<PowerList> classics = null;
 
     [Header("Inventory")]
     [SerializeField] Canvas inventoryCanvas = null;
@@ -35,6 +38,7 @@ public class GameHandler : MonoBehaviour
     private List<(GameObject, float)> currentEnnemies;
     private List<GameObject> currentSpawns;
     private List<GameObject> levelsLeft;
+    private List<PowerList> powersLeft;
     private LevelsData levelsData;
     private Vector3 initCamPos;
     private GameState gameState;
@@ -68,12 +72,12 @@ public class GameHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        WheelOfFortune.OnResultAction += ResultRule;
+        WheelOfFortune.OnResultAction += ResultingPower;
     }
 
     private void OnDisable()
     {
-        WheelOfFortune.OnResultAction -= ResultRule;
+        WheelOfFortune.OnResultAction -= ResultingPower;
     }
 
     private void Start()
@@ -89,7 +93,8 @@ public class GameHandler : MonoBehaviour
         {
             levelsLeft.Add(levelsContainer.transform.GetChild(i).gameObject);
         }
-        
+
+        powersLeft = new List<PowerList>(classics);
         levelsData = levelsContainer.GetComponent<LevelsData>();
 
         LoadLevel();
@@ -205,7 +210,7 @@ public class GameHandler : MonoBehaviour
                 {
                     swapState = SwapState.DISPLAY_WHEEL;
                     wheelCanvas.gameObject.SetActive(true);
-                    OnSetWheelRulesAction(rules);
+                    OnSetWheelRulesAction(WinnablePowers());
                 }
                 break;
 
@@ -266,7 +271,23 @@ public class GameHandler : MonoBehaviour
         return spawn.transform.position;
     }
 
-    private void ResultRule(GameObject power)
+    private List<GameObject> WinnablePowers()
+    {
+        List<GameObject> winnablePowers = new List<GameObject>();
+
+        foreach (PowerList powerList in powersLeft)
+        {
+            List<GameObject> list = powerList.List;
+            if (list.Count > 0)
+            {
+                winnablePowers.Add(list[0]);
+            }
+        }
+
+        return winnablePowers;
+    }
+
+    private void ResultingPower(GameObject power)
     {
         if (power != null)
         {
@@ -284,11 +305,26 @@ public class GameHandler : MonoBehaviour
             description.text = power.GetComponent<PowerShape>().Description;
             continueButton.gameObject.SetActive(true);
 
+            DeletePowerReceived(power);
+
             //OnTransmitNewPowerAction(power);
         }
         else
         {
             Debug.Log(":(");
+        }
+    }
+
+    private void DeletePowerReceived(GameObject power)
+    {
+        foreach (PowerList powerList in powersLeft)
+        {
+            List<GameObject> list = powerList.List;
+            if (list.Count > 0 && 
+                list[0].GetComponent<PowerShape>().DisplayedName.Equals(power.GetComponent<PowerShape>().DisplayedName))
+            {
+                list.RemoveAt(0);
+            }
         }
     }
 }
