@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e9db313e72ee24fb7474b6b3954e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireballModel: {fileID: 682038488975558710, guid: 71651131802d67a479e557fa30712344,
+  fireballModel: {fileID: 682038488975558710, guid: afb706ec0a1651e4cba6698b6949010c,
     type: 3}
   fireballOrigins:
   - {fileID: 5091276503401949073}

@@ -17,11 +17,12 @@ public class LavaController : MonoBehaviour
 
     private void DamagePlayer(Collider2D collision)
     {
-        //if () // can levitate lava
+        if (!PlayerCharacteristics.GetValue(PowerShape.Type.LAVA_RESISTANT)) // can levitate lava
         {
             if (collision.tag == "Player")
             {
                 collision.gameObject.GetComponent<PlayerController>().Damage(GameParameters.LAVA_DAMAGE);
+                Debug.Log("QUEUE");
             }
         }
     }

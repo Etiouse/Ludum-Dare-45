@@ -6,7 +6,7 @@ public class WaterController : MonoBehaviour
 {
     private void Awake()
     {
-        //if () // player water perks
+        if (PlayerCharacteristics.GetValue(PowerShape.Type.WATTER_WALK)) // player water perks
         {
             Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<CircleCollider2D>());
         }

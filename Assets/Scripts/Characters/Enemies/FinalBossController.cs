@@ -6,18 +6,19 @@ using UnityEngine;
 public class FinalBossController : CharacterController
 {
 
-    [SerializeField] private GameObject fireballModel;
-    [SerializeField] private List<Transform> fireballOrigins;
+    [SerializeField] private GameObject fireballModel = null;
+    [SerializeField] private List<Transform> fireballOrigins = null;
 
-    [SerializeField] private GameObject iceballModel;
-    [SerializeField] private List<Transform> iceBallOrigins;
+    [SerializeField] private GameObject iceballModel = null;
+    [SerializeField] private List<Transform> iceBallOrigins = null;
 
-    [SerializeField] private GameObject rockShieldModel;
-    [SerializeField] private Transform rockOrigin;
-    
-    [SerializeField] private GameObject airShieldModel;
+    [SerializeField] private GameObject rockShieldModel = null;
+    [SerializeField] private Transform rockOrigin = null;
 
-    private GameObject target;
+    [SerializeField] private GameObject airShieldModel = null;
+
+    [SerializeField] private GameObject objects = null;
+
     private bool canAttack = true;
     private List<GameObject> rockshield;
     private AirShield airshield;
@@ -25,14 +26,52 @@ public class FinalBossController : CharacterController
     private bool invincibility = false;
     private List<SpriteRenderer> rendererList = new List<SpriteRenderer>();
 
+    private float attackSpeed;
+    private float damage;
+
+    private bool hasFireball;
+    private bool hasIceball;
+    private bool hasFireballUpgrade;
+    private bool hasIceballUpgrade;
+    private int numberOfRockShield;
+    private RangeInt airshieldRange;
+
+    private GameObject target;
+
     private void Start()
     {
-        maxHealth = GameParameters.finalBossStartHealth;
-        characterSpeed = GameParameters.finalBossSpeed;
+        System.Random rnd = new System.Random();
+        float[] attackspeeds = new float[] { GameParameters.playerAttackSpeedDefault, GameParameters.playerAttackSpeedUpgrade1, GameParameters.playerAttackSpeedUpgrade2 }.OrderBy(x => rnd.Next()).ToArray();
+        float[] damages = new float[] { GameParameters.playerDamageDefault, GameParameters.playerDamageUpgrade1, GameParameters.playerDamageUpgrade2 }.OrderBy(x => rnd.Next()).ToArray();
+        float[] moveSpeeds = new float[] { GameParameters.playerSpeedDefault, GameParameters.playerSpeedUpgrade1, GameParameters.playerSpeedUpgrade2 }.OrderBy(x => rnd.Next()).ToArray();
+        float[] maxHealths = new float[] { GameParameters.playerMaxHealthDefault, GameParameters.playerMaxHealthUpgrade1, GameParameters.playerMaxHealthUpgrade2 }.OrderBy(x => rnd.Next()).ToArray();
+        bool[] spells = new bool[] { false, true, true, true }.OrderBy(x => rnd.Next()).ToArray();
+        bool[] spellUpgrade = new bool[] { true, false, false, false }.OrderBy(x => rnd.Next()).ToArray();
+
+        attackSpeed = attackspeeds[0];
+        damage = damages[0];
+        characterSpeed = moveSpeeds[0];
+
+        hasFireball = spells[2];
+        hasIceball = spells[3];
+        hasFireballUpgrade = spellUpgrade[2];
+        hasIceballUpgrade = spellUpgrade[3];
+
         rockshield = new List<GameObject>();
-        GenerateRockShield();
-        CreateAirShield();
+        if (spells[0])
+        {
+            numberOfRockShield = spellUpgrade[0] ? GameParameters.numberOfRockShieldUpgrade : GameParameters.numberOfRockShieldDefault;
+            GenerateRockShield();
+            ActivateRockShield();
+        }
+        if (spells[1])
+        {
+            airshieldRange = spellUpgrade[1] ? GameParameters.airShieldActivationRangeUpgrade : GameParameters.airShieldActivationRangeDefault;
+            CreateAirShield();
+        }
+
         GetSpriteRenderer();
+
         target = GameObject.FindGameObjectWithTag("Player");
 
         StartCoroutine(Actions());
@@ -47,12 +86,21 @@ public class FinalBossController : CharacterController
         yield return new WaitForSeconds(GameParameters.FINAL_BOSS_MOVEMENT_TIME);
         Move(Vector2.zero);
 
-        Vector2 attackDirection = target.transform.position - transform.position;
-        LookAt(attackDirection);
-
-        Attack();
+        LookAt(target.transform.position - transform.position);
+        for (int i = 0; i < 3; i++)
+        {
+            Attack();
+            yield return new WaitForSeconds(attackSpeed);
+        }
 
         StartCoroutine(Actions());
+    }
+
+    protected override void SetMaxHealth()
+    {
+        System.Random rnd = new System.Random();
+        float[] maxHealths = new float[] { GameParameters.playerMaxHealthDefault, GameParameters.playerMaxHealthUpgrade1, GameParameters.playerMaxHealthUpgrade2 }.OrderBy(x => rnd.Next()).ToArray();
+        maxHealth = maxHealths[0];
     }
 
     public override void Damage(float damage)
@@ -68,19 +116,14 @@ public class FinalBossController : CharacterController
     {
         if (canAttack)
         {
-            //if (...) // TODO get bool parameter
+            if (hasFireball) 
             {
                 FireballAttack();
             }
 
-            // if (...) // TODO get bool parameter
+            if (hasIceball) 
             {
                 IceBallAttack();
-            }
-
-            // if (...) // TODO get bool parameter
-            {
-                ActivateRockShield();
             }
             StartCoroutine(AttackCooldown());
         }
@@ -89,7 +132,7 @@ public class FinalBossController : CharacterController
     private IEnumerator AttackCooldown()
     {
         canAttack = false;
-        yield return new WaitForSeconds(GameParameters.finalBossAttackSpeed);
+        yield return new WaitForSeconds(attackSpeed);
         canAttack = true;
     }
 
@@ -97,12 +140,12 @@ public class FinalBossController : CharacterController
     {
         invincibility = true;
         bool blinkOn = true;
-        int numberOfBlink = 20;
+        int numberOfBlink = 30;
 
         for (int i = 0; i < numberOfBlink; i++)
         {
             SetAlphaAllSprites(blinkOn ? 0.5f : 1);
-            yield return new WaitForSeconds(GameParameters.finalBossInvincibilityTime / numberOfBlink);
+            yield return new WaitForSeconds(GameParameters.playerInvincibilityTime / numberOfBlink);
             blinkOn = !blinkOn;
         }
 
@@ -128,54 +171,61 @@ public class FinalBossController : CharacterController
 
     private void FireballAttack()
     {
-        foreach(Transform origin in fireballOrigins)
+        int numberProjectile = hasFireballUpgrade ? 3 : 1;
+        for (int i = 0; i < numberProjectile; i++)
         {
             // Generate fireball
             GameObject fireball = Instantiate(fireballModel);
-            fireball.transform.parent = transform;
-            fireball.transform.position = origin.position;
-            fireball.transform.up = spritesParent.transform.up;
+            fireball.transform.position = fireballOrigins[i].position;
+            fireball.transform.right = fireballOrigins[i].right;
+            fireball.transform.SetParent(objects.transform);
 
             ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
-            projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.finalBossFireballSpeed, GameParameters.finalBossFireballDamage);
+            projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.fireballSpeed, damage);
 
             CircleCollider2D fireballCollider = fireball.GetComponent<CircleCollider2D>();
             // Ignore collision between the player and the fireball (trigger ok)
             Physics2D.IgnoreCollision(mainCollider, fireballCollider);
-            IgnoreCollisionWithRockShield(fireballCollider);
-            IgnoreCollisionWithAirShield(fireballCollider);
+            if (rockshield.Count > 0)
+                IgnoreCollisionWithRockShield(fireballCollider);
+            if (airshield != null)
+                IgnoreCollisionWithAirShield(fireballCollider);
         }
     }
 
     private void IceBallAttack()
     {
-        foreach (Transform t in iceBallOrigins)
+        int numberProjectile = hasIceballUpgrade ? 4 : 2;
+        for (int i = 0; i < numberProjectile; i++)
         {
             GameObject iceball = Instantiate(iceballModel);
             iceball.transform.parent = transform;
-            iceball.transform.position = t.position;
+            iceball.transform.position = iceBallOrigins[i].position;
             iceball.transform.up = spritesParent.transform.up;
+            iceball.transform.SetParent(objects.transform);
 
-            iceball.GetComponent<ProjectileController>().Shoot(t.position - transform.position, gameObject.tag, GameParameters.finalBossIceballSpeed, GameParameters.finalBossIceballDamage);
+            iceball.GetComponent<ProjectileController>().Shoot(iceBallOrigins[i].position - transform.position, gameObject.tag, GameParameters.iceballSpeed, damage);
 
             CircleCollider2D iceballCollider = iceball.GetComponent<CircleCollider2D>();
             // Ignore collision between the player and the bullet (trigger ok)
             Physics2D.IgnoreCollision(mainCollider, iceballCollider);
 
-            IgnoreCollisionWithRockShield(iceballCollider);
-            IgnoreCollisionWithAirShield(iceballCollider);
+            if (rockshield.Count > 0)
+                IgnoreCollisionWithRockShield(iceballCollider);
+            if (airshield != null)
+                IgnoreCollisionWithAirShield(iceballCollider);
         }
 
     }
 
     private void GenerateRockShield()
     {
-        for (int i = 0; i < GameParameters.finalBossNumberOfRockShield; i++)
+        for (int i = 0; i < numberOfRockShield; i++)
         {
-            float angle = 360 / GameParameters.finalBossNumberOfRockShield * i;
+            float angle = 360 / numberOfRockShield * i;
 
             GameObject rock = Instantiate(rockShieldModel);
-            rock.transform.parent = transform;
+            rock.transform.SetParent(objects.transform);
             float shieldDistance = (rockOrigin.transform.position - transform.position).magnitude;
             rock.transform.position = transform.position + Quaternion.Euler(0, 0, angle) * (transform.position - rockOrigin.position);
             rock.GetComponent<RockShield>().Init(transform, shieldDistance, angle);
@@ -210,6 +260,7 @@ public class FinalBossController : CharacterController
     private void CreateAirShield()
     {
         airshield = Instantiate(airShieldModel).GetComponent<AirShield>();
+        airshield.transform.SetParent(objects.transform);
         airshield.Target = transform;
     }
 }
