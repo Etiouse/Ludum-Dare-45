@@ -49,6 +49,8 @@ public static class PlayerCharacteristics
         SpeedMovement = false;
         SpeedMovementUp1 = false;
         LifeSteal = false;
+        LavaResistant = false;
+        WatterWalk = false;
     }
 
     public static bool GetValue(PowerShape.Type powerShapeType)
@@ -56,31 +58,31 @@ public static class PlayerCharacteristics
         switch (powerShapeType)
         {
             case PowerShape.Type.FIRE_BALL:
-                return true;
+                return FireBall;
             case PowerShape.Type.FIRE_BALL_UP1:
-                return true;
+                return FireBallUp1;
             case PowerShape.Type.ICE_BALL:
-                return true;
+                return IceBall;
             case PowerShape.Type.ICE_BALL_UP1:
-                return true;
+                return IceBallUp1;
             case PowerShape.Type.ROCK_SHIELD:
-                return true;
+                return RockShield;
             case PowerShape.Type.ROCK_SHIELD_UP1:
-                return true;
+                return RockShieldUp1;
             case PowerShape.Type.AIR_SHIELD:
-                return true;
+                return AirShield;
             case PowerShape.Type.AIR_SHIELD_UP1:
-                return true;
+                return AirShieldUp1;
             case PowerShape.Type.PRIM_MOVEMENT:
-                return true;
+                return PrimMovement;
             case PowerShape.Type.PRIM_NOC_VISION:
-                return true;
+                return PrimNocVision;
             case PowerShape.Type.PRIM_LIFEBAR_VISION:
-                return true;
+                return PrimLifebarVision;
             case PowerShape.Type.MAX_HEALTH:
-                return true;
+                return MaxHealth;
             case PowerShape.Type.MAX_HEALTH_UP1:
-                return true;
+                return MaxHealthUp1;
             case PowerShape.Type.ATTACK_SPEED:
                 return AttackSpeed;
             case PowerShape.Type.ATTACK_SPEED_UP1:
@@ -94,11 +96,11 @@ public static class PlayerCharacteristics
             case PowerShape.Type.SPEED_MOVEMENT_UP1:
                 return SpeedMovementUp1;
             case PowerShape.Type.LIFE_STEAL:
-                return true;
+                return LifeSteal;
             case PowerShape.Type.LAVA_RESISTANT:
-                return true;
+                return LavaResistant;
             case PowerShape.Type.WATTER_WALK:
-                return true;
+                return WatterWalk;
         }
 
         return false;
