@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spritesParent: {fileID: 7202276244461658130}
-  fireballModel: {fileID: 682038488975558710, guid: 71651131802d67a479e557fa30712344,
+  fireballModel: {fileID: 682038488975558710, guid: afb706ec0a1651e4cba6698b6949010c,
     type: 3}
   fireballOrigins:
   - {fileID: 5034860103214337776}

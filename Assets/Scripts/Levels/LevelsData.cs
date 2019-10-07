@@ -37,7 +37,12 @@ public class LevelsData : MonoBehaviour
         // Level 1
         levels.Add(new List<(GameObject, float)>
         {
+            (braum, 1f),
+            (cone, 1f),
+            (dasher, 1f),
+            (healer, 1f),
             (shooter, 1f),
+            (waterSplasher, 1f),
         });
 
         // Level 2
