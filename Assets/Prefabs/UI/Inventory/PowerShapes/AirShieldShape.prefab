@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6693578667132037007}
   - component: {fileID: 6693578667132037000}
+  - component: {fileID: 6926324250795843134}
   m_Layer: 5
   m_Name: AirShieldShape
   m_TagString: Untagged
@@ -36,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6693578667132037000
 MonoBehaviour:
@@ -53,7 +54,17 @@ MonoBehaviour:
   SpriteColor: {r: 0, g: 0.91636705, b: 1, a: 1}
   DisplayedName: Air Shield
   Description: Deploy an air shild at random time
-  CurrentPowerShapeType: 6
+  PowerShapeType: 6
+  Dependencies: 
+  Enabled: 07000000
+--- !u!222 &6926324250795843134
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693578667132037006}
+  m_CullTransparentMesh: 0
 --- !u!1001 &3580663508194199130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61,11 +72,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6693578667132037007}
     m_Modifications:
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc
-      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -170,6 +176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}
@@ -186,11 +197,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6693578667132037007}
     m_Modifications:
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -295,6 +301,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}

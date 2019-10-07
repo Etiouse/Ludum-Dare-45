@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2408538418312236405}
   - component: {fileID: 2408538418312236402}
+  - component: {fileID: -6477845434025455434}
   m_Layer: 5
   m_Name: SpeedMovementShapeUp1
   m_TagString: Untagged
@@ -36,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2408538418312236402
 MonoBehaviour:
@@ -53,7 +54,17 @@ MonoBehaviour:
   SpriteColor: {r: 0.654902, g: 1, b: 0, a: 1}
   DisplayedName: Speed Movement Upgarde 1
   Description: Upgardes for speed movement
-  CurrentPowerShapeType: 18
+  PowerShapeType: 18
+  Dependencies: 11000000
+  Enabled: 
+--- !u!222 &-6477845434025455434
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408538418312236404}
+  m_CullTransparentMesh: 0
 --- !u!1001 &6486817187186267737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61,11 +72,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2408538418312236405}
     m_Modifications:
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -170,6 +176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}
@@ -186,11 +197,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2408538418312236405}
     m_Modifications:
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -295,6 +301,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}

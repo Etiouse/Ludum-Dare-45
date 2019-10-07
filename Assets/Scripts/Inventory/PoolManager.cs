@@ -171,6 +171,9 @@ public class PoolManager : MonoBehaviour
             int numberOfElementToDisplay = slotsElements.Count;
             int numberOfElementInPool = currentElementInPool.Count - UsedPowerShapes.Count;
 
+            //Debug.Log("-:- " + UsedPowerShapes.Count);
+            //Debug.Log("-- " + min + " " + max);
+
             if (numberOfElementToDisplay > numberOfElementInPool)
             {
                 numberOfElementToDisplay = numberOfElementInPool;
@@ -185,12 +188,17 @@ public class PoolManager : MonoBehaviour
                 {
                     min = 0;
                 }
+
+                //Debug.Log("OK1");
             }
             else if (min < 0)
             {
                 min = 0;
                 max = numberOfElementToDisplay - 1;
+                //Debug.Log("OK1");
             }
+
+            //Debug.Log(min + " " + max);
 
             // Create elements and add them to next available slot
             int currentSlotIndex = 0;
@@ -217,11 +225,13 @@ public class PoolManager : MonoBehaviour
                 {
                     i--;
                     offset++;
+                    //Debug.Log("OKOKOK");
                 }
 
                 counter++;
                 if (counter >= availableElements.Count)
                 {
+                    //Debug.Log("OUPS");
                     i = max + 1;
                 }
             }
@@ -237,6 +247,18 @@ public class PoolManager : MonoBehaviour
         else if (UsedPowerShapes.Contains(powerShape))
         {
             UsedPowerShapes.Remove(powerShape);
+
+            // Remove all dependencies
+            foreach (GameObject item in UsedPowerShapes)
+            {
+                foreach (PowerShape.Type type in powerShape.GetComponent<PowerShape>().Enabled)
+                {
+                    if (item.GetComponent<PowerShape>().PowerShapeType == type)
+                    {
+                        UsedPowerShapes.Remove(item);
+                    }
+                }
+            }
         }
 
         updateVisibleElements = true;

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7764605865444028388}
   - component: {fileID: 7764605865444028387}
+  - component: {fileID: -1572849437626165444}
   m_Layer: 5
   m_Name: PrimNocVisionShape
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7764605865444028387
 MonoBehaviour:
@@ -52,7 +53,17 @@ MonoBehaviour:
   SpriteColor: {r: 1, g: 0, b: 0.7607843, a: 1}
   DisplayedName: Nocture Vision
   Description: You can see in the dark
-  CurrentPowerShapeType: 9
+  PowerShapeType: 9
+  Dependencies: 
+  Enabled: 
+--- !u!222 &-1572849437626165444
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764605865444028389}
+  m_CullTransparentMesh: 0
 --- !u!1001 &474047623916129841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60,11 +71,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7764605865444028388}
     m_Modifications:
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc
-      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -169,6 +175,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}

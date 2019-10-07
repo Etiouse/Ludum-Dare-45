@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8876490223867020845}
   - component: {fileID: 8876490223867020842}
+  - component: {fileID: 1746414665222069734}
   m_Layer: 5
   m_Name: RockShieldShapeUp1
   m_TagString: Untagged
@@ -36,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8876490223867020842
 MonoBehaviour:
@@ -53,7 +54,17 @@ MonoBehaviour:
   SpriteColor: {r: 0.5943396, g: 0.28054032, b: 0, a: 1}
   DisplayedName: Rock Shield Upgarde 1
   Description: Upgardes for rock shield
-  CurrentPowerShapeType: 5
+  PowerShapeType: 5
+  Dependencies: 04000000
+  Enabled: 
+--- !u!222 &1746414665222069734
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8876490223867020844}
+  m_CullTransparentMesh: 0
 --- !u!1001 &1619867583291680760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61,11 +72,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8876490223867020845}
     m_Modifications:
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc
-      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -170,6 +176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}
@@ -186,11 +197,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8876490223867020845}
     m_Modifications:
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -295,6 +301,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}

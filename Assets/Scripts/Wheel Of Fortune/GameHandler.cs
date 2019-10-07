@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class GameHandler : MonoBehaviour
 {
     public delegate void SetWheelRulesAction(List<GameObject> rules);
-    public delegate void TransmitNewPowerAction(GameObject newPower);
     public static event SetWheelRulesAction OnSetWheelRulesAction;
-    public static event TransmitNewPowerAction OnTransmitNewPowerAction;
 
     [Header("General informations")]
     [SerializeField] GameObject levelsContainer = null;
@@ -67,6 +65,17 @@ public class GameHandler : MonoBehaviour
                 Destroy(winner.transform.GetChild(0).gameObject);
             }
             initInventoryTime = Time.time;
+        }
+    }
+
+    public void CloseInventory()
+    {
+        if (swapState == SwapState.DISPLAY_INVENTORY)
+        {
+            swapState = SwapState.FADE_IN;
+            LoadLevel();
+            inventoryCanvas.gameObject.SetActive(false);
+            initSwapTime = Time.time;
         }
     }
 
@@ -218,14 +227,6 @@ public class GameHandler : MonoBehaviour
                 break;
 
             case SwapState.DISPLAY_INVENTORY:
-                float inventoryPassed = Time.time - initInventoryTime;
-                if (inventoryPassed > timeInInventory)
-                {
-                    swapState = SwapState.FADE_IN;
-                    LoadLevel();
-                    inventoryCanvas.gameObject.SetActive(false);
-                    initSwapTime = Time.time;
-                }
                 break;
 
             case SwapState.FADE_IN:
@@ -306,8 +307,6 @@ public class GameHandler : MonoBehaviour
             continueButton.gameObject.SetActive(true);
 
             DeletePowerReceived(power);
-
-            //OnTransmitNewPowerAction(power);
         }
         else
         {

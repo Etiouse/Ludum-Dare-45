@@ -8,7 +8,7 @@ public class WheelOfFortune : MonoBehaviour
     [SerializeField] GameObject rulesSlots = null;
     [SerializeField] AudioSource clickAudio = null;
     [SerializeField] AudioSource tinAudio = null;
-    [SerializeField] GameObject background = null;
+    [SerializeField] Sprite background = null;
     [SerializeField] float initSpeedAverage = 300f;
     [SerializeField] float initSpeedDeviation = 50f;
     [SerializeField] float friction = 1.005f;
@@ -68,13 +68,10 @@ public class WheelOfFortune : MonoBehaviour
                 ruleObject.transform.position = rulesSlots.transform.position;
 
                 // Background image
-                GameObject bg = Instantiate(background);
-                bg.name = "Background";
-                bg.transform.SetParent(ruleObject.transform);
-                bg.transform.localScale = new Vector3(4, 4, 4);
-                bg.transform.position = ruleObject.transform.position;
-                bg.transform.SetAsFirstSibling();
-                bg.GetComponent<Image>().color = ruleObject.GetComponent<PowerShape>().SpriteColor;
+                Sprite bg = Instantiate(background);
+                ruleObject.AddComponent<Image>();
+                ruleObject.GetComponent<Image>().sprite = bg;
+                ruleObject.GetComponent<Image>().color = ruleObject.GetComponent<PowerShape>().SpriteColor;
 
                 rulesObjects.Add(ruleObject);
                 counter++;

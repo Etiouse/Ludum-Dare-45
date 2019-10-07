@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7878286859966615057}
   - component: {fileID: 7878286859966615056}
   - component: {fileID: 6285236446121631101}
+  - component: {fileID: 4476151503862059775}
+  - component: {fileID: 3516320193180574459}
   m_Layer: 5
   m_Name: PowerBloc
   m_TagString: PowerBloc
@@ -99,5 +101,38 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 100, y: 100}
+  m_Size: {x: 90, y: 90}
   m_EdgeRadius: 0
+--- !u!114 &4476151503862059775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878286859966615058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5dc449d5c77beb40b61fe0a66fda5ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &3516320193180574459
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878286859966615058}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
