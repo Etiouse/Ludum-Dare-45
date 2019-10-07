@@ -107,10 +107,22 @@ public class GameHandler : MonoBehaviour
         powersLeft = new List<PowerList>(classics);
         levelsData = levelsContainer.GetComponent<LevelsData>();
 
-        // Primordial settings
+        // Give primordials and fire ball
         foreach (GameObject prim in primordials)
         {
             poolManager.AddOnePowerShapeToPool(Instantiate(prim));
+        }
+
+        for (int i = 0; i < powersLeft.Count; i++)
+        {
+            GameObject power = powersLeft[i].List[0];
+
+            if (power.GetComponent<PowerShape>().PowerShapeType == PowerShape.Type.FIRE_BALL)
+            {
+                poolManager.AddOnePowerShapeToPool(Instantiate(power));
+
+                DeletePowerReceived(power);
+            }
         }
 
         // TODO : for debug purpose
