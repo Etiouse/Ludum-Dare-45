@@ -7,7 +7,7 @@ public class FinalBossController : CharacterController
 {
 
     [SerializeField] private GameObject fireballModel;
-    [SerializeField] private Transform fireballOrigin;
+    [SerializeField] private List<Transform> fireballOrigins;
 
     [SerializeField] private GameObject iceballModel;
     [SerializeField] private List<Transform> iceBallOrigins;
@@ -128,20 +128,23 @@ public class FinalBossController : CharacterController
 
     private void FireballAttack()
     {
-        // Generate fireball
-        GameObject fireball = Instantiate(fireballModel);
-        fireball.transform.parent = transform;
-        fireball.transform.position = fireballOrigin.position;
-        fireball.transform.up = spritesParent.transform.up;
+        foreach(Transform origin in fireballOrigins)
+        {
+            // Generate fireball
+            GameObject fireball = Instantiate(fireballModel);
+            fireball.transform.parent = transform;
+            fireball.transform.position = origin.position;
+            fireball.transform.up = spritesParent.transform.up;
 
-        ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
-        projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.finalBossFireballSpeed, GameParameters.finalBossFireballDamage);
+            ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
+            projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.finalBossFireballSpeed, GameParameters.finalBossFireballDamage);
 
-        CircleCollider2D fireballCollider = fireball.GetComponent<CircleCollider2D>();
-        // Ignore collision between the player and the fireball (trigger ok)
-        Physics2D.IgnoreCollision(mainCollider, fireballCollider);
-        IgnoreCollisionWithRockShield(fireballCollider);
-        IgnoreCollisionWithAirShield(fireballCollider);
+            CircleCollider2D fireballCollider = fireball.GetComponent<CircleCollider2D>();
+            // Ignore collision between the player and the fireball (trigger ok)
+            Physics2D.IgnoreCollision(mainCollider, fireballCollider);
+            IgnoreCollisionWithRockShield(fireballCollider);
+            IgnoreCollisionWithAirShield(fireballCollider);
+        }
     }
 
     private void IceBallAttack()
