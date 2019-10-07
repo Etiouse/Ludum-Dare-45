@@ -50,7 +50,7 @@ public class PlayerController : CharacterController
         CheckForEnemyCollision(collision);
     }
 
-    private void onTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         CheckForEnemyCollision(collision);
     }
@@ -81,7 +81,7 @@ public class PlayerController : CharacterController
                 FireballAttack();
             }
 
-            if (PlayerCharacteristics.GetValue(PowerShape.Type.ICE_BALL)) // TODO get bool parameter
+            if (PlayerCharacteristics.GetValue(PowerShape.Type.ICE_BALL)) 
             {
                 IceBallAttack();
             }

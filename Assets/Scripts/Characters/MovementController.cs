@@ -44,8 +44,13 @@ public class MovementController : MonoBehaviour
     {
         currentMove = Vector2.zero;
 
-        float moveY = Input.GetAxisRaw("Vertical");
-        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = 0;
+        float moveX = 0;
+        if (PlayerCharacteristics.GetValue(PowerShape.Type.PRIM_MOVEMENT))
+        {
+            moveY = Input.GetAxisRaw("Vertical");
+            moveX = Input.GetAxisRaw("Horizontal");
+        }
 
         if (Input.GetMouseButton(0))
         {
