@@ -1297,8 +1297,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -662, y: -254}
-  m_SizeDelta: {x: 700, y: 400}
+  m_AnchoredPosition: {x: -625, y: -379.77}
+  m_SizeDelta: {x: 602.4, y: 344.23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3157910234918921748
 GameObject:
@@ -2173,7 +2173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
+  m_Color: {r: 0.11764707, g: 0.14117648, b: 0.16078432, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

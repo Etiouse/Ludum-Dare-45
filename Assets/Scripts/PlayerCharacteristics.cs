@@ -70,11 +70,11 @@ public static class PlayerCharacteristics
             case PowerShape.Type.AIR_SHIELD_UP1:
                 return AirShieldUp1;
             case PowerShape.Type.PRIM_MOVEMENT:
-                return PrimMovement;
+                return true;
             case PowerShape.Type.PRIM_NOC_VISION:
                 return PrimNocVision;
             case PowerShape.Type.PRIM_LIFEBAR_VISION:
-                return PrimLifebarVision;
+                return true;
             case PowerShape.Type.MAX_HEALTH:
                 return MaxHealth;
             case PowerShape.Type.MAX_HEALTH_UP1:
