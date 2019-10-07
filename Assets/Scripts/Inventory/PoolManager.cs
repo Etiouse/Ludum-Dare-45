@@ -8,6 +8,9 @@ public class PoolManager : MonoBehaviour
     public delegate void UpdateUsedPowerShapesEvent();
     public static event UpdateUsedPowerShapesEvent OnUpdateUsedPowerShapesEvent;
 
+    public delegate void OnePowerShapePlacedEvent();
+    public static event OnePowerShapePlacedEvent OnOnePowerShapePlacedEvent;
+
     [SerializeField] private Button inscreaseButton = null;
     [SerializeField] private Button reduceButton = null;
     [SerializeField] private GameObject slotsParent = null;
@@ -210,6 +213,8 @@ public class PoolManager : MonoBehaviour
                 UsedPowerShapes.Add(powerShape);
 
                 usedPowerShapesIndex.Add(index);
+
+                OnOnePowerShapePlacedEvent();
             }
             else if (UsedPowerShapes.Contains(powerShape))
             {

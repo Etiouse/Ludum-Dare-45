@@ -121,7 +121,7 @@ public class InventoryManager : MonoBehaviour
             {
                 powerShapeTitle.text = "";
                 powerShapeDesc.text = "";
-                warningMsg.text = "";
+                warningMsg.enabled = false;
             }
             else
             {
@@ -140,7 +140,7 @@ public class InventoryManager : MonoBehaviour
 
                 if (!powerShape.CanBePlacedOnInventory())
                 {
-                    warningMsg.text = "This upgrade can't be placed until the basic one is !";
+                    warningMsg.enabled = true;
                 }
             }
         }

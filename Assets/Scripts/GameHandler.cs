@@ -12,6 +12,7 @@ public class GameHandler : MonoBehaviour
     [SerializeField] GameObject levelsContainer = null;
     [SerializeField] GameObject player = null;
     [SerializeField] Camera mainCam = null;
+    [SerializeField] TMP_Text warningAtLeastOne = null;
 
     [Header("Wheel of fortune")]
     [SerializeField] Canvas wheelCanvas = null;
@@ -71,23 +72,32 @@ public class GameHandler : MonoBehaviour
 
     public void CloseInventory()
     {
-        if (swapState == SwapState.DISPLAY_INVENTORY)
+        if (poolManager.UsedPowerShapes.Count > 0)
         {
-            swapState = SwapState.FADE_IN;
-            LoadLevel();
-            inventoryCanvas.enabled = false;
-            initSwapTime = Time.time;
+            if (swapState == SwapState.DISPLAY_INVENTORY)
+            {
+                swapState = SwapState.FADE_IN;
+                LoadLevel();
+                inventoryCanvas.enabled = false;
+                initSwapTime = Time.time;
+            }
+        }
+        else
+        {
+            warningAtLeastOne.enabled = true;
         }
     }
 
     private void OnEnable()
     {
         WheelOfFortune.OnResultAction += ResultingPower;
+        PoolManager.OnOnePowerShapePlacedEvent += OnePowerShapePlaced;
     }
 
     private void OnDisable()
     {
         WheelOfFortune.OnResultAction -= ResultingPower;
+        PoolManager.OnOnePowerShapePlacedEvent -= OnePowerShapePlaced;
     }
 
     private void Start()
@@ -155,6 +165,11 @@ public class GameHandler : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void OnePowerShapePlaced()
+    {
+        warningAtLeastOne.enabled = false;
     }
 
     private void LoadLevel()
