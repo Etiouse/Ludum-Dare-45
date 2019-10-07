@@ -2211,7 +2211,7 @@ PrefabInstance:
     - target: {fileID: 2402289501959960020, guid: f33ae903ad3db904da98f73e7c3c6af1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2402289501959960020, guid: f33ae903ad3db904da98f73e7c3c6af1,
         type: 3}
@@ -9785,7 +9785,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &973025409
 GameObject:
@@ -20943,6 +20943,11 @@ MonoBehaviour:
   poolManager: {fileID: 1882331885}
   inventoryCanvas: {fileID: 1739213183}
   timeInInventory: 10
+  playerSprites:
+  - {fileID: 21300000, guid: 2b92246b51cda8d438e468a221377a12, type: 3}
+  - {fileID: 21300000, guid: 8f9898773dbf5dc4e927af8f8b36d826, type: 3}
+  - {fileID: 21300000, guid: 63f1f9a2f7a393345aa440080aa00e2d, type: 3}
+  - {fileID: 21300000, guid: 26a16d483e4039e40a35a8775e1aaf11, type: 3}
   inGameCanvas: {fileID: 237621950}
 --- !u!1 &2057649989
 GameObject:
