@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteColor: {r: 0.68235296, g: 0, b: 1, a: 1}
-  DisplayedName: Attack Damage Upgrade 1
-  Description: Upgrades for attack damage
+  DisplayedName: Attack Damage Up 1
+  Description: Upgrade for attack damage
   PowerShapeType: 16
   Dependencies: 0f000000
   Enabled: 
@@ -72,6 +72,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2691316955590480365}
     m_Modifications:
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -177,11 +182,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}
 --- !u!224 &3703405411626894546 stripped
@@ -197,6 +197,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2691316955590480365}
     m_Modifications:
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -301,11 +306,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}

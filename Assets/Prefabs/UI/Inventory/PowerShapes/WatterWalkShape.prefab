@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteColor: {r: 0, g: 1, b: 0.7176819, a: 1}
-  DisplayedName: Watter Walk
-  Description: Enable the character to walk on the watter
+  DisplayedName: Water Walk
+  Description: You can walk on the water
   PowerShapeType: 21
   Dependencies: 
   Enabled: 

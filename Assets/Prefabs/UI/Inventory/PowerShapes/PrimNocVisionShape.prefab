@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteColor: {r: 1, g: 0, b: 0.7607843, a: 1}
-  DisplayedName: Nocture Vision
+  DisplayedName: Nocturne Vision
   Description: You can see in the dark
   PowerShapeType: 9
   Dependencies: 
@@ -71,6 +71,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7764605865444028388}
     m_Modifications:
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc
+      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -175,11 +180,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}

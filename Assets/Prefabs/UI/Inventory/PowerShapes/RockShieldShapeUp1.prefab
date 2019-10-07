@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteColor: {r: 0.5943396, g: 0.28054032, b: 0, a: 1}
-  DisplayedName: Rock Shield Upgarde 1
-  Description: Upgardes for rock shield
+  DisplayedName: Rock Shield Up 1
+  Description: Upgrade for rock shield
   PowerShapeType: 5
   Dependencies: 04000000
   Enabled: 
@@ -72,6 +72,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8876490223867020845}
     m_Modifications:
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc
+      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -176,11 +181,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}
@@ -197,6 +197,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8876490223867020845}
     m_Modifications:
+    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerBloc (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 7878286859966615059, guid: 169f022855f83a34a82ee5cb3e5735d7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -301,11 +306,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878286859966615058, guid: 169f022855f83a34a82ee5cb3e5735d7,
-        type: 3}
-      propertyPath: m_Name
-      value: PowerBloc (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169f022855f83a34a82ee5cb3e5735d7, type: 3}

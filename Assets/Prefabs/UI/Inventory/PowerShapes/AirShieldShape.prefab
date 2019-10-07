@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteColor: {r: 0, g: 0.91636705, b: 1, a: 1}
   DisplayedName: Air Shield
-  Description: Deploy an air shild at random time
+  Description: Deploy an air shiled at random time
   PowerShapeType: 6
   Dependencies: 
   Enabled: 07000000
