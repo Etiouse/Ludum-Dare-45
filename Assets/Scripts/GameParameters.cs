@@ -90,7 +90,7 @@ public static class GameParameters
     public static readonly float HEALER_MOVEMENT_SPEED = 10;
 
     // Healer shockwave
-    public static float healerhockwaveExpandingScale = 30;
+    public static float healerhockwaveExpandingScale = 5;
     public static float healerShockwaveExpandingSpeed = 0.25f;
     public static float healerShockwaveHeal= 10;
 

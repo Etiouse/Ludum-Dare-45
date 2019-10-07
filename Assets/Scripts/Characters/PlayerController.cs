@@ -33,20 +33,20 @@ public class PlayerController : CharacterController
         CreateAirShield();
         GetSpriteRenderer();
     }
-    
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         CheckForEnemyCollision(collision);
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void onTriggerStay2D(Collider2D collision)
     {
         CheckForEnemyCollision(collision);
     }
 
-    private void CheckForEnemyCollision(Collision2D collision)
+    private void CheckForEnemyCollision(Collider2D collision)
     {
-        if (collision.collider.tag == "Enemy")
+        if (collision.tag == "Enemy")
         {
             Damage(GameParameters.COLLISION_DAMAGE);
         }
