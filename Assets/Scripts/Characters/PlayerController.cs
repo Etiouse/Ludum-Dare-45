@@ -6,16 +6,18 @@ using UnityEngine;
 public class PlayerController : CharacterController
 {
 
-    [SerializeField] private GameObject fireballModel;
-    [SerializeField] private Transform fireballOrigin;
+    [SerializeField] private GameObject fireballModel = null;
+    [SerializeField] private Transform fireballOrigin = null;
 
-    [SerializeField] private GameObject iceballModel;
-    [SerializeField] private List<Transform> iceBallOrigins;
+    [SerializeField] private GameObject iceballModel = null;
+    [SerializeField] private List<Transform> iceBallOrigins = null;
 
-    [SerializeField] private GameObject rockShieldModel;
-    [SerializeField] private Transform rockOrigin;
+    [SerializeField] private GameObject rockShieldModel = null;
+    [SerializeField] private Transform rockOrigin = null;
     
-    [SerializeField] private GameObject airShieldModel;
+    [SerializeField] private GameObject airShieldModel = null;
+
+    [SerializeField] private GameObject objects = null;
 
     private bool canAttack = true;
     private List<GameObject> rockshield;
@@ -130,6 +132,7 @@ public class PlayerController : CharacterController
         fireball.transform.parent = transform;
         fireball.transform.position = fireballOrigin.position;
         fireball.transform.up = spritesParent.transform.up;
+        fireball.transform.SetParent(objects.transform);
 
         ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
         projectileController.Shoot(fireball.transform.up, gameObject.tag, GameParameters.fireballSpeed, GameParameters.fireballDamage);
@@ -149,6 +152,7 @@ public class PlayerController : CharacterController
             iceball.transform.parent = transform;
             iceball.transform.position = t.position;
             iceball.transform.up = spritesParent.transform.up;
+            iceball.transform.SetParent(objects.transform);
 
             iceball.GetComponent<ProjectileController>().Shoot(t.position - transform.position, gameObject.tag, GameParameters.iceballSpeed, GameParameters.iceballDamage);
 
@@ -169,7 +173,7 @@ public class PlayerController : CharacterController
             float angle = 360 / GameParameters.numberOfRockShield * i;
 
             GameObject rock = Instantiate(rockShieldModel);
-            rock.transform.parent = transform;
+            rock.transform.SetParent(objects.transform);
             float shieldDistance = (rockOrigin.transform.position - transform.position).magnitude;
             rock.transform.position = transform.position + Quaternion.Euler(0, 0, angle) * (transform.position - rockOrigin.position);
             rock.GetComponent<RockShield>().Init(transform, shieldDistance, angle);
@@ -204,7 +208,7 @@ public class PlayerController : CharacterController
     private void CreateAirShield()
     {
         airshield = Instantiate(airShieldModel).GetComponent<AirShield>();
-        airshield.transform.parent = transform;
+        airshield.transform.SetParent(objects.transform);
         airshield.Target = transform;
     }
 }
