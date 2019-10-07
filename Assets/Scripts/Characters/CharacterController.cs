@@ -26,6 +26,7 @@ public class CharacterController : MonoBehaviour
         mainCollider = GetComponent<CircleCollider2D>();
         health = maxHealth;
         lifebar = transform.Find("LifeBar").Find("CurrentLifeParent").gameObject;
+        transform.Find("LifeBar").gameObject.SetActive(PlayerCharacteristics.GetValue(PowerShape.Type.PRIM_LIFEBAR_VISION));
         startLifeBarWidth = lifebar.transform.localScale.x;
 
         Physics2D.IgnoreCollision(mainCollider, GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>());
