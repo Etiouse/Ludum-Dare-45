@@ -102,9 +102,9 @@ public static class GameParameters
 
     // Healer
     public static readonly float HEALER_LIFE = 80f;
-    public static readonly float HEALER_MOVEMENT_TIME = 3f;
-    public static readonly float HEALER_WAIT_TIME = 2f;
-    public static readonly float HEALER_MOVEMENT_SPEED = 10;
+    public static readonly float HEALER_MOVEMENT_TIME = 2f;
+    public static readonly float HEALER_WAIT_TIME = 1f;
+    public static readonly float HEALER_MOVEMENT_SPEED = 13;
 
     // Healer shockwave
     public static float healerhockwaveExpandingScale = 5;
