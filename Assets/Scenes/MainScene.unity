@@ -1098,13 +1098,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 105253019}
-    characterCount: 13
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 6
-    wordCount: 7
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -5665,7 +5665,7 @@ PrefabInstance:
     - target: {fileID: 2258294364663014094, guid: 9b69987c7a7764743a1d75ca540b10a7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.46
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 2258294364663014094, guid: 9b69987c7a7764743a1d75ca540b10a7,
         type: 3}
@@ -7211,7 +7211,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: NaN, y: 0, z: 0, w: 2.012e-41}
+  m_BoundingSphereOverride: {x: -1.309e-42, y: -4.64e-43, z: 6e-45, w: 2.1e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -7845,12 +7845,12 @@ PrefabInstance:
     - target: {fileID: 8601134551812520975, guid: 7998c7772be5e684190fec4fe156bef2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.17
+      value: -15.7
       objectReference: {fileID: 0}
     - target: {fileID: 8601134551812520975, guid: 7998c7772be5e684190fec4fe156bef2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.79
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8601134551812520975, guid: 7998c7772be5e684190fec4fe156bef2,
         type: 3}
@@ -17046,13 +17046,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1696893953}
-    characterCount: 5
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -17593,7 +17593,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739213176}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -19285,13 +19285,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1927298231}
-    characterCount: 11
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -21611,12 +21611,12 @@ PrefabInstance:
     - target: {fileID: 8601134551812520975, guid: 7998c7772be5e684190fec4fe156bef2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.16
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8601134551812520975, guid: 7998c7772be5e684190fec4fe156bef2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.11
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8601134551812520975, guid: 7998c7772be5e684190fec4fe156bef2,
         type: 3}

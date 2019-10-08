@@ -38,7 +38,7 @@ public class TurretController : MonoBehaviour
             fireball.transform.position = origin.position;
 
             ProjectileController projectileController = fireball.GetComponent<ProjectileController>();
-            projectileController.Shoot(origin.right, gameObject.tag, GameParameters.finalBossFireballSpeed, GameParameters.finalBossFireballDamage);
+            projectileController.Shoot(origin.right, gameObject.tag, 1 / 2f, 5);
 
             CircleCollider2D fireballCollider = fireball.GetComponent<CircleCollider2D>();
             // Ignore collision between the player and the fireball (trigger ok)
