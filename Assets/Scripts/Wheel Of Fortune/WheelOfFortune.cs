@@ -27,6 +27,7 @@ public class WheelOfFortune : MonoBehaviour
     private float height;
     private float clickDistance;
     private bool end;
+    private float elapsedTime;
 
     private List<GameObject> rules;
     private List<GameObject> rulesObjects;
@@ -109,76 +110,83 @@ public class WheelOfFortune : MonoBehaviour
         width = rulesSlots.GetComponent<RectTransform>().rect.width;
         height = rulesSlots.GetComponent<RectTransform>().rect.height;
 
+        elapsedTime += Time.deltaTime;
+
         if (rules.Count > 0)
         {
-            // Speed adjustment
-            if (speed > minSpeedAccepted)
+            if (elapsedTime > 0.005f)
             {
-                speed /= friction;
-            }
-            else if (speed < 10)
-            {
-                speed = 0;
-            }
-            else
-            {
-                speed /= Mathf.Pow(friction, 4);
-            }
+                elapsedTime = 0;
 
-            // End
-            if (speed == 0 && !end)
-            {
-                end = true;
-                tinAudio.Play();
-                OnResultAction(ClosestToCenter());
-            }
-
-            shift = shift + speed * Time.deltaTime;
-            clickDistance += speed * Time.deltaTime;
-            
-            float ruleDiameter = MAGIC_HEIGHT / canvas.scaleFactor;
-
-            // Sound
-            if (clickDistance > ruleDiameter)
-            {
-                clickDistance = shift % ruleDiameter - SOUND_OFFSET;
-                clickAudio.Play();
-            }
-
-            // Position of each rule
-            float middle = ruleDiameter * (rulesObjects.Count / 2);
-            for (int i = 0; i < rulesObjects.Count; i++)
-            {
-                GameObject ruleObject = rulesObjects[i];
-
-                float indepShift = (ruleDiameter * i) + shift;
-                int cycles = 1 + Mathf.FloorToInt((indepShift - middle) / (ruleDiameter * rulesObjects.Count));
-
-                // Cycling shifting
-                if (indepShift > middle)
+                // Speed adjustment
+                if (speed > minSpeedAccepted)
                 {
-                    indepShift -= 2 * middle * cycles;
-
-                    // Odd numbers cornercase
-                    if (rulesObjects.Count % 2 != 0)
-                    {
-                        indepShift -= ruleDiameter + (cycles - 1) * ruleDiameter;
-                    }
+                    speed /= friction;
                 }
-
-                // Position modification
-                ruleObject.transform.position = rulesSlots.transform.position
-                    + new Vector3(indepShift * canvas.scaleFactor, 0, 0);
-
-                // Hide or show depending on the position
-                if (indepShift > -ruleDiameter * rulesObjects.Count / 2 
-                    && indepShift < ruleDiameter * rulesObjects.Count / 2)
+                else if (speed < 10)
                 {
-                    ruleObject.SetActive(true);
+                    speed = 0;
                 }
                 else
                 {
-                    ruleObject.SetActive(false);
+                    speed /= Mathf.Pow(friction, 4);
+                }
+
+                // End
+                if (speed == 0 && !end)
+                {
+                    end = true;
+                    tinAudio.Play();
+                    OnResultAction(ClosestToCenter());
+                }
+
+                shift = shift + speed * Time.deltaTime;
+                clickDistance += speed * Time.deltaTime;
+            
+                float ruleDiameter = MAGIC_HEIGHT / canvas.scaleFactor;
+
+                // Sound
+                if (clickDistance > ruleDiameter)
+                {
+                    clickDistance = shift % ruleDiameter - SOUND_OFFSET;
+                    clickAudio.Play();
+                }
+
+                // Position of each rule
+                float middle = ruleDiameter * (rulesObjects.Count / 2);
+                for (int i = 0; i < rulesObjects.Count; i++)
+                {
+                    GameObject ruleObject = rulesObjects[i];
+
+                    float indepShift = (ruleDiameter * i) + shift;
+                    int cycles = 1 + Mathf.FloorToInt((indepShift - middle) / (ruleDiameter * rulesObjects.Count));
+
+                    // Cycling shifting
+                    if (indepShift > middle)
+                    {
+                        indepShift -= 2 * middle * cycles;
+
+                        // Odd numbers cornercase
+                        if (rulesObjects.Count % 2 != 0)
+                        {
+                            indepShift -= ruleDiameter + (cycles - 1) * ruleDiameter;
+                        }
+                    }
+
+                    // Position modification
+                    ruleObject.transform.position = rulesSlots.transform.position
+                        + new Vector3(indepShift * canvas.scaleFactor, 0, 0);
+
+                    // Hide or show depending on the position
+                    if (indepShift > -ruleDiameter * rulesObjects.Count / 2 
+                        && indepShift < ruleDiameter * rulesObjects.Count / 2)
+                    {
+                        ruleObject.SetActive(true);
+                    }
+                    else
+                    {
+                        ruleObject.SetActive(false);
+                    }
                 }
             }
         }
